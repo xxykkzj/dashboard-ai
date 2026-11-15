@@ -1,0 +1,12 @@
+{
+  "_about": "Assumptions behind the value estimate. Every figure here is an illustrative placeholder to replace with finance-approved unit costs and Service SA channel reports. costPerTransaction is the cost to government of one transaction in each channel (AUD). For each service, 'otherwise' is where an app transaction would most likely have happened without the app (shares add to 1), and otherChannelsPer30Days is how many of that service's transactions still happen outside the app in a typical 30 days.",
+  "currency": "AUD",
+  "costPerTransaction": { "counter": 18.50, "phone": 9.20, "website": 1.10, "app": 0.45 },
+  "minutesSavedPerCounterVisit": 35,
+  "services": [
+    { "key": "rego", "otherwise": { "counter": 0.22, "phone": 0.08, "website": 0.70 }, "otherChannelsPer30Days": 148000 },
+    { "key": "licence", "otherwise": { "counter": 0.55, "phone": 0.05, "website": 0.40 }, "otherChannelsPer30Days": 61000 },
+    { "key": "address", "otherwise": { "counter": 0.18, "phone": 0.27, "website": 0.55 }, "otherChannelsPer30Days": 39000 },
+    { "key": "transfer", "otherwise": { "counter": 0.62, "phone": 0.06, "website": 0.32 }, "otherChannelsPer30Days": 72000 }
+  ]
+}

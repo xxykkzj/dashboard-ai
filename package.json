@@ -1,0 +1,11 @@
+{
+  "name": "mysagov-insights",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Monitoring dashboard prototype for the mySA GOV data analytics platform",
+  "type": "module",
+  "scripts": {
+    "start": "npx --yes serve -l 8080 .",
+    "mock": "node tools/generate-mock.mjs"
+  }
+}

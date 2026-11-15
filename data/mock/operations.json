@@ -1,0 +1,24 @@
+{
+  "_about": "Operational figures. appAdoption: share of active devices on the newest app version each day since its release, per platform. notificationSettings: share of active users with each setting switched on (UserConfigurations). providerPerformance: typical median and 95th-percentile response time in milliseconds and error rate for calls to each backend; days with an incident in reference.json are made slower and less reliable automatically. All values are invented.",
+  "appAdoption": {
+    "version": "5.4.2", "released": "2026-10-12",
+    "ios":     [0.02, 0.09, 0.17, 0.24, 0.30, 0.35, 0.39, 0.43, 0.46, 0.49, 0.51, 0.53, 0.55, 0.56, 0.58, 0.59, 0.60, 0.61, 0.62, 0.63, 0.64, 0.64, 0.65, 0.66, 0.66, 0.67, 0.67, 0.68, 0.68, 0.69, 0.69, 0.70, 0.70, 0.70],
+    "android": [0.01, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.20, 0.22, 0.24, 0.26, 0.27, 0.29, 0.30, 0.31, 0.32, 0.33, 0.34, 0.35, 0.35, 0.36, 0.37, 0.37, 0.38, 0.38, 0.39, 0.39, 0.40, 0.40, 0.41, 0.41, 0.41, 0.42, 0.42]
+  },
+  "notificationSettings": [
+    { "label": "Push notifications allowed", "ios": 0.71, "android": 0.83 },
+    { "label": "Registration renewal reminders", "ios": 0.66, "android": 0.77 },
+    { "label": "Licence expiry reminders", "ios": 0.64, "android": 0.75 },
+    { "label": "Service disruption alerts", "ios": 0.48, "android": 0.57 },
+    { "label": "Email copies of receipts", "ios": 0.39, "android": 0.35 }
+  ],
+  "incidentFactors": { "degraded": { "latency": 2.4, "errorRate": 0.021 }, "down": { "latency": 6.5, "errorRate": 0.118 } },
+  "providerPerformance": [
+    { "name": "Licensing system", "medianMs": 420, "p95Ms": 1350, "errorRate": 0.004 },
+    { "name": "Registration system", "medianMs": 380, "p95Ms": 1180, "errorRate": 0.003 },
+    { "name": "Payment gateway", "medianMs": 610, "p95Ms": 1900, "errorRate": 0.006 },
+    { "name": "Identity service", "medianMs": 290, "p95Ms": 820, "errorRate": 0.002 },
+    { "name": "Notification service", "medianMs": 140, "p95Ms": 460, "errorRate": 0.002 },
+    { "name": "Fuel exemption portal", "medianMs": 530, "p95Ms": 1720, "errorRate": 0.005 }
+  ]
+}

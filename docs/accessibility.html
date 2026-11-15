@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Accessibility and conventions – mySA GOV Insights docs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M9 9h14M9 15h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="docs.css">
+  <script type="module" src="docs.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#doc-main">Skip to content</a>
+  <header class="doc-top">
+    <div class="doc-top-in">
+      <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
+      <div class="doc-top-actions">
+        <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
+        <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <details class="doc-nav" open>
+      <summary>Contents</summary>
+      <nav aria-label="Documentation pages">
+      <ol>
+        <li><a href="index.html">Getting started</a></li>
+        <li><a href="how-it-works.html">How the app works</a></li>
+        <li><a href="items.html">Item catalog</a></li>
+        <li><a href="components.html">Component catalog</a></li>
+        <li><a href="tokens.html">Design tokens</a></li>
+        <li><a href="mock-data.html">Mock data guide</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="accessibility.html" aria-current="page">Accessibility and conventions</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+      </ol>
+      </nav>
+    </details>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      <h1>Accessibility and conventions</h1>
+      <p class="doc-lede">A checklist to keep, and how files, names and comments are written.</p>
+
+<p>Government services must work for everyone, including people who use a keyboard, a screen reader, high zoom or reduced motion. This page lists what the dashboard already does, as a checklist to keep true when you change it, then the conventions the code follows.</p>
+
+<h2 id="checklist">Checklist for every change</h2>
+<h3>Keyboard</h3>
+<ul>
+  <li>Everything you can click, you can reach with <kbd>Tab</kbd> and use with <kbd>Enter</kbd> or <kbd>Space</kbd>. Use real <code>&lt;button&gt;</code>, <code>&lt;a href&gt;</code> and <code>&lt;select&gt;</code> elements; never a clickable <code>&lt;div&gt;</code>.</li>
+  <li>Focus is always visible. The outline comes from <code>:focus-visible</code> in <code>css/base.css</code>; don't remove it.</li>
+  <li>Each map is one Tab stop; arrow keys move between councils. A skip link jumps to the content.</li>
+  <li>Presentation mode is a dialog: the page behind can't be reached, <kbd>Esc</kbd> closes it, and focus returns to the Present button.</li>
+</ul>
+<h3>Screen readers</h3>
+<ul>
+  <li>Every chart has a text summary. SVG charts use <code>role="img"</code> with an <code>aria-label</code>; tables have a <code>&lt;caption&gt;</code>.
+  <figure class="doc-code"><pre><code>&lt;svg viewBox=&quot;0 0 640 260&quot; role=&quot;img&quot;
+     aria-label=&quot;Daily active users, 16 Oct to 14 Nov. iPhone: latest 103,225, highest 138,410…&quot;&gt;</code></pre></figure></li>
+  <li>Decorative things are hidden with <code>aria-hidden="true"</code> (legend swatches, the cover drawing, sparklines next to a number).</li>
+  <li>Changes are announced. Filter and slide changes write to a live region (<code>#announcer</code>, <code>aria-live="polite"</code>) through <code>announce()</code> in <code>main.mjs</code>.</li>
+  <li>State is exposed: toggle buttons use <code>aria-pressed</code>, expanding panels use <code>aria-expanded</code> and <code>aria-controls</code>, the current tab has <code>aria-current="page"</code>.</li>
+  <li>Text only for screen readers uses the <code>sr-only</code> class.</li>
+</ul>
+<h3>Colour and contrast</h3>
+<ul>
+  <li>Colour is never the only signal. Status has a shape and a word; availability bars differ in height; hidden councils are hatched; the largest funnel drop has a tag.</li>
+  <li>Text on a coloured mark uses the matching "on" token (<code>--on-accent</code>, <code>--on-seq-hi</code>), and labels beside a mark use the normal text colour, not the series colour.</li>
+  <li>Check both themes. Aim for 4.5:1 contrast for text and 3:1 for chart marks against their background.</li>
+</ul>
+<h3>Motion, zoom and small screens</h3>
+<ul>
+  <li>Animations stop for people who ask for reduced motion. The rule is in <code>css/base.css</code>; in JavaScript, check <code>reduceMotion()</code> from <code>js/ui/motion.mjs</code>.</li>
+  <li>The page works at 390px wide with no sideways scrolling. Only tables scroll sideways, inside their own <code>.tscroll</code> box.</li>
+  <li>Sizes that hold text grow with the text. Test at 200% browser zoom.</li>
+</ul>
+<h3>Words</h3>
+<ul>
+  <li>Plain Australian English, sentence case, no jargon: "phone type", not "platform"; "council", not "LGA".</li>
+  <li>Buttons say what they do: "Show as table", "Whole state".</li>
+  <li>The dashboard shows figures, not commentary. Don't add text that interprets or recommends.</li>
+</ul>
+<h3>Privacy</h3>
+<ul>
+  <li>Location is council-level only. Councils under the threshold in <code>js/config.mjs</code> (<code>suppressionThreshold</code>, 10) are left out by the view, not just hidden on screen.</li>
+  <li>No names, contact details or raw coordinates reach the browser.</li>
+</ul>
+
+<h2 id="test">How to test</h2>
+<ol>
+  <li><b>Keyboard only.</b> Put the mouse away and do a full task: change the period, open a tab, select a council, run the presentation.</li>
+  <li><b>Lighthouse.</b> In Chrome DevTools, <b>Lighthouse</b> then <b>Accessibility</b>. It catches missing labels and low contrast.</li>
+  <li><b>A screen reader.</b> NVDA on Windows (free) or VoiceOver on Mac (<kbd>Cmd</kbd> + <kbd>F5</kbd>). Listen to one chart and one table.</li>
+  <li><b>The check script</b>, if you have Python and Playwright: it opens every tab at desktop and phone widths and reports errors and sideways scrolling.</li>
+</ol>
+
+<h2 id="files">Conventions: files</h2>
+<div class="tscroll"><table><thead><tr><th>Kind</th><th>Where</th><th>Naming</th></tr></thead><tbody>
+<tr><td>Reporting items</td><td><code>js/items/&lt;tab&gt;.mjs</code></td><td>One file per tab, lower case. Ids are <code>ITM-00</code> upward and never reused.</td></tr>
+<tr><td>Building blocks</td><td><code>js/ui/</code></td><td>One file per family: <code>charts.mjs</code>, <code>geomap.mjs</code>. Functions are verbs or nouns in camelCase: <code>lineChart</code>, <code>statusChip</code>.</td></tr>
+<tr><td>Data</td><td><code>js/data/</code></td><td>Views are <code>vw_PascalCase</code>, matching the SQL view.</td></tr>
+<tr><td>Mock data</td><td><code>data/mock/</code></td><td><code>kebab-case.json</code>, fields in camelCase, an <code>_about</code> field first.</td></tr>
+<tr><td>Styles</td><td><code>css/</code></td><td>Tokens, then base, then components. Class names are short and lower case (<code>.card</code>, <code>.hrow</code>); a prefix groups a component (<code>.gm-</code> map, <code>.fnl-</code> funnel, <code>.deck-</code> slides).</td></tr>
+</tbody></table></div>
+<h2 id="code">Conventions: code</h2>
+<ul>
+  <li><b>Comments say why, not what.</b> Each file opens with a short block explaining its job. Inside, comment the surprising line, not the obvious one.
+  <figure class="doc-code"><pre><code>// full weeks only, counting back from the latest day
+for (let e = d.length; e &gt;= 7; e -= 7) { ... }</code></pre></figure></li>
+  <li><b>No colours in JavaScript.</b> Pass token names: <code>color: 'var(--accent)'</code>.</li>
+  <li><b>Escape text from data.</b> Anything from a data source that goes into HTML passes through <code>escapeHtml()</code>.</li>
+  <li><b>Items don't fetch.</b> They name a view and draw what arrives. Only the data layer knows where numbers come from.</li>
+  <li><b>State changes go through <code>setState</code>.</b> Never assign to <code>state</code> from a component.</li>
+  <li><b>Dates are <code>YYYY-MM-DD</code> strings</b> in data, and are formatted only at the last moment with <code>dfmt</code> or <code>dRange</code>.</li>
+  <li><b>Every new view is written down</b> in the README data contract and in <code>docs/items.mjs</code>.</li>
+</ul>
+
+      <nav class="doc-pager" aria-label="Previous and next page"><a href="recipes.html">← Recipes</a><a href="glossary.html">Glossary →</a></nav>
+    </main>
+  </div>
+</body>
+</html>

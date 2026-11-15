@@ -1,0 +1,28 @@
+{
+  "_about": "Extra service figures. renewalPipeline: vehicle registrations linked in the app that expire in each of the next weeks (week 0 = the week after the latest data), with the share already renewed. durations: how long finished transactions took from start to completion, as shares per time band (add to 1) and the median in seconds. payments: average amount paid per completed transaction (AUD); 0 means no fee. All values are invented.",
+  "renewalPipeline": [
+    { "weekOffset": 0, "due": 21400, "renewedShare": 0.71 },
+    { "weekOffset": 1, "due": 19850, "renewedShare": 0.52 },
+    { "weekOffset": 2, "due": 22300, "renewedShare": 0.36 },
+    { "weekOffset": 3, "due": 20900, "renewedShare": 0.22 },
+    { "weekOffset": 4, "due": 23650, "renewedShare": 0.12 },
+    { "weekOffset": 5, "due": 21100, "renewedShare": 0.06 },
+    { "weekOffset": 6, "due": 19700, "renewedShare": 0.03 },
+    { "weekOffset": 7, "due": 24200, "renewedShare": 0.01 }
+  ],
+  "durationBands": ["Under 1 min", "1–2 min", "2–3 min", "3–5 min", "5–10 min", "Over 10 min"],
+  "durations": [
+    { "key": "rego", "medianSeconds": 104, "shares": [0.21, 0.37, 0.19, 0.13, 0.07, 0.03] },
+    { "key": "licence", "medianSeconds": 196, "shares": [0.04, 0.16, 0.27, 0.31, 0.16, 0.06] },
+    { "key": "address", "medianSeconds": 82, "shares": [0.33, 0.38, 0.15, 0.08, 0.04, 0.02] },
+    { "key": "transfer", "medianSeconds": 342, "shares": [0.02, 0.07, 0.14, 0.29, 0.31, 0.17] },
+    { "key": "fuel", "medianSeconds": 418, "shares": [0.01, 0.04, 0.10, 0.24, 0.36, 0.25] }
+  ],
+  "payments": [
+    { "key": "rego", "averageAmount": 412.60 },
+    { "key": "licence", "averageAmount": 318.00 },
+    { "key": "address", "averageAmount": 0 },
+    { "key": "transfer", "averageAmount": 187.40 },
+    { "key": "fuel", "averageAmount": 0 }
+  ]
+}

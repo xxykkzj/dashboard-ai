@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Getting started – mySA GOV Insights docs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M9 9h14M9 15h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="docs.css">
+  <script type="module" src="docs.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#doc-main">Skip to content</a>
+  <header class="doc-top">
+    <div class="doc-top-in">
+      <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
+      <div class="doc-top-actions">
+        <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
+        <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <details class="doc-nav" open>
+      <summary>Contents</summary>
+      <nav aria-label="Documentation pages">
+      <ol>
+        <li><a href="index.html" aria-current="page">Getting started</a></li>
+        <li><a href="how-it-works.html">How the app works</a></li>
+        <li><a href="items.html">Item catalog</a></li>
+        <li><a href="components.html">Component catalog</a></li>
+        <li><a href="tokens.html">Design tokens</a></li>
+        <li><a href="mock-data.html">Mock data guide</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="accessibility.html">Accessibility and conventions</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+      </ol>
+      </nav>
+    </details>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      <h1>Getting started</h1>
+      <p class="doc-lede">Run the dashboard on your computer and find your way around the folder.</p>
+
+<p>mySA GOV Insights is a dashboard prototype built with plain HTML, CSS and JavaScript. There is no framework and nothing to compile: the files in the folder are the files the browser runs. These pages explain how it is put together and how to change it.</p>
+<p>You need to know basic HTML. Everything else (how the CSS is organised, what an ES module is, how data becomes a chart) is explained as it comes up.</p>
+
+<h2 id="run">Run it on your computer</h2>
+<ol class="doc-steps">
+  <li><b>Open a terminal in the project folder.</b> In VS Code: <kbd>Terminal</kbd> then <kbd>New Terminal</kbd>.</li>
+  <li><b>Start a local web server.</b> Use whichever you have installed:
+    <figure class="doc-code"><pre><code># Node (nothing to install first)
+npx serve .
+
+# or Python
+python3 -m http.server 8080</code></pre></figure>
+    In VS Code you can also install the Live Server extension, right-click <code>index.html</code> and choose <b>Open with Live Server</b>.</li>
+  <li><b>Open the address it prints</b> in Chrome, for example <code>http://localhost:3000</code> or <code>http://localhost:8080</code>. These docs are at the same address with <code>/docs/</code> on the end.</li>
+  <li><b>Change something.</b> Open <code>data/mock/targets.json</code>, change the <code>target</code> for <code>transactionSuccess</code> from <code>0.935</code> to <code>0.92</code>, save, and refresh the browser. The status on the Overview tab changes.</li>
+</ol>
+
+<h2 id="why-server">Why double-clicking index.html doesn't work</h2>
+<p>If you open <code>index.html</code> straight from the folder, the address starts with <code>file://</code>. Browsers treat that as untrusted and block two things this dashboard needs:</p>
+<ul>
+  <li><b>JavaScript modules.</b> The page loads <code>js/main.mjs</code> with <code>&lt;script type="module"&gt;</code>, and that file imports others. Chrome only allows this over <code>http://</code>.</li>
+  <li><b>Fetching JSON.</b> The mock data is read with <code>fetch()</code>, which is also blocked from <code>file://</code>.</li>
+</ul>
+<p>A local server fixes both by serving the same files over <code>http://localhost</code>. Nothing leaves your computer. If you do open the file directly, the page shows a banner telling you to start a server.</p>
+
+<h2 id="tour">Folder tour</h2>
+<div class="doc-tree">index.html                 <i>the page: masthead, cover, empty &lt;main&gt;, presentation shell</i>
+css/
+  tokens.css               <i>every colour, font, size (light and dark). Restyle here.</i>
+  base.css                 <i>reset, page grid, focus styles, reduced motion</i>
+  components.css           <i>how each component looks</i>
+js/
+  main.mjs                 <i>starts the app: loads data, builds tabs and cards, wires filters</i>
+  config.mjs               <i>mock or API, file paths, privacy threshold</i>
+  state.mjs                <i>the current filters and selections</i>
+  present.mjs              <i>presentation mode</i>
+  data/
+    source.mjs             <i>picks the data source</i>
+    mock-source.mjs        <i>answers each "view" from the JSON files</i>
+    api-source.mjs         <i>asks a real API for the same views</i>
+  ui/                      <i>building blocks: charts, maps, card shell, status, formatting</i>
+  items/                   <i>the reporting items, one file per tab, plus index.mjs (tabs and slides)</i>
+  vendor/                  <i>D3 and topojson-client, used only by the map</i>
+data/
+  mock/                    <i>the mock data. Edit and refresh.</i>
+  reference/               <i>council names, populations and boundaries</i>
+docs/                      <i>these pages</i>
+tools/generate-mock.mjs    <i>regenerates the daily mock data</i></div>
+<p>Three ideas explain most of the layout:</p>
+<ul>
+  <li><b>Looks are separate from behaviour.</b> CSS decides how things look. JavaScript decides what is on the page. You can restyle without touching JavaScript.</li>
+  <li><b>Data is separate from display.</b> Charts never read JSON files. They ask the data layer for a named <em>view</em> and draw whatever comes back. That is what lets the mock data be swapped for a real API later.</li>
+  <li><b>Each reporting item is one object.</b> A card on screen is described in one place: its title, the view it reads, how it was built, and a function that draws it.</li>
+</ul>
+
+<h2 id="next">Where to go next</h2>
+<ul class="doc-cards doc-wide">
+<li><a href="how-it-works.html"><b>How the app works</b><span>From a JSON file to a chart on screen, one step at a time.</span></a></li>
+<li><a href="items.html"><b>Item catalog</b><span>Every reporting item, its view, its data and its source tables.</span></a></li>
+<li><a href="components.html"><b>Component catalog</b><span>The building blocks, with live examples and the code that made them.</span></a></li>
+<li><a href="tokens.html"><b>Design tokens</b><span>Colours, type and spacing, and how to restyle the dashboard.</span></a></li>
+<li><a href="mock-data.html"><b>Mock data guide</b><span>Every JSON file and field, with worked examples.</span></a></li>
+<li><a href="recipes.html"><b>Recipes</b><span>Add an item, add a tab, connect the real API, swap the map boundaries.</span></a></li>
+<li><a href="accessibility.html"><b>Accessibility and conventions</b><span>A checklist to keep, and how files, names and comments are written.</span></a></li>
+<li><a href="glossary.html"><b>Glossary</b><span>Plain meanings for the terms used in the code and these pages.</span></a></li>
+</ul>
+
+      <nav class="doc-pager" aria-label="Previous and next page"><span></span><a href="how-it-works.html">How the app works →</a></nav>
+    </main>
+  </div>
+</body>
+</html>

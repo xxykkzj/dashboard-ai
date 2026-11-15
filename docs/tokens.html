@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Design tokens – mySA GOV Insights docs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M9 9h14M9 15h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="docs.css">
+  <script type="module" src="docs.mjs"></script>
+  <script type="module" src="tokens.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#doc-main">Skip to content</a>
+  <header class="doc-top">
+    <div class="doc-top-in">
+      <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
+      <div class="doc-top-actions">
+        <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
+        <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <details class="doc-nav" open>
+      <summary>Contents</summary>
+      <nav aria-label="Documentation pages">
+      <ol>
+        <li><a href="index.html">Getting started</a></li>
+        <li><a href="how-it-works.html">How the app works</a></li>
+        <li><a href="items.html">Item catalog</a></li>
+        <li><a href="components.html">Component catalog</a></li>
+        <li><a href="tokens.html" aria-current="page">Design tokens</a></li>
+        <li><a href="mock-data.html">Mock data guide</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="accessibility.html">Accessibility and conventions</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+      </ol>
+      </nav>
+    </details>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      <h1>Design tokens</h1>
+      <p class="doc-lede">Colours, type and spacing, and how to restyle the dashboard.</p>
+
+<p>A <b>design token</b> is a named value: a colour, a font, a size. In CSS it is a custom property, written with two dashes. Every token lives in <code>css/tokens.css</code>, and the rest of the CSS only ever uses the names:</p>
+<figure class="doc-code"><pre><code>/* css/tokens.css defines the value once… */
+:root { --accent: #17629f; }
+
+/* …and css/components.css uses the name */
+.bar { fill: var(--accent); }</code></pre></figure>
+<p>Change the value in one place and every bar, link and selected button follows. The swatches below show the values in the theme you are looking at now. Use <b>Dark theme</b> at the top of the page to see the other set.</p>
+
+<h2 id="surfaces">Page, surfaces and text</h2>
+<ul class="doc-swatches doc-wide" id="sw-surfaces"></ul>
+<h2 id="mast">Masthead and cover</h2>
+<p>The navy band stays dark in both themes.</p>
+<ul class="doc-swatches doc-wide" id="sw-mast"></ul>
+<h2 id="data">Data and actions</h2>
+<p>Blue is the first data series and the colour of links. Copper is the second series. The pair was checked to stay distinguishable for colour-blind readers in both themes; if you change either, check again.</p>
+<ul class="doc-swatches doc-wide" id="sw-data"></ul>
+<h2 id="status">Status</h2>
+<p>Green, amber and red mean status and nothing else. They never colour a data series, and a status always comes with a shape and a word.</p>
+<ul class="doc-swatches doc-wide" id="sw-status"></ul>
+<h2 id="seq">Sequential scale</h2>
+<p>Five steps of one hue for "how much": the map, the heat grid and the retention grid. <code>--on-seq-lo</code> and <code>--on-seq-hi</code> are the text colours to use on the light and strong steps.</p>
+<ul class="doc-swatches doc-wide" id="sw-seq"></ul>
+
+<h2 id="type">Type</h2>
+<p>Two families with one rule: the serif (<code>--font-display</code>) is for headings and big figures, the sans (<code>--font-ui</code>) is for everything you read or operate. <code>--font-mono</code> is only for code and SQL.</p>
+<div class="doc-type">
+  <div><code>--fs-3xl</code><span style="font-family:var(--font-display);font-size:var(--fs-3xl);font-weight:600;line-height:1.1">Tab title</span></div>
+  <div><code>--fs-kpi</code><span style="font-family:var(--font-display);font-size:var(--fs-kpi);font-weight:600;line-height:1.1">42,252</span></div>
+  <div><code>--fs-2xl</code><span style="font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:600">Section heading</span></div>
+  <div><code>--fs-xl</code><span style="font-family:var(--font-display);font-size:var(--fs-xl);font-weight:600">Council name</span></div>
+  <div><code>--fs-lg</code><span style="font-size:var(--fs-lg)">Lead text, 16px</span></div>
+  <div><code>--fs-md</code><span style="font-size:var(--fs-md)">Body text, 14.5px</span></div>
+  <div><code>--fs-sm</code><span style="font-size:var(--fs-sm)">Labels and table text, 13px</span></div>
+  <div><code>--fs-xs</code><span style="font-size:var(--fs-xs)">Small print, 12px. Nothing is smaller than this.</span></div>
+</div>
+
+<h2 id="space">Spacing, shape and motion</h2>
+<div class="doc-space">
+  <div><i style="width:4px"></i>--sp-1 · 4</div><div><i style="width:8px"></i>--sp-2 · 8</div><div><i style="width:12px"></i>--sp-3 · 12</div>
+  <div><i style="width:16px"></i>--sp-4 · 16</div><div><i style="width:24px"></i>--sp-5 · 24</div><div><i style="width:36px"></i>--sp-6 · 36</div>
+</div>
+<ul>
+  <li><code>--r</code> (<span data-token="--r"></span>) rounds cards; <code>--r-sm</code> (<span data-token="--r-sm"></span>) rounds small things such as code blocks.</li>
+  <li><code>--dur</code> and <code>--ease</code> time the few animations. All animation is switched off for people who ask their system to reduce motion (see <code>css/base.css</code>).</li>
+  <li><code>--shadow-lift</code> is used on one thing only: the cards that overlap the cover.</li>
+</ul>
+
+<h2 id="themes">How light and dark work</h2>
+<p>Light values sit on <code>:root</code>. The dark values are written twice, so that either the system setting or the theme button can decide:</p>
+<figure class="doc-code"><figcaption>the pattern in css/tokens.css</figcaption><pre><code>/* 1. light values */
+:root { --bg: #e9eef3; --ink: #10202e; ... }
+
+/* 2. the system asks for dark, and nobody chose light on the page */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=&quot;light&quot;]) { --bg: #0a131b; --ink: #e6edf3; ... }
+}
+
+/* 3. the theme button chose dark */
+:root[data-theme=&quot;dark&quot;] { --bg: #0a131b; --ink: #e6edf3; ... }</code></pre></figure>
+<div class="doc-note"><b>When you add or change a colour token</b><p>Give it a light value on <code>:root</code> and a dark value in <em>both</em> dark blocks. If you forget one, the token keeps its light value in that case and you get dark text on a dark card.</p></div>
+
+<h2 id="restyle">Restyle the dashboard</h2>
+<ol class="doc-steps">
+  <li><b>Change the brand colours.</b> In <code>css/tokens.css</code> change <code>--mast</code> (the band), <code>--mast-hi</code> (the copper) and <code>--accent</code>. Do the same in both dark blocks.</li>
+  <li><b>Change the fonts.</b> Edit <code>--font-ui</code> and <code>--font-display</code>, and the Google Fonts link in the <code>&lt;head&gt;</code> of <code>index.html</code>. Keep the fallback fonts after the first name.</li>
+  <li><b>Change density.</b> <code>--fs-md</code> sets body size; <code>--r</code> sets how round cards are.</li>
+  <li><b>Check both themes and a phone width.</b> In Chrome DevTools, the device toolbar sets the width, and <b>Rendering</b> then <b>Emulate CSS prefers-color-scheme</b> switches the theme.</li>
+</ol>
+<p>If you need to change how one component looks rather than a value, edit its block in <code>css/components.css</code>. Each block starts with a comment naming the component.</p>
+
+      <nav class="doc-pager" aria-label="Previous and next page"><a href="components.html">← Component catalog</a><a href="mock-data.html">Mock data guide →</a></nav>
+    </main>
+  </div>
+</body>
+</html>

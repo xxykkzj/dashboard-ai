@@ -1,0 +1,136 @@
+{
+  "_about": "Hand-editable mock settings: lookup values, shares and conversion rates. Shares in a list should add up to 1. All values are invented examples.",
+
+  "uniqueUsersFactor": { "7": 2.6, "30": 4.1, "90": 5.2, "180": 5.9 },
+  "_uniqueUsersFactor": "Unique users in a period ≈ average daily active users × this factor. Only needed because mock data is stored per day.",
+
+  "startedPerFinished": 1.12,
+  "devicesPerActiveUser": 1.08,
+  "sessionsPerActiveUserPerDay": 1.7,
+
+  "onboardingFunnel": [
+    { "label": "Account created", "source": "Users.CreatedAt", "rate": 1 },
+    { "label": "Identity verified", "source": "Users.IdentityVerifiedAt", "rate": 0.86, "rateAndroid": 0.83 },
+    { "label": "Device registered", "source": "UserDevices", "rate": 0.97 },
+    { "label": "First credential added", "source": "Credentials", "rate": 0.79 },
+    { "label": "First transaction completed", "source": "Transactions", "rate": 0.44 }
+  ],
+
+  "transactionTypes": [
+    { "key": "rego", "label": "Registration renewal", "share": 0.46, "successAdjust": 0.01,
+      "steps": [
+        { "label": "Started", "source": "TransactionStatuses: Initiated", "rate": 1 },
+        { "label": "Vehicle and term confirmed", "source": "TransactionStatuses: DetailsConfirmed", "rate": 0.93 },
+        { "label": "Payment submitted", "source": "TransactionStatuses: PaymentPending", "rate": 0.86 },
+        { "label": "Payment approved", "source": "TransactionStatuses: Paid", "rate": 0.965 },
+        { "label": "Completed", "source": "TransactionStatuses: Completed", "rate": 0.99 }
+      ] },
+    { "key": "licence", "label": "Driver's licence renewal", "share": 0.14, "successAdjust": 0,
+      "steps": [
+        { "label": "Started", "source": "TransactionStatuses: Initiated", "rate": 1 },
+        { "label": "Photo and details confirmed", "source": "TransactionStatuses: DetailsConfirmed", "rate": 0.88 },
+        { "label": "Payment submitted", "source": "TransactionStatuses: PaymentPending", "rate": 0.9 },
+        { "label": "Payment approved", "source": "TransactionStatuses: Paid", "rate": 0.97 },
+        { "label": "Completed", "source": "TransactionStatuses: Completed", "rate": 0.985 }
+      ] },
+    { "key": "address", "label": "Change of address", "share": 0.18, "successAdjust": 0.02,
+      "steps": [
+        { "label": "Started", "source": "TransactionStatuses: Initiated", "rate": 1 },
+        { "label": "Address validated", "source": "TransactionStatuses: DetailsConfirmed", "rate": 0.91 },
+        { "label": "Submitted", "source": "TransactionStatuses: Submitted", "rate": 0.95 },
+        { "label": "Completed", "source": "TransactionStatuses: Completed", "rate": 0.98 }
+      ] },
+    { "key": "transfer", "label": "Registration transfer", "share": 0.16, "successAdjust": -0.05,
+      "steps": [
+        { "label": "Started", "source": "TransactionStatuses: Initiated", "rate": 1 },
+        { "label": "Buyer details entered", "source": "TransactionStatuses: DetailsConfirmed", "rate": 0.82 },
+        { "label": "Seller accepted", "source": "TransactionStatuses: CounterpartyAccepted", "rate": 0.74 },
+        { "label": "Payment approved", "source": "TransactionStatuses: Paid", "rate": 0.95 },
+        { "label": "Completed", "source": "TransactionStatuses: Completed", "rate": 0.98 }
+      ] },
+    { "key": "fuel", "label": "Fuel exemption application", "share": 0.06, "successAdjust": -0.03,
+      "steps": [
+        { "label": "Started", "source": "Status = Started", "rate": 1 },
+        { "label": "Eligibility confirmed", "source": "Status = EligibilityConfirmed", "rate": 0.84 },
+        { "label": "Evidence attached", "source": "Status = EvidenceAttached", "rate": 0.79 },
+        { "label": "Submitted", "source": "Status = Submitted", "rate": 0.95 },
+        { "label": "Approved", "source": "Status = Approved", "rate": 0.88 }
+      ] }
+  ],
+
+  "reminderFunnel": {
+    "shareOfNotifications": 0.55,
+    "steps": [
+      { "label": "Reminder sent", "source": "Notifications.SentAt", "rate": 1 },
+      { "label": "Delivered", "source": "Notifications.DeliveredAt", "rate": 0.97 },
+      { "label": "Opened", "source": "Notifications.OpenedAt", "rate": 0.47 },
+      { "label": "Renewal started", "source": "Transactions", "rate": 0.61 },
+      { "label": "Renewal completed", "source": "TransactionStatuses: Completed", "rate": 0.86 }
+    ]
+  },
+
+  "fuelExemption": {
+    "startedPerFinished": 1.3,
+    "submittedStep": "Submitted",
+    "applicantSplit": { "individuals": 0.7, "businesses": 0.3 },
+    "categories": [
+      { "label": "Primary production", "individualShare": 0.42, "businessShare": 0.55 },
+      { "label": "Remote area residents", "individualShare": 0.28, "businessShare": 0.08 },
+      { "label": "Disability transport", "individualShare": 0.18, "businessShare": 0.02 },
+      { "label": "Commercial fishing", "individualShare": 0.12, "businessShare": 0.35 }
+    ]
+  },
+
+  "credentialTypes": [
+    { "label": "Driver's licence", "active": 1084000, "shareOfAdded": 0.62 },
+    { "label": "Working with children check", "active": 236000, "shareOfAdded": 0.12 },
+    { "label": "Seniors Card", "active": 181000, "shareOfAdded": 0.10 },
+    { "label": "Proof of age card", "active": 152000, "shareOfAdded": 0.10 },
+    { "label": "Recreational boat licence", "active": 98500, "shareOfAdded": 0.06 }
+  ],
+
+  "checkMethods": [
+    { "label": "QR scan in person", "share": 0.61 },
+    { "label": "Venue ID scanner", "share": 0.27 },
+    { "label": "Online verification", "share": 0.12 }
+  ],
+
+  "failureReasons": [
+    { "reason": "Payment declined", "code": "PAY_DECLINED", "share": 0.36 },
+    { "reason": "Licensing system timeout", "code": "UPSTREAM_TIMEOUT", "share": 0.26 },
+    { "reason": "Session expired", "code": "SESSION_EXPIRED", "share": 0.15 },
+    { "reason": "Details failed validation", "code": "VALIDATION", "share": 0.13 },
+    { "reason": "Duplicate submission", "code": "DUPLICATE", "share": 0.06 },
+    { "reason": "Other", "code": "OTHER", "share": 0.04 }
+  ],
+
+  "downtimeMinutes": { "up": 0, "degraded": 25, "down": 190 },
+  "providers": [
+    { "name": "Licensing system", "description": "Driver and vehicle records",
+      "incidents": { "2026-10-30": "down", "2026-10-31": "down", "2026-11-07": "degraded" } },
+    { "name": "Registration system", "description": "Vehicle registrations",
+      "incidents": { "2026-10-31": "degraded" } },
+    { "name": "Payment gateway", "description": "Card payments",
+      "incidents": { "2026-10-22": "degraded", "2026-11-10": "degraded" } },
+    { "name": "Identity service", "description": "Identity verification", "incidents": {} },
+    { "name": "Notification service", "description": "Push delivery",
+      "incidents": { "2026-11-04": "degraded" } },
+    { "name": "Fuel exemption portal", "description": "Scheme administration",
+      "incidents": { "2026-10-18": "degraded" } }
+  ],
+
+  "appVersions": [
+    { "version": "5.4.2", "share": 0.54 },
+    { "version": "5.4.1", "share": 0.21 },
+    { "version": "5.3.0", "share": 0.14 },
+    { "version": "5.2.x", "share": 0.07 },
+    { "version": "Older", "share": 0.04 }
+  ],
+
+  "notificationTypes": [
+    { "type": "Registration renewal reminder", "share": 0.55, "delivered": 0.97, "opened": 0.47, "acted": 0.29 },
+    { "type": "Credential updated", "share": 0.20, "delivered": 0.98, "opened": 0.31, "acted": 0.08 },
+    { "type": "Licence expiry reminder", "share": 0.15, "delivered": 0.97, "opened": 0.52, "acted": 0.33 },
+    { "type": "Service disruption alert", "share": 0.10, "delivered": 0.96, "opened": 0.58, "acted": 0.04 }
+  ]
+}

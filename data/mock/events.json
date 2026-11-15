@@ -1,0 +1,11 @@
+{
+  "_about": "Known events shown as notes on charts and used in the summary sentences. kind is 'campaign' or 'incident'. Dates are inclusive. Keep these in step with the campaigns and incidents in tools/generate-mock.mjs and the provider incidents in reference.json.",
+  "events": [
+    { "id": "campaign-2026-09", "kind": "campaign", "from": "2026-09-14", "to": "2026-09-20",
+      "label": "Licence-renewal campaign",
+      "note": "Email and outdoor campaign promoting licence renewal in the app." },
+    { "id": "outage-2026-10", "kind": "incident", "from": "2026-10-30", "to": "2026-10-31",
+      "label": "Licensing system outage", "provider": "Licensing system",
+      "note": "Driver and vehicle records were unavailable for parts of both days, so renewals and transfers failed." }
+  ]
+}

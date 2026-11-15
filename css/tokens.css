@@ -1,0 +1,116 @@
+/* =========================================================================
+   Design tokens
+   Every colour, font, size and timing used by the dashboard lives here.
+   Swap these for your design system's values; components read only tokens.
+
+   Direction: "gulf and copper". Every tab opens on a deep navy cover band
+   that carries the title, the filters and a line drawing of the state's
+   council boundaries; the first row of content overlaps it. Gulf blue is
+   for data and actions, copper marks the brand moments (current tab, key
+   rules) and is the second data colour. Headlines and big figures are set
+   in the serif; everything you operate is set in the sans. Status colours
+   (green, amber, red) are kept for status only, and always appear with a
+   shape and a word.
+
+   Light values sit on :root. Dark values are repeated for the OS setting
+   and for an explicit data-theme="dark", so either can win.
+   ========================================================================= */
+:root {
+  /* page, surfaces and text */
+  --bg: #e9eef3;
+  --surface: #ffffff;
+  --surface-2: #f4f7fa;      /* inset areas: tracks, code, quiet panels */
+  --ink: #10202e;
+  --muted: #4f616f;
+  --line: #d6dee6;
+  --line-strong: #10202e;    /* rules that head a figure or section */
+
+  /* masthead (dark in both themes) */
+  --mast: #0c2233;
+  --mast-ink: #f1f5f9;
+  --mast-muted: #a4b8c8;
+  --mast-line: #24405a;
+  --mast-hi: #f0a26b;        /* copper: current tab, primary action, rules on the cover */
+  --mast-soft: #16324a;      /* controls on the cover */
+  --motif: #5d86a8;          /* boundary drawing on the cover */
+
+  /* data and actions */
+  --accent: #17629f;         /* series 1, links, selected controls */
+  --on-accent: #ffffff;
+  --accent-soft: #e2edf7;
+  --accent2: #cc6a2e;        /* series 2 */
+  --neutral: #9aa8b4;        /* comparison lines, "everything else" */
+
+  /* status: used only for status, always with a shape and a word */
+  --good: #1a7a52;
+  --warn: #9a6a00;
+  --bad: #c0343a;
+  --good-soft: #e1f2ea;
+  --warn-soft: #fbf0d3;
+  --bad-soft: #fbe4e4;
+
+  /* sequential scale for the map and heat grid, light to strong */
+  --seq-1: #dfeaf5;
+  --seq-2: #b4cfe8;
+  --seq-3: #7fabd6;
+  --seq-4: #3f82bf;
+  --seq-5: #12548c;
+  --on-seq-lo: #10202e;      /* text on seq-1..3 */
+  --on-seq-hi: #ffffff;      /* text on seq-4..5 */
+
+  /* type */
+  --font-ui: "Public Sans", Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Source Serif 4", Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14.5px;
+  --fs-lg: 16px;
+  --fs-xl: 21px;
+  --fs-2xl: 30px;
+  --fs-3xl: clamp(30px, 3.6vw, 46px);   /* tab title on the cover */
+  --fs-kpi: 40px;
+
+  /* spacing, shape, motion */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 36px;
+  --r: 10px;
+  --r-sm: 4px;
+  --dur: .45s;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --shadow-tip: 0 6px 18px rgb(8 20 32 / .22);
+  --shadow-lift: 0 1px 2px rgb(8 20 32 / .06), 0 18px 40px -18px rgb(8 20 32 / .35);   /* only the card that overlaps the cover */
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a131b; --surface: #121e29; --surface-2: #0e1822; --ink: #e6edf3; --muted: #9db0bf;
+    --line: #243443; --line-strong: #c9d6e0;
+    --mast: #060d14; --mast-ink: #f1f5f9; --mast-muted: #9db0bf; --mast-line: #1c2c3b; --mast-hi: #f0a26b; --mast-soft: #11202e; --motif: #3f6282;
+    --accent: #4c96d8; --on-accent: #06121c; --accent-soft: #15304a; --accent2: #cf7236; --neutral: #6f8292;
+    --good: #4fbf8b; --warn: #e3b341; --bad: #f0736a;
+    --good-soft: #12301f; --warn-soft: #33290c; --bad-soft: #3a1717;
+    --seq-1: #16293c; --seq-2: #1c4369; --seq-3: #296298; --seq-4: #4589c9; --seq-5: #8cc0ee;
+    --on-seq-lo: #e6edf3; --on-seq-hi: #06121c;
+    --shadow-tip: 0 6px 18px rgb(0 0 0 / .5); --shadow-lift: 0 1px 2px rgb(0 0 0 / .3), 0 18px 40px -18px rgb(0 0 0 / .8);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a131b; --surface: #121e29; --surface-2: #0e1822; --ink: #e6edf3; --muted: #9db0bf;
+  --line: #243443; --line-strong: #c9d6e0;
+  --mast: #060d14; --mast-ink: #f1f5f9; --mast-muted: #9db0bf; --mast-line: #1c2c3b; --mast-hi: #f0a26b; --mast-soft: #11202e; --motif: #3f6282;
+  --accent: #4c96d8; --on-accent: #06121c; --accent-soft: #15304a; --accent2: #cf7236; --neutral: #6f8292;
+  --good: #4fbf8b; --warn: #e3b341; --bad: #f0736a;
+  --good-soft: #12301f; --warn-soft: #33290c; --bad-soft: #3a1717;
+  --seq-1: #16293c; --seq-2: #1c4369; --seq-3: #296298; --seq-4: #4589c9; --seq-5: #8cc0ee;
+  --on-seq-lo: #e6edf3; --on-seq-hi: #06121c;
+  --shadow-tip: 0 6px 18px rgb(0 0 0 / .5); --shadow-lift: 0 1px 2px rgb(0 0 0 / .3), 0 18px 40px -18px rgb(0 0 0 / .8);
+  color-scheme: dark;
+}

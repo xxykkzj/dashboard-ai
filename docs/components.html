@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Component catalog – mySA GOV Insights docs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M9 9h14M9 15h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="docs.css">
+  <script type="module" src="docs.mjs"></script>
+  <script src="../js/vendor/d3.v7.9.0.min.js" defer></script>
+  <script src="../js/vendor/topojson-client.v3.1.0.min.js" defer></script>
+  <script type="module" src="components.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#doc-main">Skip to content</a>
+  <header class="doc-top">
+    <div class="doc-top-in">
+      <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
+      <div class="doc-top-actions">
+        <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
+        <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <details class="doc-nav" open>
+      <summary>Contents</summary>
+      <nav aria-label="Documentation pages">
+      <ol>
+        <li><a href="index.html">Getting started</a></li>
+        <li><a href="how-it-works.html">How the app works</a></li>
+        <li><a href="items.html">Item catalog</a></li>
+        <li><a href="components.html" aria-current="page">Component catalog</a></li>
+        <li><a href="tokens.html">Design tokens</a></li>
+        <li><a href="mock-data.html">Mock data guide</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="accessibility.html">Accessibility and conventions</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+      </ol>
+      </nav>
+    </details>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      <h1>Component catalog</h1>
+      <p class="doc-lede">The building blocks, with live examples and the code that made them.</p>
+
+<p>A component here is just a function. You give it an element (the <b>host</b>) and some data, and it writes HTML or SVG into that element. Nothing is hidden: open <code>js/ui/charts.mjs</code> and each function is 20 to 70 lines.</p>
+<p>Every example below is live. This page imports the dashboard's real modules and calls them with a few made-up numbers, so hover and keyboard behaviour is the real thing. Colours come from tokens, so the theme button changes them too.</p>
+<div class="doc-note"><b>Three rules every component follows</b>
+<ul><li>It gets all its colours from CSS tokens, never a hex value in JavaScript.</li><li>It gives the chart a text summary (<code>aria-label</code> or a table caption).</li><li>It shows "No data for this period." instead of an empty box.</li></ul></div>
+<h2 id="jump">On this page</h2>
+<ul class="doc-cards doc-wide" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))"><li><a style="padding:8px 12px" href="#kpi">kpi</a></li><li><a style="padding:8px 12px" href="#lineChart">lineChart</a></li><li><a style="padding:8px 12px" href="#lineChart-target">lineChart with target</a></li><li><a style="padding:8px 12px" href="#barChart">barChart</a></li><li><a style="padding:8px 12px" href="#hbars">hbars</a></li><li><a style="padding:8px 12px" href="#hbars-stacked">hbars stacked</a></li><li><a style="padding:8px 12px" href="#funnel">funnel</a></li><li><a style="padding:8px 12px" href="#cohortGrid">cohortGrid</a></li><li><a style="padding:8px 12px" href="#table">table, meter, spark</a></li><li><a style="padding:8px 12px" href="#heatGrid">heatGrid</a></li><li><a style="padding:8px 12px" href="#status">status chips</a></li><li><a style="padding:8px 12px" href="#scorecard">scorecard</a></li><li><a style="padding:8px 12px" href="#geoMap">geoMap</a></li><li><a style="padding:8px 12px" href="#tileMap">tileMap</a></li><li><a style="padding:8px 12px" href="#card">card shell</a></li><li><a style="padding:8px 12px" href="#controls">controls</a></li></ul>
+<h2 id="helpers">Formatting helpers</h2>
+<p>From <code>js/ui/format.mjs</code>. Use these so numbers and dates look the same everywhere.</p>
+<div class="tscroll"><table><thead><tr><th>Function</th><th>Example</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>fmt(n)</code></td><td><code>fmt(42252.4)</code></td><td>42,252</td></tr>
+<tr><td><code>fmtC(n)</code></td><td><code>fmtC(2284000)</code></td><td>2.28M</td></tr>
+<tr><td><code>pct(x, decimals)</code></td><td><code>pct(0.932)</code></td><td>93.2%</td></tr>
+<tr><td><code>fmtMoney(n)</code></td><td><code>fmtMoney(1790000)</code></td><td>$1.79M</td></tr>
+<tr><td><code>dfmt(iso, year)</code></td><td><code>dfmt('2026-11-14')</code></td><td>14 Nov</td></tr>
+<tr><td><code>dRange(from, to)</code></td><td><code>dRange('2026-10-30', '2026-10-31')</code></td><td>30–31 Oct</td></tr>
+<tr><td><code>escapeHtml(s)</code></td><td><code>escapeHtml('A &amp; B &lt;x&gt;')</code></td><td>safe to put inside HTML</td></tr>
+</tbody></table></div>
+<section class="doc-comp doc-wide" id="kpi">
+<h2>kpi(host, options)</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>A headline figure with its change on the previous period, a small trend line and, if a target is given, a status chip.</p>
+<dl class="doc-opts"><dt>value, format</dt><dd>The number and a function that formats it (<code>fmt</code>, <code>fmtC</code>, <code>pct</code>).</dd><dt>delta, deltaText</dt><dd>Change as a fraction (−0.21) and the text to show ("21.1%").</dd><dt>goodUp</dt><dd>Set <code>false</code> when a fall is good news. Default <code>true</code>.</dd><dt>sparkData, sparkTarget</dt><dd>Daily values for the small chart, and an optional dashed target line.</dd><dt>range</dt><dd>Days in the period, used in "on the previous 30 days".</dd><dt>evaluation</dt><dd>The result of <code>evaluate()</code> from <code>status.mjs</code>. Leave out for no target.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-kpi"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>kpi(host, {
+  value: 42252, delta: -0.211, deltaText: &#x27;21.1%&#x27;, range: 30,
+  sparkData: dailyValues, sparkTarget: 1400,
+  evaluation: evaluate(target, { current: 42252, days: 30 })
+});</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="lineChart">
+<h2>lineChart(host, options)</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>One or more lines over dates, with a hover guide and tooltip. With two or more series each line is named at its end and in a legend.</p>
+<dl class="doc-opts"><dt>dates</dt><dd>List of <code>YYYY-MM-DD</code> strings, one per point.</dd><dt>series</dt><dd><code>[{ name, values, color }]</code>. Use <code>var(--accent)</code> then <code>var(--accent2)</code>.</dd><dt>events</dt><dd><code>[{ from, to, label, kind }]</code> shaded and labelled on the chart.</dd><dt>title</dt><dd>Used in the text summary for screen readers.</dd><dt>yFmt, tipFmt</dt><dd>Formatters for the axis and the tooltip.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-line"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>lineChart(host, {
+  dates, title: &#x27;Daily active users&#x27;,
+  series: [
+    { name: &#x27;iPhone&#x27;, values: ios, color: &#x27;var(--accent)&#x27; },
+    { name: &#x27;Android&#x27;, values: android, color: &#x27;var(--accent2)&#x27; }
+  ],
+  events
+});</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="lineChart-target">
+<h2>lineChart with target and comparison</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>The same function with three more options. Use <code>zero: false</code> for rates that sit in a narrow band, so the line is not flattened against the top.</p>
+<dl class="doc-opts"><dt>target</dt><dd><code>{ value, label }</code> draws a dashed line and adds it to the legend.</dd><dt>compare</dt><dd><code>{ name, values }</code> draws the previous period as a grey dashed line. Must be the same length as <code>dates</code>.</dd><dt>zero</dt><dd><code>false</code> lets the axis start near the lowest value. Default <code>true</code>.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-line2"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>lineChart(host, {
+  dates, title: &#x27;Success rate by day&#x27;, zero: false,
+  yFmt: v =&gt; pct(v, 0), tipFmt: v =&gt; pct(v),
+  series: [{ name: &#x27;This period&#x27;, values: rate, color: &#x27;var(--accent)&#x27; }],
+  compare: { name: &#x27;Previous 30 days&#x27;, values: previousRate },
+  target: { value: 0.935, label: &#x27;Target 93.5%&#x27; },
+  events
+});</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="barChart">
+<h2>barChart(host, options)</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>Vertical bars for a handful of categories or periods. Always starts at zero.</p>
+<dl class="doc-opts"><dt>labels, values</dt><dd>One label and one number per bar.</dd><dt>name</dt><dd>What the bars count, for the tooltip and legend.</dd><dt>target</dt><dd><code>{ value, label }</code> dashed line.</dd><dt>events, dates, spanDays</dt><dd>To mark events, also pass each bar's start date and how many days it covers.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-bar"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>barChart(host, {
+  labels: [&#x27;18 Oct&#x27;, &#x27;25 Oct&#x27;, &#x27;1 Nov&#x27;, &#x27;8 Nov&#x27;],
+  values: [10100, 9450, 9800, 10250],
+  name: &#x27;New accounts&#x27;, title: &#x27;New accounts per week&#x27;,
+  target: { value: 9800, label: &#x27;Target 9,800&#x27; }
+});</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="hbars">
+<h2>hbars(host, rows, extra, options)</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>Horizontal bars with a label on the left and a value on the right. The workhorse for rankings and shares.</p>
+<dl class="doc-opts"><dt>rows</dt><dd><code>[{ label, value, text?, sub?, color? }]</code>. <code>text</code> replaces the number on the right; <code>sub</code> is a second line under the label.</dd><dt>extra</dt><dd>HTML to add underneath, usually a <code>legend(...)</code>.</dd><dt>options.max</dt><dd>Fix the scale, e.g. <code>{ max: 1 }</code> for shares, or to compare two lists.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-hbars"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>hbars(host, [
+  { label: &#x27;QR scan in person&#x27;, value: 0.61, text: &#x27;61%&#x27; },
+  { label: &#x27;Venue ID scanner&#x27;, value: 0.27, text: &#x27;27%&#x27; },
+  { label: &#x27;Online verification&#x27;, value: 0.12, text: &#x27;12%&#x27;, sub: &#x27;a second line&#x27; }
+]);</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="hbars-stacked">
+<h2>hbars with stacked parts and drill-down</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>Give a row <code>parts</code> instead of <code>value</code> to stack segments. Give it <code>go</code> to turn the whole row into a link or button: <code>set</code> changes state and <code>hash</code> moves to another item.</p>
+<dl class="doc-opts"><dt>parts</dt><dd><code>[{ name, value, color }]</code>.</dd><dt>go</dt><dd><code>{ hash?, set?, label }</code>. With <code>hash</code> the row is a link; without, a button.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-hbars2"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>hbars(host, [{
+  label: &#x27;Registration renewal&#x27;, sub: &#x27;130,620 finished&#x27;, text: &#x27;94.2%&#x27;,
+  parts: [
+    { name: &#x27;Completed&#x27;, value: 123000, color: &#x27;var(--accent)&#x27; },
+    { name: &#x27;Failed&#x27;, value: 7600, color: &#x27;var(--bad)&#x27; }
+  ],
+  go: { hash: &#x27;journeys/ITM-08&#x27;, set: { txType: &#x27;rego&#x27; }, label: &#x27;Open the completion funnel&#x27; }
+}], legend([[&#x27;Completed&#x27;, &#x27;var(--accent)&#x27;], [&#x27;Failed&#x27;, &#x27;var(--bad)&#x27;]]));</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="funnel">
+<h2>funnel(host, steps, options)</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>Steps drawn as layers that narrow to the next step, with the share and number that stopped at each boundary. The largest drop is marked.</p>
+<dl class="doc-opts"><dt>steps</dt><dd><code>[{ label, value }]</code> in order. The first step is 100%.</dd><dt>options.noun</dt><dd>What is being counted, for the screen-reader summary. Default "people".</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-funnel"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>funnel(host, [
+  { label: &#x27;Account created&#x27;, value: 42252 },
+  { label: &#x27;Identity verified&#x27;, value: 36337 },
+  { label: &#x27;First credential added&#x27;, value: 27845 },
+  { label: &#x27;First transaction completed&#x27;, value: 12252 }
+], { noun: &#x27;new customers&#x27; });</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="cohortGrid">
+<h2>cohortGrid(host, cohorts)</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>A retention grid: one row per sign-up week, one column per week since. It is a real table, so screen readers can read every cell.</p>
+<dl class="doc-opts"><dt>cohorts</dt><dd><code>[{ week, size, retained }]</code> where <code>retained[n]</code> is the share active n weeks later and <code>retained[0]</code> is 1.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-cohort"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>cohortGrid(host, [
+  { week: &#x27;2026-10-12&#x27;, size: 10390, retained: [1, 0.65, 0.56, 0.51] },
+  { week: &#x27;2026-10-19&#x27;, size: 10110, retained: [1, 0.66, 0.57] },
+  { week: &#x27;2026-10-26&#x27;, size: 9480,  retained: [1, 0.58] },
+  { week: &#x27;2026-11-02&#x27;, size: 9930,  retained: [1] }
+]);</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="table">
+<h2>table(host, cols, rows, caption) with meter and spark</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>A plain table. Cells are HTML strings, so they can hold a <code>meter(share)</code> or a small <code>spark(values)</code> chart. Escape any text that comes from data with <code>escapeHtml</code>.</p>
+<dl class="doc-opts"><dt>cols</dt><dd><code>[{ h, num? }]</code>. <code>num: 1</code> right-aligns the column.</dd><dt>rows</dt><dd>A list of rows, each a list of cell strings.</dd><dt>caption</dt><dd>Read by screen readers. Always give one.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-table"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>table(host,
+  [{ h: &#x27;Reason&#x27; }, { h: &#x27;Failures&#x27;, num: 1 }, { h: &#x27;Share&#x27;, num: 1 }, { h: &#x27;Trend&#x27; }],
+  [
+    [&#x27;Payment declined&#x27;, fmt(6902), meter(0.36), `&lt;span class=&quot;tspark&quot;&gt;${spark(values)}&lt;/span&gt;`],
+    [&#x27;Session expired&#x27;,  fmt(2876), meter(0.15), `&lt;span class=&quot;tspark&quot;&gt;${spark(values2)}&lt;/span&gt;`]
+  ],
+  &#x27;Example table&#x27;);</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="heatGrid">
+<h2>heatGrid(host, options)</h2>
+<p><code>js/ui/charts.mjs</code></p>
+<p>A day-by-hour grid shaded on the five-step sequential scale, with the busiest hour outlined and stated in words.</p>
+<dl class="doc-opts"><dt>days</dt><dd>Seven labels, Monday first.</dd><dt>matrix</dt><dd>Seven rows of 24 numbers.</dd><dt>valueLabel</dt><dd>What is counted, e.g. "sessions".</dd></dl>
+<div class="doc-comp-grid" style="grid-template-columns:minmax(0,1fr)"><div class="doc-demo" id="demo-heat"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>heatGrid(host, {
+  days: [&#x27;Mon&#x27;, &#x27;Tue&#x27;, &#x27;Wed&#x27;, &#x27;Thu&#x27;, &#x27;Fri&#x27;, &#x27;Sat&#x27;, &#x27;Sun&#x27;],
+  matrix,                 // number[7][24]
+  valueLabel: &#x27;sessions&#x27;
+});</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="status">
+<h2>statusChip(status, text) and evaluate(target, measure)</h2>
+<p><code>js/ui/status.mjs</code></p>
+<p>Status is always a shape plus a word, never colour alone. <code>evaluate</code> compares a measure with a target from <code>targets.json</code> and returns <code>{ status, measured, text, now }</code>.</p>
+<dl class="doc-opts"><dt>status</dt><dd><code>'good'</code> (On track), <code>'watch'</code>, <code>'action'</code> or <code>'info'</code>.</dd><dt>target.basis</dt><dd><code>'value'</code> compares <code>measure.value</code>; <code>'perDay'</code> compares <code>current ÷ days</code>; <code>'growth'</code> compares the change from <code>previous</code> to <code>current</code>.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-status"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>statusChip(&#x27;watch&#x27;);                 // ◆ Watch
+statusChip(&#x27;info&#x27;, &#x27;Estimate&#x27;);       // custom wording
+
+const e = evaluate({ basis: &#x27;value&#x27;, target: 0.935, action: 0.925 }, { value: 0.93 });
+// e.status === &#x27;watch&#x27;, e.text === &#x27;Target 93.5%&#x27;, e.now === &#x27;now 93.0%&#x27;</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="scorecard">
+<h2>Scorecard (item ITM-00)</h2>
+<p><code>js/items/overview.mjs</code></p>
+<p>The scorecard is not a helper but an item: its <code>render</code> function counts statuses and draws each measure as a bar between its action level and its target. To reuse the look, copy the <code>.tally</code> and <code>.gauges</code> markup from that function. The example calls the real item with made-up data.</p>
+<dl class="doc-opts"><dt>data</dt><dd><code>{ days, measures: { key: { value } | { current, previous } } }</code> from <code>vw_Scorecard</code>.</dd><dt>more.targets, more.events</dt><dd>From <code>vw_Targets</code> and <code>vw_Events</code>.</dd></dl>
+<div class="doc-comp-grid" style="grid-template-columns:minmax(0,1fr)"><div class="doc-demo" id="demo-score"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>const item = ITEMS.find(i =&gt; i.id === &#x27;ITM-00&#x27;);
+item.render(host, scorecardData, state, ctx, { targets, events });</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="geoMap">
+<h2>geoMap(host, options)</h2>
+<p><code>js/ui/geomap.mjs</code></p>
+<p>The council map on real boundaries, drawn with D3, with inner Adelaide enlarged beside it. Needs the two scripts in <code>js/vendor</code> on the page. Try dragging, the view buttons, and arrow keys after tabbing into the map.</p>
+<dl class="doc-opts"><dt>rows</dt><dd>One per council: the fields from <code>lga.json</code> plus <code>users</code>, <code>per1000</code> and <code>suppressed</code>.</dd><dt>topo</dt><dd>The boundary file, already loaded as an object.</dd><dt>metric</dt><dd><code>'per1000'</code> or <code>'users'</code>.</dd><dt>threshold</dt><dd>Privacy threshold, for the wording of hidden councils.</dd><dt>selected, onSelect</dt><dd>The selected council code, and a function called with the new code (or <code>null</code>).</dd></dl>
+<div class="doc-comp-grid" style="grid-template-columns:minmax(0,1fr)"><div class="doc-demo" id="demo-geo"><p class="doc-demo-cap">Live example</p><div class="body"></div><p class="note">Last call: <code id="demo-geo-out">none yet, select a council</code></p></div><figure class="doc-code"><pre><code>geoMap(host, {
+  rows, topo, metric: &#x27;per1000&#x27;, threshold: 10,
+  selected: state.lga || null,
+  onSelect: code =&gt; setState({ lga: code || &#x27;&#x27; })
+});</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="tileMap">
+<h2>tileMap(host, options)</h2>
+<p><code>js/ui/tilemap.mjs</code></p>
+<p>The same data as equal-sized tiles, one per council, so small councils are as visible as large ones. Takes the same options as <code>geoMap</code>, without <code>topo</code>, plus <code>placeholder</code> for where Adelaide sits on the main grid.</p>
+<dl class="doc-opts"><dt>placeholder</dt><dd><code>{ col, row }</code> from <code>lga.json</code> (<code>metroPlaceholder</code>).</dd></dl>
+<div class="doc-comp-grid" style="grid-template-columns:minmax(0,1fr)"><div class="doc-demo" id="demo-tile"><p class="doc-demo-cap">Live example</p><div class="body"></div><p class="note">Last call: <code id="demo-tile-out">none yet, select a tile</code></p></div><figure class="doc-code"><pre><code>tileMap(host, {
+  rows, metric: &#x27;per1000&#x27;, threshold: 10,
+  placeholder: ctx.lga.metroPlaceholder,
+  onSelect: code =&gt; setState({ lga: code || &#x27;&#x27; })
+});</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="card">
+<h2>cardHTML(item, state, ctx, options)</h2>
+<p><code>js/ui/card.mjs</code></p>
+<p>The shell around every item: title, optional control, body, and the <b>How it's built</b> footer. You rarely call it yourself; <code>main.mjs</code> does it for every item in the registry. <code>kind: 'kpi'</code> on the item removes the frame, and <code>kind: 'hero'</code> gives the large first card.</p>
+<div class="doc-comp-grid"><div><p class="doc-demo-cap">Live example</p><div class="grid" id="demo-card"></div></div>
+<figure class="doc-code"><pre><code>// main.mjs builds every card like this
+grid.innerHTML = ITEMS.filter(i =&gt; i.tab === tab.id)
+  .map(i =&gt; cardHTML(i, state, ctx)).join(&#x27;&#x27;);
+
+// then each item&#x27;s render() fills its  .body</code></pre></figure></div>
+</section><section class="doc-comp doc-wide" id="controls">
+<h2>segControl and selectControl</h2>
+<p><code>js/ui/card.mjs</code></p>
+<p>Controls for a card header. They only produce HTML with a <code>data-state</code> attribute; one listener in <code>main.mjs</code> turns a click into <code>setState</code>. Use them in an item's <code>control</code> field and list the same key in <code>deps</code>.</p>
+<dl class="doc-opts"><dt>segControl(key, label, options, current, scope)</dt><dd>Two to four choices as buttons. <code>options</code> is <code>[[value, text], …]</code>.</dd><dt>selectControl(key, label, options, current)</dt><dd>A drop-down for longer lists.</dd></dl>
+<div class="doc-comp-grid"><div class="doc-demo" id="demo-controls"><p class="doc-demo-cap">Live example</p><div class="body"></div></div><figure class="doc-code"><pre><code>// in an item
+deps: [&#x27;txType&#x27;],
+params: s =&gt; ({ txType: s.txType }),
+control: s =&gt; selectControl(&#x27;txType&#x27;, &#x27;Service&#x27;, TX_OPTIONS, s.txType),</code></pre></figure></div>
+</section>
+
+      <nav class="doc-pager" aria-label="Previous and next page"><a href="items.html">← Item catalog</a><a href="tokens.html">Design tokens →</a></nav>
+    </main>
+  </div>
+</body>
+</html>

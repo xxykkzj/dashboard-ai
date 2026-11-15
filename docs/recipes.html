@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Recipes – mySA GOV Insights docs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M9 9h14M9 15h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="docs.css">
+  <script type="module" src="docs.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#doc-main">Skip to content</a>
+  <header class="doc-top">
+    <div class="doc-top-in">
+      <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
+      <div class="doc-top-actions">
+        <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
+        <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <details class="doc-nav" open>
+      <summary>Contents</summary>
+      <nav aria-label="Documentation pages">
+      <ol>
+        <li><a href="index.html">Getting started</a></li>
+        <li><a href="how-it-works.html">How the app works</a></li>
+        <li><a href="items.html">Item catalog</a></li>
+        <li><a href="components.html">Component catalog</a></li>
+        <li><a href="tokens.html">Design tokens</a></li>
+        <li><a href="mock-data.html">Mock data guide</a></li>
+        <li><a href="recipes.html" aria-current="page">Recipes</a></li>
+        <li><a href="accessibility.html">Accessibility and conventions</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+      </ol>
+      </nav>
+    </details>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      <h1>Recipes</h1>
+      <p class="doc-lede">Add an item, add a tab, connect the real API, swap the map boundaries.</p>
+
+<p>Step-by-step instructions for the changes you are most likely to make. Each one names the exact files to touch.</p>
+
+<h2 id="item">Add a new reporting item</h2>
+<p>Example: a card on the Services tab showing <b>credentials added per day</b>. The numbers already exist in <code>daily-metrics.json</code> (the <code>credentialsAdded</code> field), so this needs a view and an item.</p>
+<ol class="doc-steps">
+  <li><b>Decide the view's name and shape.</b> Call it <code>vw_CredentialsAddedDaily</code>, returning <code>{ dates: string[], added: number[] }</code>. Writing the shape down first is the important part: it is the contract the real API will have to meet.</li>
+  <li><b>Add the view to the mock source.</b> In <code>js/data/mock-source.mjs</code>, inside the <code>views</code> object, next to <code>vw_CredentialChecksDaily</code>:
+  <figure class="doc-code"><pre><code>vw_CredentialsAddedDaily: p =&gt; ({
+  dates: win(dates, p.range),
+  added: win(series(&#x27;credentialsAdded&#x27;, p.platform), p.range)
+}),</code></pre></figure>
+  <code>series(field, platform)</code> gives the daily values for a field, and <code>win(list, range)</code> keeps the last <code>range</code> days. <code>credentialsAdded</code> is already in the <code>FIELDS</code> list at the top of the file; a brand-new field would need adding there too.</li>
+  <li><b>Add the item.</b> In <code>js/items/services.mjs</code>, add an object to the list. Pick the next unused id (check the <a href="items.html">item catalog</a>).
+  <figure class="doc-code"><pre><code>{
+  id: &#x27;ITM-36&#x27;, tab: &#x27;services&#x27;, span: &#x27;s6&#x27;, view: &#x27;vw_CredentialsAddedDaily&#x27;,
+  title: &#x27;Credentials added per day&#x27;, sub: &#x27;Credentials added to wallets each day&#x27;,
+  build: {
+    sources: [&#x27;Credentials&#x27;],
+    fields: &#x27;Credentials.AddedAt&#x27;,
+    logic: &#x27;Credentials grouped by the day they were added.&#x27;,
+    sql: `SELECT CAST(AddedAt AS date) AS Day, COUNT(*) AS Added
+FROM dbo.Credentials
+WHERE AddedAt &gt;= @From AND AddedAt &lt; @To
+GROUP BY CAST(AddedAt AS date);`
+  },
+  render(h, d) {
+    h.innerHTML = `&lt;div class=&quot;stats&quot;&gt;&lt;span&gt;Total &lt;b&gt;${fmt(sum(d.added))}&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;`;
+    lineChart(h.lastElementChild, {
+      dates: d.dates, title: &#x27;Credentials added per day&#x27;,
+      series: [{ name: &#x27;Added&#x27;, values: d.added, color: &#x27;var(--accent)&#x27; }]
+    });
+  }
+},</code></pre></figure>
+  <code>lineChart</code>, <code>fmt</code> and <code>sum</code> are already imported at the top of that file. If you use a helper that isn't, add it to the <code>import</code> line.</li>
+  <li><b>Refresh and check.</b> The card appears on Services. Check that it changes with the period and phone-type filters, that <b>How it's built</b> opens, and that it looks right at phone width and in dark theme.</li>
+  <li><b>Write it down.</b> Add a row for the view to <code>VIEWS</code> in <code>docs/items.mjs</code> (so the catalog shows its shape and file) and to the data contract table in <code>README.md</code>.</li>
+</ol>
+<div class="doc-note"><b>If the card shows "Couldn't load vw_…"</b><p>The view name in the item does not match a key in <code>views</code>, or the view threw an error. Open the browser console (F12) for the message.</p></div>
+<h3 id="item-more">Common extras</h3>
+<ul>
+  <li><b>Events on the chart:</b> add <code>also: { events: 'vw_Events' }</code> to the item, make the signature <code>render(h, d, s, ctx, more)</code>, and pass <code>events: more.events.filter(e =&gt; e.inPeriod === 'current')</code> to <code>lineChart</code>.</li>
+  <li><b>A target:</b> add a row to <code>targets.json</code>, add <code>also: { targets: 'vw_Targets' }</code>, and use <code>findTarget</code> and <code>evaluate</code> from <code>js/ui/status.mjs</code>. To put it on the scorecard, also add the measure to <code>vw_Scorecard</code>.</li>
+  <li><b>A control in the card:</b> add a key to <code>js/state.mjs</code>, then <code>control</code>, <code>deps</code> and <code>params</code> on the item. See <a href="components.html#controls">controls</a>.</li>
+  <li><b>On a slide:</b> add <code>['ITM-36', 's6']</code> to a slide in <code>STORY</code> in <code>js/items/index.mjs</code>, then check the slide still fits without scrolling.</li>
+  <li><b>New mock numbers:</b> put them in a JSON file in <code>data/mock/</code>, load it in the <code>Promise.all</code> at the top of <code>createMockSource</code>, and read it in your view.</li>
+</ul>
+
+<h2 id="tab">Add a tab</h2>
+<ol class="doc-steps">
+  <li><b>Create the file</b> <code>js/items/payments.mjs</code> that exports a list of items, each with <code>tab: 'payments'</code>:
+  <figure class="doc-code"><pre><code>/** Payments tab. */
+import { hbars } from &#x27;../ui/charts.mjs&#x27;;
+
+export default [
+  { id: &#x27;ITM-37&#x27;, tab: &#x27;payments&#x27;, span: &#x27;s12&#x27;, view: &#x27;vw_PaymentsByService&#x27;, /* title, sub, build, render */ }
+];</code></pre></figure></li>
+  <li><b>Register it</b> in <code>js/items/index.mjs</code>: import the file, add a tab, and add the items to <code>ITEMS</code>.
+  <figure class="doc-code"><pre><code>import payments from &#x27;./payments.mjs&#x27;;
+
+export const TABS = [
+  ...
+  { id: &#x27;payments&#x27;, label: &#x27;Payments&#x27;, title: &#x27;Payments&#x27;, desc: &#x27;Money collected through the app.&#x27; },
+  ...
+];
+
+export const ITEMS = [...overview, ...journeys, ...services, ...payments, ...location, ...health];</code></pre></figure></li>
+  <li><b>That's all.</b> <code>main.mjs</code> builds the tab link, the panel and the cards from these two lists. The tab's address is <code>#payments</code>. Use a short lower-case id with no spaces.</li>
+</ol>
+<p>For text under a tab's cards (like the privacy note on Location), add an entry to <code>TAB_FOOTERS</code> in the same file.</p>
+
+<h2 id="api">Connect the real API</h2>
+<p>The dashboard never talks to a database. It asks an API for each view by name, and the API returns JSON in the agreed shape.</p>
+<ol class="doc-steps">
+  <li><b>Build the views in Fabric.</b> One SQL view (or function) per item. The <b>How it's built</b> panel on each card has a starting query and the view's name.</li>
+  <li><b>Put an API in front of them.</b> Either Fabric's API for GraphQL behind a gateway, or a small backend such as an Azure Function. It must return aggregates only, and it is where sign-in is enforced. The browser must never hold database credentials.</li>
+  <li><b>Match the request.</b> For each item the dashboard sends:
+  <figure class="doc-code"><pre><code>GET {baseUrl}/vw_ActiveUsers?from=2026-10-16&amp;to=2026-11-15&amp;range=30&amp;platform=ios</code></pre></figure>
+  <code>from</code> is the first day; <code>to</code> is the day <em>after</em> the last day; <code>platform</code> is left out for "All". Items add their own parameters, for example <code>txType</code>, <code>lga</code> or <code>threshold</code>.</li>
+  <li><b>Match the response.</b> Return exactly the shape in the <a href="items.html">item catalog</a> (the README has the full table). The fastest check: open the mock dashboard, and in the console compare against what the mock returns.</li>
+  <li><b>Switch the source.</b> In <code>js/config.mjs</code>:
+  <figure class="doc-code"><pre><code>export const CONFIG = {
+  dataSource: &#x27;api&#x27;,                    // was: params.get(&#x27;source&#x27;) || &#x27;mock&#x27;
+  api: {
+    baseUrl: &#x27;/api/analytics&#x27;,
+    headers: {}                         // e.g. { Authorization: &#x27;Bearer …&#x27; } if your gateway needs it
+  },
+  ...
+};</code></pre></figure>
+  While testing you can leave the default and add <code>?source=api</code> to the address instead.</li>
+  <li><b>Move one view at a time.</b> A view the API doesn't have yet shows a short error in its card; the rest of the dashboard keeps working. Location needs the most care: match coordinates to councils inside Fabric and return council-level counts only, leaving out councils under the threshold.</li>
+</ol>
+<div class="doc-note"><b>Using GraphQL instead of one address per view?</b><p>Keep the interface and change only <code>query()</code> in <code>js/data/api-source.mjs</code> to send a GraphQL query per view and reshape the answer. Nothing else needs to know.</p></div>
+
+<h2 id="boundaries">Swap in the full ABS boundary file</h2>
+<p>The map's boundary file is heavily simplified to keep it small, so small inner-Adelaide councils look angular. For production, build a better one from the ABS download. The commands below were written from the ABS field names and have not been run here, so check the names against your download.</p>
+<ol class="doc-steps">
+  <li><b>Download</b> "Local Government Areas – 2023 – Shapefile" from the ABS digital boundary files page (ASGS Edition 3) and unzip it.</li>
+  <li><b>Install mapshaper</b>, a free tool for map files: <code>npm install -g mapshaper</code>.</li>
+  <li><b>Filter, simplify and convert:</b>
+  <figure class="doc-code"><pre><code>mapshaper LGA_2023_AUST_GDA2020.shp \
+  -filter &#x27;STE_NAME21 === &quot;South Australia&quot; &amp;&amp; !/No usual address|Migratory/.test(LGA_NAME23)&#x27; \
+  -simplify weighted 4% keep-shapes \
+  -clean \
+  -rename-fields absCode=LGA_CODE23,name=LGA_NAME23 \
+  -filter-fields absCode,name \
+  -rename-layers lga \
+  -o format=topojson quantization=1e5 data/reference/sa-lga-2023.topo.json</code></pre></figure>
+  Raise the percentage until inner Adelaide looks right; 4 to 8% is usually under 400 KB.</li>
+  <li><b>Add the dashboard's council codes.</b> Each feature needs a <code>code</code> property matching <code>data/reference/lga.json</code> (for example <code>ADE</code>). Match on <code>absCode</code>, which is in both files, with a few lines of Node or mapshaper's <code>-join</code>.</li>
+  <li><b>Refresh.</b> No code changes are needed. Label positions, the enlarged Adelaide panel and keyboard order are all worked out from the shapes. The layer must be named <code>lga</code>.</li>
+  <li><b>Keep the attribution.</b> The line under the map credits the ABS under CC BY 4.0. If you no longer simplify, change its wording in <code>js/ui/geomap.mjs</code>.</li>
+</ol>
+
+<h2 id="deploy">Put it somewhere others can see</h2>
+<p>It is a static site, so any static host works. Azure Static Web Apps fits the Azure and Fabric stack and supports Microsoft Entra ID sign-in; <code>staticwebapp.config.json</code> is already in the folder. Keep any copy with real data behind organisational sign-in.</p>
+
+      <nav class="doc-pager" aria-label="Previous and next page"><a href="mock-data.html">← Mock data guide</a><a href="accessibility.html">Accessibility and conventions →</a></nav>
+    </main>
+  </div>
+</body>
+</html>

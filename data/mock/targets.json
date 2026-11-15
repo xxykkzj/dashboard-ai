@@ -1,0 +1,11 @@
+{
+  "_about": "Targets and status thresholds for the headline measures. Edit and refresh. A measure is 'On track' at or above target, 'Action' below the action level, and 'Watch' in between. basis: 'value' compares the measure itself (rates and ratios, 0-1); 'perDay' compares the period total divided by days in the period; 'growth' compares the change against the previous period (0.01 = 1%). All values are invented examples, not agreed targets.",
+  "targets": [
+    { "key": "activeUsers", "label": "Active users", "basis": "growth", "target": 0.01, "action": -0.02 },
+    { "key": "newAccounts", "label": "New accounts", "basis": "perDay", "target": 1400, "action": 1200 },
+    { "key": "transactionSuccess", "label": "Transaction success rate", "basis": "value", "target": 0.935, "action": 0.925 },
+    { "key": "credentialChecks", "label": "Credential checks", "basis": "perDay", "target": 70000, "action": 60000 },
+    { "key": "onboardingConversion", "label": "New customers who complete a first transaction", "basis": "value", "target": 0.35, "action": 0.30 },
+    { "key": "regionalReach", "label": "Regional use compared with metropolitan use", "basis": "value", "target": 0.90, "action": 0.80 }
+  ]
+}

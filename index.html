@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>mySA GOV Insights</title>
+  <meta name="description" content="Leadership dashboard prototype for the mySA GOV data analytics platform">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M8 22V14M14 22V9M20 22V17M26 22V12' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="js/vendor/d3.v7.9.0.min.js" defer></script>
+  <script src="js/vendor/topojson-client.v3.1.0.min.js" defer></script>
+  <script type="module" src="js/main.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to dashboard</a>
+
+  <header class="mast">
+    <div class="motif" id="motif" aria-hidden="true"></div>
+    <div class="wrap mast-in">
+      <div class="brand">
+        <h1><b>mySA GOV</b> Insights</h1>
+        <p id="source-pill">Prototype with mock data</p>
+      </div>
+      <div class="mast-actions">
+        <a class="mbtn mbtn-docs" href="docs/index.html">Docs</a>
+        <button type="button" class="mbtn" id="theme-btn">Dark theme</button>
+        <button type="button" class="mbtn primary" id="present-btn">Present</button>
+      </div>
+      <nav class="tabs" id="tabs" aria-label="Dashboard sections"></nav>
+    </div>
+    <!-- Cover: the tab's title and the filters. The first row of content overlaps its lower edge. -->
+    <div class="wrap cover">
+      <div class="pagetitle">
+        <h2 id="tab-title">Overview</h2>
+        <p class="tabdesc" id="tabdesc"></p>
+      </div>
+      <div class="toolbar" id="filters">
+        <div class="fgroup">
+          <span class="flabel" id="range-label">Period</span>
+          <div class="seg" id="range" role="group" aria-labelledby="range-label">
+            <button type="button" data-v="7" aria-pressed="false">7 days</button>
+            <button type="button" data-v="30" aria-pressed="true">30 days</button>
+            <button type="button" data-v="90" aria-pressed="false">90 days</button>
+            <button type="button" data-v="180" aria-pressed="false">180 days</button>
+          </div>
+        </div>
+        <div class="fgroup">
+          <span class="flabel" id="platform-label">Phone type</span>
+          <div class="seg" id="platform" role="group" aria-labelledby="platform-label">
+            <button type="button" data-v="all" aria-pressed="true">All</button>
+            <button type="button" data-v="ios" aria-pressed="false">iPhone</button>
+            <button type="button" data-v="android" aria-pressed="false">Android</button>
+          </div>
+        </div>
+        <p class="asat" id="asat">Loading data…</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap page">
+    <!-- Shown when the page is opened straight from disk (file://), where Chrome blocks modules -->
+    <div class="banner" id="banner" role="alert" hidden></div>
+
+    <main id="main" tabindex="-1"></main>
+
+    <footer class="foot">
+      <p>Every figure is mock data read from <code>data/mock</code>. Open <b>How it's built</b> under any item to see its source tables, logic and the SQL view it reads in Fabric. The <a href="docs/index.html">documentation</a> explains how the dashboard is built and how to change it.</p>
+    </footer>
+  </div>
+
+  <!-- Presentation mode (js/present.mjs) -->
+  <div class="deck" id="deck" role="dialog" aria-modal="true" aria-labelledby="deck-title" tabindex="-1" hidden>
+    <header class="deck-head">
+      <p class="deck-brand"><b>mySA GOV</b> Insights</p>
+      <p class="deck-period" id="deck-period"></p>
+      <div class="deck-tools">
+        <button type="button" class="mbtn" id="deck-full">Full screen</button>
+        <button type="button" class="mbtn" id="deck-exit">Close <kbd>Esc</kbd></button>
+      </div>
+    </header>
+    <div class="deck-intro" id="deck-intro">
+      <div class="motif" id="deck-motif" aria-hidden="true"></div>
+      <p class="deck-count" id="deck-count"></p>
+      <h2 id="deck-title"></h2>
+    </div>
+    <div class="deck-body">
+      <div class="deck-stage" id="deck-stage"></div>
+    </div>
+    <footer class="deck-nav">
+      <button type="button" class="dbtn" id="deck-prev"><span aria-hidden="true">←</span> Previous</button>
+      <ol class="deck-dots" id="deck-dots"></ol>
+      <button type="button" class="dbtn" id="deck-next">Next <span aria-hidden="true">→</span></button>
+    </footer>
+  </div>
+
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+
+  <noscript><p style="padding:16px">This dashboard needs JavaScript.</p></noscript>
+  <script>
+    if (location.protocol === 'file:') {
+      document.addEventListener('DOMContentLoaded', function () {
+        var b = document.getElementById('banner');
+        b.innerHTML = '<p><b>Start a local server to view this dashboard.</b> Chrome blocks JavaScript modules and JSON files when a page is opened straight from disk.</p>' +
+          '<p>In this folder, run <code>npx serve .</code> or <code>python3 -m http.server 8080</code>, then open the address it prints (for example http://localhost:8080).</p>';
+        b.hidden = false;
+        document.getElementById('asat').textContent = 'Not loaded';
+      });
+    }
+  </script>
+</body>
+</html>

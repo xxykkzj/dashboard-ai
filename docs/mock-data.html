@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mock data guide – mySA GOV Insights docs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M9 9h14M9 15h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="docs.css">
+  <script type="module" src="docs.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#doc-main">Skip to content</a>
+  <header class="doc-top">
+    <div class="doc-top-in">
+      <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
+      <div class="doc-top-actions">
+        <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
+        <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <details class="doc-nav" open>
+      <summary>Contents</summary>
+      <nav aria-label="Documentation pages">
+      <ol>
+        <li><a href="index.html">Getting started</a></li>
+        <li><a href="how-it-works.html">How the app works</a></li>
+        <li><a href="items.html">Item catalog</a></li>
+        <li><a href="components.html">Component catalog</a></li>
+        <li><a href="tokens.html">Design tokens</a></li>
+        <li><a href="mock-data.html" aria-current="page">Mock data guide</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="accessibility.html">Accessibility and conventions</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+      </ol>
+      </nav>
+    </details>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      <h1>Mock data guide</h1>
+      <p class="doc-lede">Every JSON file and field, with worked examples.</p>
+
+<p>All figures on the dashboard come from JSON files in <code>data/mock/</code>. Edit a file, save, refresh the browser, and the dashboard changes. Nothing is cached. Every file starts with an <code>_about</code> field that explains it.</p>
+<div class="doc-note"><b>JSON is strict</b><p>Use double quotes, no comma after the last item, and no comments. If a file is not valid, the dashboard shows a banner naming the file. VS Code underlines the mistake in red.</p></div>
+
+<h2 id="files">The files at a glance</h2>
+<div class="tscroll"><table><thead><tr><th>File</th><th>What it drives</th></tr></thead><tbody>
+<tr><td><code>daily-metrics.json</code></td><td>One row per day per platform. Almost every count and trend.</td></tr>
+<tr><td><code>reference.json</code></td><td>Funnel rates, service and credential types, failure reasons, backend incidents, app versions, notification rates.</td></tr>
+<tr><td><code>targets.json</code></td><td>Target and action level for each headline measure, so every status.</td></tr>
+<tr><td><code>events.json</code></td><td>Campaigns and incidents shaded on charts.</td></tr>
+<tr><td><code>value.json</code></td><td>Assumptions behind the value estimate.</td></tr>
+<tr><td><code>retention.json</code></td><td>Weekly sign-up cohorts for the retention grid.</td></tr>
+<tr><td><code>services-detail.json</code></td><td>Registrations due to expire, time to complete, payment amounts.</td></tr>
+<tr><td><code>operations.json</code></td><td>New version uptake, notification settings, backend response times.</td></tr>
+<tr><td><code>lga-activity.json</code></td><td>How likely residents of each council are to use the app. Drives the map.</td></tr>
+<tr><td><code>usage-by-hour.json</code></td><td>The shape of a typical week for the day-by-hour grid.</td></tr>
+<tr><td><code>../reference/lga.json</code></td><td>Council names, populations, ABS codes and tile positions.</td></tr>
+<tr><td><code>../reference/sa-lga-2023.topo.json</code></td><td>Council boundaries for the map. Not hand-edited; see <a href="recipes.html#boundaries">the recipe</a>.</td></tr>
+</tbody></table></div>
+
+<h2 id="daily">daily-metrics.json</h2>
+<p>360 days, two rows per day (<code>ios</code> and <code>android</code>). The period filter takes the last 7, 30, 90 or 180 days, and the same number of days before that for comparison.</p>
+<figure class="doc-code"><figcaption>one row (values illustrative)</figcaption><pre><code>{&quot;date&quot;:&quot;2026-11-14&quot;,&quot;platform&quot;:&quot;ios&quot;,&quot;activeUsers&quot;:103225,&quot;newAccounts&quot;:712,
+ &quot;credentialsAdded&quot;:1198,&quot;credentialChecks&quot;:56840,&quot;credentialChecksFailed&quot;:1081,
+ &quot;transactionsFinished&quot;:4980,&quot;transactionsCompleted&quot;:4691,&quot;notificationsSent&quot;:5890}</code></pre></figure>
+<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>date, platform</code></td><td>The day and <code>ios</code> or <code>android</code>.</td></tr><tr><td><code>activeUsers</code></td><td>People who used the app that day.</td></tr><tr><td><code>newAccounts</code></td><td>Accounts created.</td></tr><tr><td><code>credentialsAdded</code></td><td>Credentials added to wallets.</td></tr><tr><td><code>credentialChecks, credentialChecksFailed</code></td><td>Verifications, and how many did not pass.</td></tr><tr><td><code>transactionsFinished, transactionsCompleted</code></td><td>Finished = completed + failed. Success rate = completed ÷ finished.</td></tr><tr><td><code>notificationsSent</code></td><td>Push notifications sent.</td></tr></tbody></table></div>
+<p>This file is generated. For a new scenario, change <code>PARAMS</code> at the top of <code>tools/generate-mock.mjs</code> and run <code>node tools/generate-mock.mjs</code>. For a one-off tweak, edit rows by hand.</p>
+
+<h2 id="reference">reference.json</h2>
+<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>uniqueUsersFactor</code></td><td>Turns average daily users into unique users for a period. Only needed because the mock stores days.</td></tr><tr><td><code>onboardingFunnel</code></td><td>Steps with a <code>rate</code>: the share that continues from the step before. Optional <code>rateIos</code> / <code>rateAndroid</code>.</td></tr><tr><td><code>transactionTypes</code></td><td>Each service: <code>key</code>, <code>label</code>, <code>share</code> of all transactions, <code>successAdjust</code>, and its funnel <code>steps</code>.</td></tr><tr><td><code>reminderFunnel, fuelExemption</code></td><td>Rates and categories for those two journeys.</td></tr><tr><td><code>credentialTypes, checkMethods, failureReasons</code></td><td>Lists with shares. Shares in a list should add to 1.</td></tr><tr><td><code>providers</code></td><td>Backends, each with <code>incidents</code>: a date mapped to <code>"degraded"</code> or <code>"down"</code>.</td></tr><tr><td><code>downtimeMinutes</code></td><td>Minutes lost per incident day, used for uptime.</td></tr><tr><td><code>appVersions, notificationTypes</code></td><td>Shares and rates for those tables.</td></tr></tbody></table></div>
+
+<h2 id="targets">targets.json</h2>
+<figure class="doc-code"><pre><code>{ &quot;key&quot;: &quot;transactionSuccess&quot;, &quot;label&quot;: &quot;Transaction success rate&quot;,
+  &quot;basis&quot;: &quot;value&quot;, &quot;target&quot;: 0.935, &quot;action&quot;: 0.925 }</code></pre></figure>
+<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>key</code></td><td>Which measure. Must match a key in <code>vw_Scorecard</code>.</td></tr><tr><td><code>label</code></td><td>Name shown on the scorecard.</td></tr><tr><td><code>basis</code></td><td><code>value</code>: compare the rate itself (0 to 1). <code>perDay</code>: compare the period total ÷ days. <code>growth</code>: compare change on the previous period (0.01 = 1%).</td></tr><tr><td><code>target</code></td><td>At or above this is <b>On track</b>.</td></tr><tr><td><code>action</code></td><td>Below this is <b>Action</b>. In between is <b>Watch</b>.</td></tr></tbody></table></div>
+
+<h2 id="events">events.json</h2>
+<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>id</code></td><td>Any unique text.</td></tr><tr><td><code>kind</code></td><td><code>campaign</code> (blue band) or <code>incident</code> (red band).</td></tr><tr><td><code>from, to</code></td><td>First and last day, inclusive, as <code>YYYY-MM-DD</code>.</td></tr><tr><td><code>label</code></td><td>Short name written on the chart.</td></tr><tr><td><code>note</code></td><td>One sentence shown under the chart and on the scorecard.</td></tr></tbody></table></div>
+
+<h2 id="value">value.json</h2>
+<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>costPerTransaction</code></td><td>Cost to government of one transaction at a <code>counter</code>, by <code>phone</code>, on the <code>website</code> and in the <code>app</code>.</td></tr><tr><td><code>minutesSavedPerCounterVisit</code></td><td>Used for the hours-saved figure.</td></tr><tr><td><code>services[].otherwise</code></td><td>Where an app transaction would have happened without the app. Shares add to 1.</td></tr><tr><td><code>services[].otherChannelsPer30Days</code></td><td>How many of that service still happen outside the app in 30 days.</td></tr></tbody></table></div>
+
+<h2 id="others">The other files</h2>
+<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>retention.json → cohorts[]</code></td><td><code>week</code> (Monday date), <code>size</code>, and <code>retained</code>: shares for week 0, 1, 2… Week 0 is always 1.</td></tr><tr><td><code>services-detail.json → renewalPipeline[]</code></td><td><code>weekOffset</code> (0 = next week), <code>due</code>, <code>renewedShare</code>.</td></tr><tr><td><code>services-detail.json → durations[]</code></td><td>Per service <code>key</code>: <code>medianSeconds</code> and <code>shares</code>, one per entry in <code>durationBands</code>.</td></tr><tr><td><code>services-detail.json → payments[]</code></td><td>Per service <code>key</code>: <code>averageAmount</code> in dollars. 0 means no fee.</td></tr><tr><td><code>operations.json → appAdoption</code></td><td><code>version</code>, <code>released</code>, and daily shares for <code>ios</code> and <code>android</code>.</td></tr><tr><td><code>operations.json → notificationSettings[]</code></td><td><code>label</code> and the share switched on for each platform.</td></tr><tr><td><code>operations.json → providerPerformance[]</code></td><td><code>name</code> (must match a provider in <code>reference.json</code>), <code>medianMs</code>, <code>p95Ms</code>, <code>errorRate</code>.</td></tr><tr><td><code>lga-activity.json → lgas[]</code></td><td><code>code</code>, <code>adoptionWeight</code> (higher means more users per resident) and <code>iosShare</code>.</td></tr><tr><td><code>usage-by-hour.json</code></td><td><code>days</code> and a 7 × 24 <code>matrix</code>. Only the shape matters; the dashboard scales it.</td></tr></tbody></table></div>
+
+<h2 id="examples">Worked examples</h2>
+<h3 id="ex-outage">Mark an outage</h3>
+<ol class="doc-steps">
+  <li>In <code>reference.json</code>, find the provider and add the date to its <code>incidents</code>:
+  <figure class="doc-code"><pre><code>{ &quot;name&quot;: &quot;Payment gateway&quot;, &quot;description&quot;: &quot;Card payments&quot;,
+  &quot;incidents&quot;: { &quot;2026-10-22&quot;: &quot;degraded&quot;, &quot;2026-11-10&quot;: &quot;degraded&quot;, &quot;2026-11-12&quot;: &quot;down&quot; } }</code></pre></figure>
+  Refresh. <b>Service health → Backend availability</b> shows a full red bar on 12 Nov and uptime falls. <b>Backend response times</b> slows that day too.</li>
+  <li>To label it on the trend charts, add it to <code>events.json</code>:
+  <figure class="doc-code"><pre><code>{ &quot;id&quot;: &quot;outage-2026-11&quot;, &quot;kind&quot;: &quot;incident&quot;, &quot;from&quot;: &quot;2026-11-12&quot;, &quot;to&quot;: &quot;2026-11-12&quot;,
+  &quot;label&quot;: &quot;Payment gateway outage&quot;, &quot;note&quot;: &quot;Card payments failed for about three hours.&quot; }</code></pre></figure></li>
+  <li>The success rate itself comes from <code>daily-metrics.json</code>. To make it dip, lower <code>transactionsCompleted</code> in the two rows for that date, or add the date to <code>PARAMS.incidents</code> in the generator and run it again.</li>
+</ol>
+<h3 id="ex-target">Change a target</h3>
+<p>In <code>targets.json</code>, set the new-accounts target to 1,500 a day:</p>
+<figure class="doc-code"><pre><code>{ &quot;key&quot;: &quot;newAccounts&quot;, &quot;label&quot;: &quot;New accounts&quot;, &quot;basis&quot;: &quot;perDay&quot;, &quot;target&quot;: 1500, &quot;action&quot;: 1200 }</code></pre></figure>
+<p>Refresh. On <b>Overview</b>, the scorecard, the New accounts figure and the dashed line on <b>New accounts per week</b> (now 10,500, seven days' worth) all move, and the status changes from On track to Watch.</p>
+<h3 id="ex-event">Add an event</h3>
+<p>Add an entry to the <code>events</code> list in <code>events.json</code>. It appears on any time chart whose period includes it; switch the period to 90 days to see older ones.</p>
+<figure class="doc-code"><pre><code>{ &quot;id&quot;: &quot;campaign-2026-11&quot;, &quot;kind&quot;: &quot;campaign&quot;, &quot;from&quot;: &quot;2026-11-02&quot;, &quot;to&quot;: &quot;2026-11-08&quot;,
+  &quot;label&quot;: &quot;Seniors Card promotion&quot;, &quot;note&quot;: &quot;Letterbox drop to Seniors Card holders.&quot; }</code></pre></figure>
+<h3 id="ex-funnel">Make a funnel step worse</h3>
+<p>In <code>reference.json</code> under <code>onboardingFunnel</code>, lower a step's <code>rate</code>, for example "First credential added" from 0.79 to 0.6. The onboarding funnel narrows there, and the onboarding measure on the scorecard falls with it.</p>
+<h3 id="ex-council">Raise use in one council</h3>
+<p>In <code>lga-activity.json</code>, raise <code>adoptionWeight</code> for a council, say Ceduna (<code>CED</code>) from 0.36 to 0.7. Its colour on the map deepens and its rank in the council profile rises. Other councils fall slightly, because the same users are being shared out.</p>
+
+      <nav class="doc-pager" aria-label="Previous and next page"><a href="tokens.html">← Design tokens</a><a href="recipes.html">Recipes →</a></nav>
+    </main>
+  </div>
+</body>
+</html>
