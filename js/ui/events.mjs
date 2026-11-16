@@ -7,7 +7,7 @@
  * outage that broke transactions is not drawn on unrelated charts.
  * An event with no `affects` list is treated as affecting everything.
  *
- * Measures in use: active-users, new-accounts, transactions, credential-checks.
+ * Measures in use: active-users, new-accounts, transactions, credential-checks, cost.
  */
 export function eventsFor(events, measures) {
   return (events || []).filter(e => e.inPeriod === 'current'

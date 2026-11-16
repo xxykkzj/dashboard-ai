@@ -1,0 +1,14 @@
+{
+  "_about": "Settings for the Cost tab, entered by hand. monthlyBudget is the Azure budget for the platform in AUD per calendar month; budgetByMonth overrides it for single months (for example {\"2026-12\": 17500}). forecast.runRateDays is how many recent days the month-end forecast averages. dailyThresholds flag a day when total platform cost, or one service's cost, goes above the amount given (AUD a day). All values are invented examples, not agreed budgets.",
+  "currency": "AUD",
+  "monthlyBudget": 16000,
+  "budgetByMonth": {},
+  "forecast": { "runRateDays": 14 },
+  "dailyThresholds": {
+    "total": 650,
+    "services": [
+      { "service": "Azure Databricks", "threshold": 120 },
+      { "service": "Log Analytics", "threshold": 80 }
+    ]
+  }
+}

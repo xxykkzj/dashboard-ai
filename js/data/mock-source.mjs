@@ -15,6 +15,8 @@
  *   data/mock/retention.json       weekly sign-up cohorts and how many came back
  *   data/mock/services-detail.json renewal pipeline, time to complete, payment amounts
  *   data/mock/operations.json      app version adoption, notification settings, backend response times
+ *   data/mock/azure-cost.json     Azure cost: one row per day per service meter (Cost Management export shape)
+ *   data/mock/cost-settings.json  monthly budget, forecast run-rate days and daily cost thresholds
  *   data/reference/lga.json        council names, populations and map tile positions
  */
 import { fetchJson } from './fetch-json.mjs';
@@ -30,7 +32,7 @@ const ratio = (a, b) => (b ? a / b : 0);
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
 export async function createMockSource({ mockBasePath, referenceBasePath }) {
-  const [daily, ref, hourly, lgaActivity, lgaRef, targetsFile, eventsFile, value, retention, svc, ops] = await Promise.all([
+  const [daily, ref, hourly, lgaActivity, lgaRef, targetsFile, eventsFile, value, retention, svc, ops, costFile, costCfg] = await Promise.all([
     fetchJson(mockBasePath + 'daily-metrics.json'),
     fetchJson(mockBasePath + 'reference.json'),
     fetchJson(mockBasePath + 'usage-by-hour.json'),
@@ -41,7 +43,9 @@ export async function createMockSource({ mockBasePath, referenceBasePath }) {
     fetchJson(mockBasePath + 'value.json'),
     fetchJson(mockBasePath + 'retention.json'),
     fetchJson(mockBasePath + 'services-detail.json'),
-    fetchJson(mockBasePath + 'operations.json')
+    fetchJson(mockBasePath + 'operations.json'),
+    fetchJson(mockBasePath + 'azure-cost.json'),
+    fetchJson(mockBasePath + 'cost-settings.json')
   ]);
 
   /* ---- index the daily rows: field -> platform -> value per date ---- */
@@ -130,6 +134,30 @@ export async function createMockSource({ mockBasePath, referenceBasePath }) {
 
   const lgaRows = p => views.vw_UsageByLga(p).map(r => ({ ...r, ...lgaRef.lgas.find(l => l.code === r.code) }));
   const rateOf = list => ratio(sum(list.map(r => r.users)), sum(list.map(r => r.population))) * 1000;
+
+  /* ---- Azure cost: AUD per day, in total and per service, lined up with `dates` ---- */
+  const col = name => (costFile.columns || []).indexOf(name);
+  const cDate = col('UsageDate'), cService = col('ServiceName'), cCost = col('Cost');
+  const costTotal = new Array(dates.length).fill(0), costBy = {}, costByMonth = {};
+  (costFile.rows || []).forEach(r => {
+    const d = r[cDate], v = Number(r[cCost]) || 0, i = pos.get(d);
+    costByMonth[d.slice(0, 7)] = (costByMonth[d.slice(0, 7)] || 0) + v;
+    if (i == null) return;
+    costTotal[i] += v;
+    (costBy[r[cService]] ||= new Array(dates.length).fill(0))[i] += v;
+  });
+  // Cost is not split by phone type, so unit costs always use all platforms
+  const unitCost = field => p => {
+    const c = costTotal, m = series(field, 'all');
+    const wc = win(c, p.range), wm = win(m, p.range);
+    return {
+      current: ratio(sum(wc), sum(wm)),
+      previous: ratio(sum(win(c, p.range, 1)), sum(win(m, p.range, 1))),
+      daily: wc.map((v, i) => ratio(v, wm[i]))
+    };
+  };
+  const daysIn = month => { const [y, m] = month.split('-').map(Number); return new Date(Date.UTC(y, m, 0)).getUTCDate(); };
+  const budgetFor = month => Number((costCfg.budgetByMonth || {})[month] ?? costCfg.monthlyBudget) || 0;
 
   /* ---- views: one per reporting item, named like the SQL view in Fabric ---- */
   const views = {
@@ -361,6 +389,63 @@ export async function createMockSource({ mockBasePath, referenceBasePath }) {
           regionalReach: { value: ratio(regional, metro) }
         }
       };
+    },
+
+    // Total Azure cost of the platform in the period
+    vw_PlatformCost: p => ({ current: sum(win(costTotal, p.range)), previous: sum(win(costTotal, p.range, 1)), daily: win(costTotal, p.range) }),
+
+    // Unit costs: cost ÷ completed transactions, and cost ÷ daily active users
+    vw_CostPerTransaction: unitCost('transactionsCompleted'),
+    vw_CostPerActiveUser: unitCost('activeUsers'),
+
+    // Cost per completed transaction for each day, with the same days of the previous period
+    vw_CostPerTransactionDaily: p => {
+      const done = series('transactionsCompleted', 'all');
+      const wc = win(costTotal, p.range), wd = win(done, p.range), pc = win(costTotal, p.range, 1), pd = win(done, p.range, 1);
+      return {
+        dates: win(dates, p.range),
+        costPerTransaction: wc.map((v, i) => ratio(v, wd[i])),
+        cost: wc, completed: wd,
+        previous: pc.length === wc.length ? pc.map((v, i) => ratio(v, pd[i])) : []
+      };
+    },
+
+    // Calendar-month spend against budget, with a run-rate forecast for the month in progress
+    vw_CostBudget: () => {
+      const asAt = dates[dates.length - 1], month = asAt.slice(0, 7);
+      const months = Object.keys(costByMonth).filter(m => m <= month).sort().slice(-6).map(m => ({
+        month: m, cost: costByMonth[m], budget: budgetFor(m), complete: m < month
+      }));
+      const elapsed = Number(asAt.slice(8)), inMonth = daysIn(month), runDays = Number((costCfg.forecast || {}).runRateDays) || 14;
+      const toDate = sum(costTotal.filter((v, i) => dates[i].slice(0, 7) === month));
+      const runRate = avg(costTotal.slice(-runDays));
+      return {
+        currency: costCfg.currency || 'AUD', asAt, months,
+        current: { month, toDate, budget: budgetFor(month), daysElapsed: elapsed, daysInMonth: inMonth,
+          runRateDays: runDays, runRate, forecast: toDate + runRate * (inMonth - elapsed) }
+      };
+    },
+
+    // Spend per Azure service in the period and the one before
+    vw_CostByService: p => {
+      const all = sum(win(costTotal, p.range));
+      return Object.entries(costBy).map(([service, v]) => {
+        const cost = sum(win(v, p.range));
+        return { service, cost, previous: sum(win(v, p.range, 1)), share: ratio(cost, all) };
+      }).filter(r => r.cost > 0 || r.previous > 0).sort((a, b) => b.cost - a.cost);
+    },
+
+    // Daily total cost, and the days when the total or one service went over its threshold
+    vw_CostThresholdDays: p => {
+      const th = costCfg.dailyThresholds || {}, d = win(dates, p.range), tot = win(costTotal, p.range), flagged = [];
+      d.forEach((date, i) => {
+        if (th.total && tot[i] > th.total) flagged.push({ date, service: 'All services', cost: tot[i], threshold: th.total });
+        (th.services || []).forEach(s => {
+          const v = costBy[s.service] ? costBy[s.service][pos.get(date)] : 0;
+          if (v > s.threshold) flagged.push({ date, service: s.service, cost: v, threshold: s.threshold });
+        });
+      });
+      return { dates: d, total: tot, totalThreshold: th.total || null, flagged: flagged.reverse() };
     },
 
     // Weekly sign-up cohorts: share still using the app n weeks later

@@ -8,6 +8,7 @@ import overview from './overview.mjs';
 import journeys from './journeys.mjs';
 import services from './services.mjs';
 import health from './health.mjs';
+import cost from './cost.mjs';
 import location, { locationCallout } from './location.mjs';
 
 export const TABS = [
@@ -16,6 +17,7 @@ export const TABS = [
   { id: 'services', label: 'Services', title: 'Services', desc: 'Credentials, transactions, payments, renewals coming due and the fuel exemption scheme.' },
   { id: 'location', label: 'Location', title: 'Where and when the app is used', desc: 'Council-level only, with small areas hidden for privacy.' },
   { id: 'health', label: 'Service health', title: 'Service health', desc: 'Backend availability and response times, failures, app versions and notifications.' },
+  { id: 'cost', label: 'Cost', title: 'Platform cost', desc: 'Azure spend for the app and its analytics platform: unit costs, budget, services and days over threshold. Mock figures in AUD.' },
   { id: 'model', label: 'Data model', title: 'Data model', desc: 'The assumed tables and columns behind every item, and how data reaches this dashboard through Fabric.' }
 ];
 
@@ -33,7 +35,7 @@ export const STORY = [
   { title: 'Value estimate', items: [['ITM-26', 's12']] }
 ];
 
-export const ITEMS = [...overview, ...journeys, ...services, ...location, ...health];
+export const ITEMS = [...overview, ...journeys, ...services, ...location, ...health, ...cost];
 
 /** Extra HTML placed after a tab's cards */
 export const TAB_FOOTERS = {

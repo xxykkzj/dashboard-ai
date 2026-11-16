@@ -45,6 +45,9 @@ export function fmtMoney(n) {
   return '$' + nf.format(Math.round(n));
 }
 
+/** Dollars shown as cents, for unit costs: 0.058 → 5.8c, 0.0027 → 0.27c */
+export const fmtCents = n => (n * 100).toFixed(Math.abs(n) < 0.01 ? 2 : 1) + 'c';
+
 /** Percent without a trailing .0, for targets: 93.5%, 35% */
 export const pctTidy = x => (x * 100).toFixed(1).replace(/\.0$/, '') + '%';
 

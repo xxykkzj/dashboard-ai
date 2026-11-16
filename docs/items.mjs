@@ -8,6 +8,13 @@ import { ITEMS, TABS } from '../js/items/index.mjs';
 const PAIR = '{ current, previous, daily: number[] }';
 const FUNNEL = '[{ label, source, value }] in step order';
 export const VIEWS = {
+  vw_PlatformCost: ['azure-cost.json', PAIR],
+  vw_CostPerTransaction: ['azure-cost.json, daily-metrics.json', PAIR],
+  vw_CostPerActiveUser: ['azure-cost.json, daily-metrics.json', PAIR],
+  vw_CostPerTransactionDaily: ['azure-cost.json, daily-metrics.json', '{ dates, costPerTransaction: number[], cost: number[], completed: number[], previous: number[] }'],
+  vw_CostBudget: ['azure-cost.json, cost-settings.json', '{ currency, asAt, months: [{ month, cost, budget, complete }], current: { month, toDate, budget, daysElapsed, daysInMonth, runRateDays, runRate, forecast } }'],
+  vw_CostByService: ['azure-cost.json', '[{ service, cost, previous, share }]'],
+  vw_CostThresholdDays: ['azure-cost.json, cost-settings.json', '{ dates, total: number[], totalThreshold, flagged: [{ date, service, cost, threshold }] }'],
   vw_Scorecard: ['daily-metrics.json, reference.json, lga-activity.json', '{ days, measures: { activeUsers, newAccounts, credentialChecks: { current, previous }, transactionSuccess, onboardingConversion, regionalReach: { value } } }'],
   vw_Targets: ['targets.json', "[{ key, label, basis: 'value' | 'perDay' | 'growth', target, action }]"],
   vw_Events: ['events.json', "[{ id, kind: 'campaign' | 'incident', from, to, label, note, inPeriod }]"],
