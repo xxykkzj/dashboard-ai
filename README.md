@@ -6,6 +6,13 @@ An interactive leadership dashboard for the mySA GOV data analytics platform, bu
 
 New to the code? Start with the documentation site in `docs/`. With the local server running, open `http://localhost:<port>/docs/` or use the **Docs** link at the top of the dashboard. It has nine pages: getting started, how the app works, an item catalog built from the live registry, a component catalog with live examples, design tokens, a mock data guide, recipes, accessibility and conventions, and a glossary. When you add a view, add it to `VIEWS` in `docs/items.mjs` so the catalog shows its shape.
 
+
+## Marking items as wanted (for demos)
+
+Each card's id at the bottom right (for example ITM-05) is a star button. Select it to mark that item as **wanted**; select it again to unmark. The **Wanted** button in the masthead shows the count and opens a list where you can jump to an item, remove it, copy the list as text, show only wanted cards on the dashboard, or clear all (select Clear all twice).
+
+Marks are saved in the browser's localStorage (`mysagov-insights:wanted`), so they survive a refresh but stay on that browser and computer. Code: `js/wanted.mjs`.
+
 ## What leadership sees
 
 - **Overview** opens with *Performance against targets*: a count of measures On track, Watch and Action, and each measure drawn against its target and action level. Below it are the headline figures, daily trends, retention by sign-up week and the value estimate.

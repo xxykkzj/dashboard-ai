@@ -6,6 +6,7 @@
  * The same shell is used in presentation mode ({ deck: true }), where the
  * build panel is left out and the card takes the span the slide asks for.
  */
+import { wantButton } from '../wanted.mjs';
 import { escapeHtml } from './format.mjs';
 
 export function cardHTML(item, state, ctx, { deck = false, span } = {}) {
@@ -19,7 +20,7 @@ export function cardHTML(item, state, ctx, { deck = false, span } = {}) {
     <div class="body" aria-busy="true"><div class="skeleton"></div></div>
     ${deck ? '' : `<footer class="cfoot">
       <button class="how" type="button" aria-expanded="false" aria-controls="${id}-b"><span class="chev" aria-hidden="true"></span>How it's built</button>
-      <span class="iid">${item.id}</span>
+      ${wantButton(item.id)}
     </footer>
     <div class="build" id="${id}-b" hidden>
       <dl>

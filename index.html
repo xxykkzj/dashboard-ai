@@ -19,6 +19,18 @@
 <body>
   <a class="skip" href="#main">Skip to dashboard</a>
 
+  <dialog class="wd" id="wanted-dlg" aria-labelledby="wd-t">
+    <div class="wd-head"><h2 id="wd-t">Wanted items</h2><button type="button" class="wd-close" data-wd="close" aria-label="Close">×</button></div>
+    <p class="wd-sub">Items marked during this demo. Marks are saved in this browser only.</p>
+    <ul class="wd-list"></ul>
+    <label class="wd-only"><input type="checkbox" id="wd-only"> Show only wanted cards on the dashboard</label>
+    <div class="wd-actions">
+      <button type="button" class="wd-b primary" data-wd="copy">Copy list</button>
+      <button type="button" class="wd-b" data-wd="clear">Clear all</button>
+      <span class="wd-msg" aria-live="polite"></span>
+    </div>
+  </dialog>
+
   <header class="mast">
     <div class="motif" id="motif" aria-hidden="true"></div>
     <div class="wrap mast-in">
@@ -27,6 +39,7 @@
         <p id="source-pill">Prototype with mock data</p>
       </div>
       <div class="mast-actions">
+        <button type="button" class="mbtn mbtn-want" id="wanted-btn" aria-haspopup="dialog"><svg class="want-i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.2l2.1 4.3 4.7.7-3.4 3.3.8 4.7L8 12l-4.2 2.2.8-4.7L1.2 6.2l4.7-.7z"/></svg>Wanted <span class="wb-n">0</span></button>
         <a class="mbtn mbtn-docs" href="docs/index.html">Docs</a>
         <button type="button" class="mbtn" id="theme-btn">Dark theme</button>
         <button type="button" class="mbtn primary" id="present-btn">Present</button>

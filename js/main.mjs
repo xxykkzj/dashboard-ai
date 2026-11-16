@@ -13,6 +13,7 @@ import { renderModel } from './items/model.mjs';
 import { cardHTML } from './ui/card.mjs';
 import { dRange, addDays, escapeHtml } from './ui/format.mjs';
 import { initPresent } from './present.mjs';
+import { initWanted } from './wanted.mjs';
 import { motifSVG } from './ui/motif.mjs';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -228,6 +229,7 @@ async function boot() {
   ['motif', 'deck-motif'].forEach(id => { $('#' + id).innerHTML = motif; });
   buildShell();
   bindControls();
+  initWanted({ announce });
   showTab();
 
   initPresent({

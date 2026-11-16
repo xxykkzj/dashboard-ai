@@ -606,3 +606,48 @@ button.tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; 
 .fnl-drop { cursor: default; }
 .fnl-drop:hover { background: none; color: var(--muted); }
 .fnl-drop.hot:hover { color: var(--bad); }
+
+/* ---------- "Wanted" marks (js/wanted.mjs) ---------- */
+.want {
+  display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line); background: var(--surface);
+  border-radius: 99px; padding: 2px 9px 2px 7px; font-size: var(--fs-xs); color: var(--muted);
+  font-variant-numeric: tabular-nums; cursor: pointer; transition: border-color .15s, background-color .15s, color .15s;
+}
+.want:hover { border-color: var(--accent2); color: var(--ink); }
+.want-i { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; flex: none; }
+.want.on { background: color-mix(in srgb, var(--accent2) 14%, var(--surface)); border-color: var(--accent2); color: var(--ink); font-weight: 700; }
+.want.on .want-i { fill: var(--accent2); stroke: var(--accent2); }
+.want-word:empty { display: none; }
+.want-word { color: var(--accent2); }
+.card.is-wanted { box-shadow: inset 0 3px 0 var(--accent2); }
+@media (prefers-reduced-motion: no-preference) { .want.on .want-i { animation: wantPop .3s var(--ease); } }
+@keyframes wantPop { 40% { transform: scale(1.35); } }
+body.wanted-only main .card[data-item]:not(.is-wanted) { display: none; }
+
+.mbtn-want { display: inline-flex; align-items: center; gap: 6px; }
+.mbtn-want .want-i { width: 14px; height: 14px; }
+.mbtn-want.has .want-i { fill: var(--mast-hi); stroke: var(--mast-hi); }
+.wb-n { min-width: 18px; padding: 0 5px; border-radius: 99px; background: var(--mast-line); font-size: 11.5px; text-align: center; font-variant-numeric: tabular-nums; }
+.mbtn-want.has .wb-n { background: var(--mast-hi); color: var(--mast); }
+
+.wd { width: min(520px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); color: var(--ink); padding: 18px 20px; box-shadow: 0 18px 50px rgb(0 0 0 / .25); }
+.wd::backdrop { background: rgb(6 13 20 / .45); }
+.wd-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wd-head h2 { font-size: 20px; margin: 0; }
+.wd-close { border: 0; background: none; font-size: 24px; line-height: 1; color: var(--muted); padding: 2px 6px; border-radius: var(--r-sm); }
+.wd-close:hover { color: var(--ink); background: var(--bg); }
+.wd-sub { margin: 4px 0 12px; color: var(--muted); font-size: var(--fs-sm); }
+.wd-list { list-style: none; margin: 0; padding: 0; max-height: min(50vh, 420px); overflow-y: auto; border-top: 1px solid var(--line); }
+.wd-list li { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.wd-list a { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); }
+.wd-list b { display: block; font-size: 14px; }
+.wd-list small { color: var(--muted); font-size: 12px; }
+.wd-list .wd-empty { display: block; color: var(--muted); font-size: 14px; }
+.wd-x { border: 1px solid var(--line); background: none; border-radius: var(--r-sm); font-size: 12px; padding: 2px 8px; color: var(--muted); }
+.wd-x:hover { color: var(--ink); border-color: var(--ink); }
+.wd-only { display: flex; gap: 8px; align-items: center; margin: 14px 0 0; font-size: 14px; }
+.wd-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+.wd-b { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); padding: 6px 12px; font-weight: 600; font-size: 13px; }
+.wd-b.primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.wd-b:disabled { opacity: .5; cursor: default; }
+.wd-msg { font-size: 13px; color: var(--muted); }
