@@ -1,5 +1,5 @@
 {
-  "_about": "Known events shown as notes on charts and used in the summary sentences. kind is 'campaign' or 'incident'. Dates are inclusive. Keep these in step with the campaigns and incidents in tools/generate-mock.mjs and the provider incidents in reference.json.",
+  "_about": "Known events, entered by hand, shown as notes on charts and in the Performance against targets card when their dates fall in the selected period. kind is 'campaign' or 'incident'. Dates are inclusive. Keep these in step with the campaigns and incidents in tools/generate-mock.mjs and the provider incidents in reference.json.",
   "events": [
     { "id": "campaign-2026-09", "kind": "campaign", "from": "2026-09-14", "to": "2026-09-20",
       "label": "Licence-renewal campaign",
