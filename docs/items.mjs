@@ -51,23 +51,45 @@ const rowsEl = document.getElementById('items-body'), q = document.getElementByI
 
 tabSel.innerHTML = '<option value="">All tabs</option>' + TABS.filter(t => ITEMS.some(i => i.tab === t.id)).map(t => `<option value="${t.id}">${esc(t.label)}</option>`).join('');
 
+// Break a response shape onto separate lines at top-level commas so it reads like an object
+function prettyShape(shape) {
+  let depth = 0, out = '';
+  for (const ch of shape) {
+    if ('{['.includes(ch)) depth++;
+    if ('}]'.includes(ch)) depth--;
+    out += ch;
+    if (ch === ',' && depth === 1) out += '\n ';
+  }
+  return out;
+}
+const chips = (list, cls = '') => list.map(x => `<span class="doc-chip${cls}">${esc(x)}</span>`).join('');
+
 const rows = ITEMS.slice().sort((a, b) => a.id.localeCompare(b.id)).map(item => {
   const views = [item.view, ...Object.values(item.also || {})];
-  const html = `<tr>
-    <td><a href="../index.html#${item.tab}/${item.id}">${item.id}</a></td>
-    <td><b>${esc(item.title)}</b><br>${esc(item.sub)}${item.global === false ? '<br><span class="doc-pill">ignores filters</span>' : ''}</td>
-    <td><span class="doc-pill">${esc(tabName(item.tab))}</span></td>
-    <td>${views.map(v => `<code>${v}</code>`).join('<br>')}</td>
-    <td class="sh">${esc((VIEWS[item.view] || ['', 'see README'])[1])}</td>
-    <td>${views.map(v => esc((VIEWS[v] || ['?'])[0])).filter((v, i, a) => a.indexOf(v) === i).join('; ')}</td>
-    <td>${item.build.sources.map(esc).join(', ')}</td></tr>`;
-  return { item, html, text: [item.id, item.title, item.sub, tabName(item.tab), ...views, ...item.build.sources, ...(views.map(v => (VIEWS[v] || [''])[0]))].join(' ').toLowerCase() };
+  const files = [...new Set(views.flatMap(v => (VIEWS[v] || ['?'])[0].split(/,\s*(?![^(]*\))/)).map(f => f.trim()).filter(Boolean))];
+  const shape = (VIEWS[item.view] || ['', 'see README'])[1];
+  const html = `<li class="doc-cat-item">
+    <div class="doc-cat-head">
+      <a class="doc-cat-id" href="../index.html#${item.tab}/${item.id}" aria-label="Open ${item.id} in the dashboard">${item.id}</a>
+      <h3>${esc(item.title)}</h3>
+      <span class="doc-pill">${esc(tabName(item.tab))}</span>
+      ${item.global === false ? '<span class="doc-pill doc-pill-quiet">ignores filters</span>' : ''}
+    </div>
+    <p class="doc-cat-sub">${esc(item.sub)}</p>
+    <dl class="doc-cat-meta">
+      <dt>Views</dt><dd>${views.map((v, i) => `<code class="doc-chip doc-chip-code">${v}</code>${i === 0 && views.length > 1 ? '<span class="doc-cat-note">main</span>' : ''}`).join('')}</dd>
+      <dt>Mock data</dt><dd>${chips(files)}</dd>
+      <dt>Source tables</dt><dd>${chips(item.build.sources)}</dd>
+      <dt>Response shape</dt><dd><details class="doc-cat-shape"><summary>${esc(item.view)} returns…</summary><pre><code>${esc(prettyShape(shape))}</code></pre></details></dd>
+    </dl>
+  </li>`;
+  return { item, html, text: [item.id, item.title, item.sub, tabName(item.tab), ...views, ...item.build.sources, ...files].join(' ').toLowerCase() };
 });
 
 function draw() {
   const words = q.value.toLowerCase().trim().split(/\s+/).filter(Boolean), tab = tabSel.value;
   const shown = rows.filter(r => (!tab || r.item.tab === tab) && words.every(w => r.text.includes(w)));
-  rowsEl.innerHTML = shown.map(r => r.html).join('') || '<tr><td colspan="7">No items match. Try a shorter search.</td></tr>';
+  rowsEl.innerHTML = shown.map(r => r.html).join('') || '<li class="doc-cat-empty">No items match. Try a shorter search.</li>';
   count.textContent = `Showing ${shown.length} of ${rows.length} items`;
 }
 q.addEventListener('input', draw);

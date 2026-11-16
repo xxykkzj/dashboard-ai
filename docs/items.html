@@ -53,24 +53,22 @@
       <h1>Item catalog</h1>
       <p class="doc-lede">Every reporting item, its view, its data and its source tables.</p>
 
-<p>Every card on the dashboard is a reporting item with an id such as <code>ITM-05</code>. This table is built from the dashboard's own registry (<code>js/items/index.mjs</code>), so it always matches the code. Select an id to open that item in the dashboard.</p>
+<p>Every card on the dashboard is a reporting item with an id such as <code>ITM-05</code>. This catalog is built from the dashboard's own registry (<code>js/items/index.mjs</code>), so it always matches the code. Select an id to open that item in the dashboard.</p>
 <p>Ids are permanent labels, not a count: numbers are never reused, so there are gaps where items were retired (11 and 25).</p>
 <div class="doc-filter doc-wide">
   <label for="items-q">Search items<input type="search" id="items-q" placeholder="e.g. funnel, Transactions, targets.json" autocomplete="off"></label>
   <label for="items-tab">Tab<select id="items-tab"></select></label>
 </div>
 <p class="doc-count" id="items-count" aria-live="polite"></p>
-<div class="tscroll doc-wide"><table class="doc-items">
-  <caption class="sr-only">Reporting items with their tab, views, response shape, mock data files and source tables</caption>
-  <thead><tr><th scope="col">Item</th><th scope="col">What it shows</th><th scope="col">Tab</th><th scope="col">View(s)</th><th scope="col">Response shape of the main view</th><th scope="col">Mock data from <code>data/mock/</code></th><th scope="col">Source tables</th></tr></thead>
-  <tbody id="items-body"><tr><td colspan="7">Loading the item registry… If this stays, check you are viewing through a local server.</td></tr></tbody>
-</table></div>
+<ol class="doc-cat doc-wide" id="items-body" aria-label="Reporting items">
+  <li class="doc-cat-empty">Loading the item registry… If this stays, check you are viewing through a local server.</li>
+</ol>
 <noscript><p>This catalog needs JavaScript, because it reads the item registry.</p></noscript>
 
-<h2 id="reading">Reading the table</h2>
+<h2 id="reading">Reading an entry</h2>
 <ul>
   <li><b>View(s)</b>: the first is the item's main view. Others, such as <code>vw_Targets</code> and <code>vw_Events</code>, are extra views listed in the item's <code>also</code> field.</li>
-  <li><b>Response shape</b>: what the view returns. <code>number[]</code> means a list of numbers; <code>?</code> means the field can be missing. The real API must return the same shape.</li>
+  <li><b>Response shape</b>: what the main view returns. Select it to expand. <code>number[]</code> means a list of numbers; <code>?</code> means the field can be missing. The real API must return the same shape.</li>
   <li><b>Mock data</b>: the files the mock source reads to answer the view. Names in brackets are the field inside the file.</li>
   <li><b>Source tables</b>: the app database tables the real SQL view would read. Table names are real; column names are assumptions to confirm. Open <b>How it's built</b> on the card for the SQL.</li>
 </ul>
