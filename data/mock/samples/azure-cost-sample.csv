@@ -1,0 +1,181 @@
+﻿UsageDate,PublisherType,ChargeType,ServiceName,ServiceTier,Meter,PartNumber,CostUSD,Cost,Currency
+2026-08-01,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,7.100915018,10.25476932,AUD
+2026-08-02,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.66084059,9.619236898,AUD
+2026-08-03,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.15261222,24.77090364,AUD
+2026-08-04,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,19.40509637,28.0238232,AUD
+2026-08-05,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.246214376,10.46460304,AUD
+2026-08-06,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.99149123,27.42651633,AUD
+2026-08-07,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,13.87996818,20.04472262,AUD
+2026-08-08,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,4.669527594,6.74348703,AUD
+2026-08-09,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.21843147,26.31010394,AUD
+2026-08-10,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,21.72498027,31.37407793,AUD
+2026-08-11,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.540862227,9.445970434,AUD
+2026-08-12,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,16.19153393,23.38296474,AUD
+2026-08-13,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,135.7568716,196.0529592,AUD
+2026-08-14,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.550686141,8.016010024,AUD
+2026-08-15,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.58770008,25.39923472,AUD
+2026-08-16,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,15.36995671,22.19648597,AUD
+2026-08-17,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.208942904,10.41077754,AUD
+2026-08-18,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.93992002,28.79618748,AUD
+2026-08-19,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,76.67775964,110.7340019,AUD
+2026-08-20,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.361148838,7.742290183,AUD
+2026-08-21,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.16900352,27.68287027,AUD
+2026-08-22,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,4.444201246,6.418082527,AUD
+2026-08-23,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.989050859,11.53736856,AUD
+2026-08-24,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.67646759,26.9715757,AUD
+2026-08-25,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,13.79382291,19.92031614,AUD
+2026-08-26,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.412662855,10.70497921,AUD
+2026-08-27,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.1888468,26.2673793,AUD
+2026-08-28,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,90.1539056,130.1955457,AUD
+2026-08-29,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.282476269,7.628675383,AUD
+2026-08-30,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,16.52767967,23.8684088,AUD
+2026-08-31,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,75.11611182,108.478752,AUD
+2026-09-01,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,4.760765853,6.875248542,AUD
+2026-09-02,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.5888051,25.40083053,AUD
+2026-09-03,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,76.75731501,110.8488916,AUD
+2026-09-04,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.75632638,11.20128006,AUD
+2026-09-05,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,16.80839212,24.273799,AUD
+2026-09-06,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,14.71273381,21.24735911,AUD
+2026-09-07,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.069411806,10.20927404,AUD
+2026-09-08,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.42377151,26.60664525,AUD
+2026-09-09,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,83.07176015,119.9678824,AUD
+2026-09-10,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.027658268,7.26068058,AUD
+2026-09-11,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.29440716,26.41982405,AUD
+2026-09-12,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,7.399314474,10.68570218,AUD
+2026-09-13,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,4.844905602,6.996758758,AUD
+2026-09-14,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,16.22455472,23.43065164,AUD
+2026-09-15,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,57.80157051,83.47399886,AUD
+2026-09-16,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,4.960042205,7.163033006,AUD
+2026-09-17,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.78071059,25.67797039,AUD
+2026-09-18,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,16.25908197,23.48051408,AUD
+2026-09-19,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,4.783148161,6.907571898,AUD
+2026-09-20,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.77257446,28.55451579,AUD
+2026-09-21,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,14.93422175,21.56722037,AUD
+2026-09-22,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.441124748,9.301934794,AUD
+2026-09-23,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.87268432,28.6990892,AUD
+2026-09-24,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,65.94383685,95.23263319,AUD
+2026-09-25,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.206578861,7.519068325,AUD
+2026-09-26,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,20.53164514,29.65072589,AUD
+2026-09-27,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,4.956326886,7.157667537,AUD
+2026-09-28,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.832252976,11.31092927,AUD
+2026-09-29,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.15566451,24.77531159,AUD
+2026-09-30,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,24.6934959,35.66105264,AUD
+2026-10-01,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.902712766,9.968536019,AUD
+2026-10-02,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.42936119,25.17056999,AUD
+2026-10-03,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,7.485946309,10.81081134,AUD
+2026-10-04,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.376835803,7.764944477,AUD
+2026-10-05,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.16359056,26.23090556,AUD
+2026-10-06,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,17.60970064,25.43100677,AUD
+2026-10-07,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.568868281,10.9305629,AUD
+2026-10-08,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.12678053,26.17774645,AUD
+2026-10-09,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,96.35825882,139.1555474,AUD
+2026-10-10,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.379632861,12.10142662,AUD
+2026-10-11,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.40225197,26.57556786,AUD
+2026-10-12,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,15.73563359,22.72457736,AUD
+2026-10-13,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.207391784,11.85268508,AUD
+2026-10-14,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,20.25133787,29.24592082,AUD
+2026-10-15,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,59.72844544,86.25669065,AUD
+2026-10-16,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.124181115,7.400073818,AUD
+2026-10-17,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.09476129,27.57565354,AUD
+2026-10-18,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,4.974859801,7.184431801,AUD
+2026-10-19,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.652294966,12.49519094,AUD
+2026-10-20,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.27966418,26.39853301,AUD
+2026-10-21,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,80.77082181,116.6449878,AUD
+2026-10-22,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.012297262,7.238497021,AUD
+2026-10-23,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.41838937,25.15472506,AUD
+2026-10-24,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,7.922162145,11.44077138,AUD
+2026-10-25,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.428416173,9.283581735,AUD
+2026-10-26,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.0794687,26.10942119,AUD
+2026-10-27,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,19.82830749,28.63500251,AUD
+2026-10-28,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.930310527,8.564243667,AUD
+2026-10-29,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.15782231,27.66672295,AUD
+2026-10-30,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,8.020913741,11.58338326,AUD
+2026-10-31,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.056497807,11.63477191,AUD
+2026-11-01,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.66349642,28.39699101,AUD
+2026-11-02,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,14.43881829,20.85178467,AUD
+2026-11-03,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.937863869,10.0192994,AUD
+2026-11-04,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.27273048,27.83266731,AUD
+2026-11-05,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,60.44965258,87.2982202,AUD
+2026-11-06,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.948093553,10.03407257,AUD
+2026-11-07,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,20.22476606,29.2075472,AUD
+2026-11-08,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,3.059783735,4.418779312,AUD
+2026-11-09,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.356263352,9.179382414,AUD
+2026-11-10,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.44035084,26.63058826,AUD
+2026-11-11,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,84.60749096,122.1857043,AUD
+2026-11-12,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.288660371,9.081753731,AUD
+2026-11-13,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.64599172,25.48341645,AUD
+2026-11-14,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,7.64565812,11.04145876,AUD
+2026-11-15,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.212083671,10.41531327,AUD
+2026-11-16,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,21.15071854,30.54475924,AUD
+2026-11-17,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,66.01538028,95.33595246,AUD
+2026-11-18,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.316183641,7.677353803,AUD
+2026-11-19,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.33702722,27.92552129,AUD
+2026-11-20,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,14.64270268,21.14622382,AUD
+2026-11-21,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.298590344,7.651946485,AUD
+2026-11-22,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.90352226,27.29947616,AUD
+2026-11-23,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,15.52386175,22.41874756,AUD
+2026-11-24,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.189870916,7.494939586,AUD
+2026-11-25,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.39636926,28.01121996,AUD
+2026-11-26,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,58.21120652,84.06557372,AUD
+2026-11-27,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.744522816,11.18423398,AUD
+2026-11-28,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,16.87142486,24.36482758,AUD
+2026-11-29,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,8.261034948,11.93015373,AUD
+2026-11-30,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.4888968,7.926777096,AUD
+2026-12-01,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.53342448,26.76500033,AUD
+2026-12-02,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,90.14125279,130.1772731,AUD
+2026-12-03,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.005523211,11.56115707,AUD
+2026-12-04,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.8724611,25.81047165,AUD
+2026-12-05,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,4.639679425,6.700381869,AUD
+2026-12-06,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.887297619,9.946274271,AUD
+2026-12-07,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.28272641,27.84710291,AUD
+2026-12-08,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,60.20424194,86.94381102,AUD
+2026-12-09,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.26332606,9.045167247,AUD
+2026-12-10,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.21974133,27.75614316,AUD
+2026-12-11,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,7.978844581,11.52262919,AUD
+2026-12-12,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.834298476,9.869735686,AUD
+2026-12-13,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.31458356,27.89310934,AUD
+2026-12-14,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,86.76224247,125.2974835,AUD
+2026-12-15,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.820429638,8.405559445,AUD
+2026-12-16,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.0829419,24.67028941,AUD
+2026-12-17,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,157.4124296,227.3267811,AUD
+2026-12-18,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.206671062,11.85164425,AUD
+2026-12-19,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.49160629,26.70460869,AUD
+2026-12-20,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,6.930452591,10.00859642,AUD
+2026-12-21,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.559470432,8.028695837,AUD
+2026-12-22,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.83490191,28.64452583,AUD
+2026-12-23,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,33.90543383,48.96445062,AUD
+2026-12-24,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.261349097,9.04231222,AUD
+2026-12-25,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,21.08581135,30.45102368,AUD
+2026-12-26,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,4.894573639,7.068486735,AUD
+2026-12-27,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,4.950038765,7.148586562,AUD
+2026-12-28,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.02200789,26.0264393,AUD
+2026-12-29,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,65.63816012,94.79119088,AUD
+2026-12-30,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.464299396,10.77955,AUD
+2026-12-31,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,21.33726824,30.81416455,AUD
+2027-01-01,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,94.54047197,136.5303949,AUD
+2027-01-02,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.993631747,11.54398404,AUD
+2027-01-03,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.6873929,25.54320586,AUD
+2027-01-04,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,22.05893985,31.85636486,AUD
+2027-01-05,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,6.558134893,9.470914713,AUD
+2027-01-06,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,18.02471656,26.03035102,AUD
+2027-01-07,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,64.60227612,93.29522149,AUD
+2027-01-08,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.093766347,7.356150403,AUD
+2027-01-09,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.47923287,25.24259206,AUD
+2027-01-10,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,8.028468939,11.59429409,AUD
+2027-01-11,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,5.489395873,7.927497831,AUD
+2027-01-12,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,19.15656404,27.66490583,AUD
+2027-01-13,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,24.27960895,35.0633388,AUD
+2027-01-14,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.923871826,11.44324042,AUD
+2027-01-15,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,20.85119903,30.11220887,AUD
+2027-01-16,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,8.024290805,11.58826024,AUD
+2027-01-17,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.224402601,11.87725121,AUD
+2027-01-18,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,17.64151208,25.47694718,AUD
+2027-01-19,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,66.18974463,95.58776031,AUD
+2027-01-20,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,4.998448568,7.218497463,AUD
+2027-01-21,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,20.42447923,29.4959625,AUD
+2027-01-22,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,8.593121517,12.40973575,AUD
+2027-01-23,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,7.669535278,11.0759409,AUD
+2027-01-24,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,21.04105221,30.38638489,AUD
+2027-01-25,Azure,Usage,Azure Databricks,Az DB Regional,Premium Serverless SQL DBU,AAN-42814,111.4042928,160.8842412,AUD
+2027-01-26,Azure,Usage,Storage,Azure Data Lake Storage Gen2 Hier Namespace,Hot ZRS Data Stored,AAD-37832,8.089553813,11.68250966,AUD
+2027-01-27,Azure,Usage,Virtual Machines,Dsv5 Series Windows VM,D4s v5,AAM-30605,21.17130033,30.57448238,AUD
