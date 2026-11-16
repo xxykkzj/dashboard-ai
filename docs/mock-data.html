@@ -88,7 +88,7 @@
 <div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>key</code></td><td>Which measure. Must match a key in <code>vw_Scorecard</code>.</td></tr><tr><td><code>label</code></td><td>Name shown on the scorecard.</td></tr><tr><td><code>basis</code></td><td><code>value</code>: compare the rate itself (0 to 1). <code>perDay</code>: compare the period total ÷ days. <code>growth</code>: compare change on the previous period (0.01 = 1%).</td></tr><tr><td><code>target</code></td><td>At or above this is <b>On track</b>.</td></tr><tr><td><code>action</code></td><td>Below this is <b>Action</b>. In between is <b>Watch</b>.</td></tr></tbody></table></div>
 
 <h2 id="events">events.json</h2>
-<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>id</code></td><td>Any unique text.</td></tr><tr><td><code>kind</code></td><td><code>campaign</code> (blue band) or <code>incident</code> (red band).</td></tr><tr><td><code>from, to</code></td><td>First and last day, inclusive, as <code>YYYY-MM-DD</code>.</td></tr><tr><td><code>label</code></td><td>Short name written on the chart.</td></tr><tr><td><code>note</code></td><td>One sentence shown under the chart and on the scorecard.</td></tr></tbody></table></div>
+<div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>id</code></td><td>Any unique text.</td></tr><tr><td><code>kind</code></td><td><code>campaign</code> (blue band) or <code>incident</code> (red band).</td></tr><tr><td><code>from, to</code></td><td>First and last day, inclusive, as <code>YYYY-MM-DD</code>.</td></tr><tr><td><code>label</code></td><td>Short name written on the chart.</td></tr><tr><td><code>note</code></td><td>One sentence shown under the chart and on the scorecard.</td></tr><tr><td><code>affects</code></td><td>The measures the event changed: any of <code>active-users</code>, <code>new-accounts</code>, <code>transactions</code>, <code>credential-checks</code>. The event is drawn only on charts of those measures. Leave it out to draw it on every chart. The scorecard lists every event in the period.</td></tr></tbody></table></div>
 
 <h2 id="value">value.json</h2>
 <div class="tscroll"><table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>costPerTransaction</code></td><td>Cost to government of one transaction at a <code>counter</code>, by <code>phone</code>, on the <code>website</code> and in the <code>app</code>.</td></tr><tr><td><code>minutesSavedPerCounterVisit</code></td><td>Used for the hours-saved figure.</td></tr><tr><td><code>services[].otherwise</code></td><td>Where an app transaction would have happened without the app. Shares add to 1.</td></tr><tr><td><code>services[].otherChannelsPer30Days</code></td><td>How many of that service still happen outside the app in 30 days.</td></tr></tbody></table></div>
@@ -105,7 +105,8 @@
   Refresh. <b>Service health → Backend availability</b> shows a full red bar on 12 Nov and uptime falls. <b>Backend response times</b> slows that day too.</li>
   <li>To label it on the trend charts, add it to <code>events.json</code>:
   <figure class="doc-code"><pre><code>{ &quot;id&quot;: &quot;outage-2026-11&quot;, &quot;kind&quot;: &quot;incident&quot;, &quot;from&quot;: &quot;2026-11-12&quot;, &quot;to&quot;: &quot;2026-11-12&quot;,
-  &quot;label&quot;: &quot;Payment gateway outage&quot;, &quot;note&quot;: &quot;Card payments failed for about three hours.&quot; }</code></pre></figure></li>
+  &quot;label&quot;: &quot;Payment gateway outage&quot;, &quot;affects&quot;: [&quot;transactions&quot;],
+  &quot;note&quot;: &quot;Card payments failed for about three hours.&quot; }</code></pre></figure></li>
   <li>The success rate itself comes from <code>daily-metrics.json</code>. To make it dip, lower <code>transactionsCompleted</code> in the two rows for that date, or add the date to <code>PARAMS.incidents</code> in the generator and run it again.</li>
 </ol>
 <h3 id="ex-target">Change a target</h3>
@@ -113,9 +114,10 @@
 <figure class="doc-code"><pre><code>{ &quot;key&quot;: &quot;newAccounts&quot;, &quot;label&quot;: &quot;New accounts&quot;, &quot;basis&quot;: &quot;perDay&quot;, &quot;target&quot;: 1500, &quot;action&quot;: 1200 }</code></pre></figure>
 <p>Refresh. On <b>Overview</b>, the scorecard, the New accounts figure and the dashed line on <b>New accounts per week</b> (now 10,500, seven days' worth) all move, and the status changes from On track to Watch.</p>
 <h3 id="ex-event">Add an event</h3>
-<p>Add an entry to the <code>events</code> list in <code>events.json</code>. It appears on any time chart whose period includes it; switch the period to 90 days to see older ones.</p>
+<p>Add an entry to the <code>events</code> list in <code>events.json</code>. It appears on the charts of the measures in <code>affects</code>, when the period includes its dates; switch the period to 90 days to see older ones.</p>
 <figure class="doc-code"><pre><code>{ &quot;id&quot;: &quot;campaign-2026-11&quot;, &quot;kind&quot;: &quot;campaign&quot;, &quot;from&quot;: &quot;2026-11-02&quot;, &quot;to&quot;: &quot;2026-11-08&quot;,
-  &quot;label&quot;: &quot;Seniors Card promotion&quot;, &quot;note&quot;: &quot;Letterbox drop to Seniors Card holders.&quot; }</code></pre></figure>
+  &quot;label&quot;: &quot;Seniors Card promotion&quot;, &quot;affects&quot;: [&quot;new-accounts&quot;, &quot;active-users&quot;],
+  &quot;note&quot;: &quot;Letterbox drop to Seniors Card holders.&quot; }</code></pre></figure>
 <h3 id="ex-funnel">Make a funnel step worse</h3>
 <p>In <code>reference.json</code> under <code>onboardingFunnel</code>, lower a step's <code>rate</code>, for example "First credential added" from 0.79 to 0.6. The onboarding funnel narrows there, and the onboarding measure on the scorecard falls with it.</p>
 <h3 id="ex-council">Raise use in one council</h3>

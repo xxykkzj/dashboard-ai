@@ -1,4 +1,5 @@
 /** Service health tab: availability, failures, app versions, notifications. */
+import { eventsFor } from '../ui/events.mjs';
 import { hbars, lineChart, table, legend, meter, spark } from '../ui/charts.mjs';
 import { fmt, pct, pctTidy, sum, dfmt, escapeHtml } from '../ui/format.mjs';
 
@@ -73,7 +74,7 @@ GROUP BY CAST(t.CreatedAt AS date);`
       const mx = Math.max(...d.failed), at = d.dates[d.failed.indexOf(mx)];
       h.innerHTML = `<div class="stats"><span>Total <b>${fmt(sum(d.failed))}</b></span><span>Worst day <b>${at ? dfmt(at) : 'none'}, ${fmt(mx)} failed</b></span></div><div></div>`;
       lineChart(h.lastElementChild, { dates: d.dates, series: [{ name: 'Failed', values: d.failed, color: 'var(--accent)' }], title: 'Failed transactions per day',
-        events: (more.events || []).filter(e => e.inPeriod === 'current' && e.kind === 'incident') });
+        events: eventsFor(more.events, ['transactions']) });
     }
   },
   {

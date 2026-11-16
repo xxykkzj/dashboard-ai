@@ -1,11 +1,7 @@
 {
-  "_about": "Known events, entered by hand, shown as notes on charts and in the Performance against targets card when their dates fall in the selected period. kind is 'campaign' or 'incident'. Dates are inclusive. Keep these in step with the campaigns and incidents in tools/generate-mock.mjs and the provider incidents in reference.json.",
+  "_about": "Known events, entered by hand. An event shows in the Performance against targets card, and as a shaded band on the charts of the measures it lists in 'affects', when its dates fall in the selected period. Measures: active-users, new-accounts, transactions, credential-checks. Leave 'affects' out to show an event on every chart. kind is 'campaign' or 'incident'. Dates are inclusive. Keep these in step with the campaigns and incidents in tools/generate-mock.mjs and the provider incidents in reference.json.",
   "events": [
-    { "id": "campaign-2026-09", "kind": "campaign", "from": "2026-09-14", "to": "2026-09-20",
-      "label": "Licence-renewal campaign",
-      "note": "Email and outdoor campaign promoting licence renewal in the app." },
-    { "id": "outage-2026-10", "kind": "incident", "from": "2026-10-30", "to": "2026-10-31",
-      "label": "Licensing system outage", "provider": "Licensing system",
-      "note": "Driver and vehicle records were unavailable for parts of both days, so renewals and transfers failed." }
+    {"id": "campaign-2026-09", "kind": "campaign", "from": "2026-09-14", "to": "2026-09-20", "label": "Licence-renewal campaign", "note": "Email and outdoor campaign promoting licence renewal in the app.", "affects": ["new-accounts", "active-users"]},
+    {"id": "outage-2026-10", "kind": "incident", "from": "2026-10-30", "to": "2026-10-31", "label": "Licensing system outage", "provider": "Licensing system", "note": "Driver and vehicle records were unavailable for parts of both days, so renewals and transfers failed.", "affects": ["transactions"]}
   ]
 }

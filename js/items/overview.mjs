@@ -10,6 +10,7 @@
  */
 import { kpi, lineChart, barChart, hbars, legend, cohortGrid } from '../ui/charts.mjs';
 import { fmt, fmtC, fmtMoney, pct, pctTidy, dfmt, dRange, escapeHtml } from '../ui/format.mjs';
+import { eventsFor } from '../ui/events.mjs';
 import { evaluate, findTarget, statusChip, statusIcon, STATUS } from '../ui/status.mjs';
 
 const change = (c, p) => (p ? (c - p) / p : NaN);
@@ -165,7 +166,7 @@ GROUP BY CAST(u.OccurredAt AS date), d.Platform;`
       const series = [];
       if (d.ios) series.push({ name: 'iPhone', values: d.ios, color: 'var(--accent)' });
       if (d.android) series.push({ name: 'Android', values: d.android, color: both ? 'var(--accent2)' : 'var(--accent)' });
-      lineChart(h, { dates: d.dates, series, title: 'Daily active users', events: current(more.events) });
+      lineChart(h, { dates: d.dates, series, title: 'Daily active users', events: eventsFor(more.events, ['active-users']) });
     }
   },
   {
@@ -189,7 +190,7 @@ GROUP BY DATEADD(day, -((DATEPART(weekday, CreatedAt) + @@DATEFIRST - 2) % 7),
         labels: d.labels.map(x => dfmt(x)), values: d.values, name: 'New accounts', dates: d.labels, spanDays: span,
         title: d.daily ? 'New accounts per day' : 'New accounts per week, by week starting',
         target: t && t.basis === 'perDay' ? { value: t.target * span, label: `Target ${fmt(t.target * span)}` } : null,
-        events: current(more.events).filter(e => e.kind === 'campaign')
+        events: eventsFor(more.events, ['new-accounts'])
       });
     }
   },
@@ -248,7 +249,7 @@ FROM d;`
         dates: d.dates, series: [{ name: 'This period', values: d.rate, color: 'var(--accent)' }],
         compare: d.previousRate.length ? { name: `Previous ${s.range} days`, values: d.previousRate } : null,
         target: t ? { value: t.target, label: `Target ${pctTidy(t.target)}` } : null,
-        events: current(more.events).filter(e => e.kind === 'incident'),
+        events: eventsFor(more.events, ['transactions']),
         zero: false, yFmt: v => pctTidy(v), tipFmt: v => pct(v), title: 'Transaction success rate by day'
       });
     }
