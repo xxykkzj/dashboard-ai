@@ -31,7 +31,7 @@ const avg = a => (a.length ? sum(a) / a.length : 0);
 const ratio = (a, b) => (b ? a / b : 0);
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
-export async function createMockSource({ mockBasePath, referenceBasePath }) {
+export async function createMockSource({ mockBasePath, referenceBasePath, features = {} }) {
   const [daily, ref, hourly, lgaActivity, lgaRef, targetsFile, eventsFile, value, retention, svc, ops, costFile, costCfg] = await Promise.all([
     fetchJson(mockBasePath + 'daily-metrics.json'),
     fetchJson(mockBasePath + 'reference.json'),
@@ -78,6 +78,14 @@ export async function createMockSource({ mockBasePath, referenceBasePath }) {
     const ios = ratio(sum(win(series('activeUsers', 'ios'), range)), sum(win(series('activeUsers', 'all'), range)));
     return platform === 'ios' ? ios : 1 - ios;
   };
+  // Service types whose feature is switched off (CONFIG.features) are dropped, and the
+  // remaining shares are rescaled so the services still account for every transaction.
+  const TYPE_FEATURE = { fuel: 'fuelExemption' };
+  {
+    const on = ref.transactionTypes.filter(t => features[TYPE_FEATURE[t.key]] !== false);
+    const total = on.reduce((a, t) => a + t.share, 0) || 1;
+    if (on.length !== ref.transactionTypes.length) ref.transactionTypes = on.map(t => ({ ...t, share: t.share / total }));
+  }
   const txType = key => ref.transactionTypes.find(t => t.key === key) || ref.transactionTypes[0];
 
   // apply step-by-step conversion rates, with optional per-platform overrides
@@ -121,8 +129,8 @@ export async function createMockSource({ mockBasePath, referenceBasePath }) {
       return {
         key: t.key, label: t.label, appCompleted: t.completed, otherChannels: other,
         appShare: ratio(t.completed, t.completed + other),
-        counterAvoided: t.completed * o.counter, phoneAvoided: t.completed * o.phone,
-        costAvoided: t.completed * perTxn
+        counterAvoided: t.completed * o.counter * attribution, phoneAvoided: t.completed * o.phone * attribution,
+        costAvoided: t.completed * perTxn * attribution
       };
     }).filter(Boolean);
     const tot = k => sum(rows.map(r => r[k]));
@@ -158,6 +166,22 @@ export async function createMockSource({ mockBasePath, referenceBasePath }) {
   };
   const daysIn = month => { const [y, m] = month.split('-').map(Number); return new Date(Date.UTC(y, m, 0)).getUTCDate(); };
   const budgetFor = month => Number((costCfg.budgetByMonth || {})[month] ?? costCfg.monthlyBudget) || 0;
+
+  /* ---- value: estimated cost avoided per day, all platforms ---- */
+  const prog = value.programmeCosts || {};
+  const attribution = Number.isFinite(value.attribution) ? value.attribution : 1;
+  const otherPerDay = (prog.otherRunningPerMonth || 0) * 12 / 365;
+  // average saving for one completed app transaction, weighted by each service's share of transactions
+  const savingPerTxn = (() => {
+    const c = value.costPerTransaction || {};
+    return sum((value.services || []).map(sv => {
+      const t = ref.transactionTypes.find(x => x.key === sv.key);
+      if (!t) return 0;
+      const o = sv.otherwise;
+      return t.share * (o.counter * c.counter + o.phone * c.phone + o.website * c.website - c.app);
+    }));
+  })();
+  const valueDaily = series('transactionsCompleted', 'all').map(v => v * savingPerTxn);
 
   /* ---- views: one per reporting item, named like the SQL view in Fabric ---- */
   const views = {
@@ -343,6 +367,68 @@ export async function createMockSource({ mockBasePath, referenceBasePath }) {
         minutesSavedPerCounterVisit: value.minutesSavedPerCounterVisit,
         rows: cur.rows,
         totals: { ...cur.totals, previousCostAvoided: prev ? prev.totals.costAvoided : null, previousAppShare: prev ? prev.totals.appShare : null }
+      };
+    },
+
+    /* ---- value: money views built on the channel-shift estimate and the Azure cost data ---- */
+
+    // Period totals: estimated cost avoided against what the app costs to run (Azure plus other running costs)
+    vw_NetBenefit: p => {
+      const q = { ...p, platform: 'all' };
+      const side = back => {
+        const avoided = win(valueDaily, p.range, back), azure = win(costTotal, p.range, back);
+        if (!avoided.length) return null;
+        // same cost-avoided figure as ITM-26, so the two cards always agree
+        const a = channelShift(q, back).totals.costAvoided, az = sum(azure), other = otherPerDay * avoided.length;
+        return { avoided: a, azure: az, other, cost: az + other, net: a - az - other, ratio: ratio(a, az + other) };
+      };
+      const months = [...new Set(win(dates, p.range).map(d => d.slice(0, 7)))].map(m => {
+        const idx = dates.map((d, i) => (d.startsWith(m) ? i : -1)).filter(i => i >= 0);
+        const a = sum(idx.map(i => valueDaily[i])) * attribution, az = sum(idx.map(i => costTotal[i])), other = otherPerDay * idx.length;
+        return { month: m, days: idx.length, full: idx.length === daysIn(m), avoided: a, azure: az, other, net: a - az - other };
+      });
+      return { current: side(0), previous: side(1), months, attribution, otherRunningPerMonth: prog.otherRunningPerMonth || 0, range: q.range };
+    },
+
+    // Running totals since the first day of data: cost avoided against build and running costs
+    vw_ValueCumulative: () => {
+      let a = 0, c = prog.oneOffBuild || 0, breakEven = null;
+      const avoided = [], cost = [];
+      dates.forEach((d, i) => {
+        a += valueDaily[i] * attribution; c += costTotal[i] + otherPerDay;
+        avoided.push(a); cost.push(c);
+        if (!breakEven && a >= c) breakEven = d;
+      });
+      return { dates, avoided, cost, net: a - c, oneOffBuild: prog.oneOffBuild || 0, buildDate: prog.buildDate || null, breakEven };
+    },
+
+    // What one completed transaction costs in each channel; the app both as assumed and as measured from Azure
+    vw_ChannelUnitCosts: p => {
+      const done = sum(win(series('transactionsCompleted', 'all'), p.range));
+      const azure = sum(win(costTotal, p.range)), days = win(dates, p.range).length;
+      const c = value.costPerTransaction || {};
+      return {
+        channels: [
+          { key: 'counter', label: 'Service centre counter', cost: c.counter, basis: 'assumed' },
+          { key: 'phone', label: 'Phone', cost: c.phone, basis: 'assumed' },
+          { key: 'website', label: 'Website', cost: c.website, basis: 'assumed' },
+          { key: 'app', label: 'App, as assumed in the estimate', cost: c.app, basis: 'assumed' },
+          { key: 'appAllIn', label: 'App, measured: Azure plus running costs', cost: ratio(azure + otherPerDay * days, done), basis: 'measured' },
+          { key: 'appAzure', label: 'App, measured: Azure only', cost: ratio(azure, done), basis: 'measured' }
+        ],
+        completed: done
+      };
+    },
+
+    // Inputs for the what-if calculator: completed app transactions per service and the assumptions
+    vw_ValueInputs: p => {
+      const types = byType({ ...p, platform: 'all' });
+      return {
+        costPerTransaction: value.costPerTransaction, attribution,
+        services: (value.services || []).map(sv => {
+          const t = types.find(x => x.key === sv.key);
+          return t ? { key: sv.key, label: t.label, completed: t.completed, otherwise: sv.otherwise } : null;
+        }).filter(Boolean)
       };
     },
 

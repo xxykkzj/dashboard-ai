@@ -4,17 +4,20 @@
  * give it a view name, and add that view to js/data/mock-source.mjs
  * (and later to the real API).
  */
+import { featureOn } from '../config.mjs';
 import overview from './overview.mjs';
 import journeys from './journeys.mjs';
 import services from './services.mjs';
 import health from './health.mjs';
 import cost from './cost.mjs';
+import value from './value.mjs';
 import location, { locationCallout } from './location.mjs';
 
 export const TABS = [
-  { id: 'overview', label: 'Overview', title: 'Overview', desc: 'Headline measures against their targets, daily trends, retention and the value estimate.' },
+  { id: 'overview', label: 'Overview', title: 'Overview', desc: 'Headline measures against their targets, daily trends and retention.' },
+  { id: 'value', label: 'Value', title: 'Value', desc: 'The money case for the app: cost avoided by moving transactions into the app, what the app costs to run, net benefit and payback. Estimates, built on assumptions in value.json.' },
   { id: 'journeys', label: 'Journeys', title: 'Customer journeys', desc: 'How many people reach each step, and how many stop between steps.' },
-  { id: 'services', label: 'Services', title: 'Services', desc: 'Credentials, transactions, payments, renewals coming due and the fuel exemption scheme.' },
+  { id: 'services', label: 'Services', title: 'Services', desc: 'Credentials, transactions, payments and renewals coming due.' },
   { id: 'location', label: 'Location', title: 'Where and when the app is used', desc: 'Council-level only, with small areas hidden for privacy.' },
   { id: 'health', label: 'Service health', title: 'Service health', desc: 'Backend availability and response times, failures, app versions and notifications.' },
   { id: 'cost', label: 'Cost', title: 'Platform cost', desc: 'Azure spend for the app and its analytics platform: unit costs, budget, services and days over threshold. Mock figures in AUD.' },
@@ -32,10 +35,12 @@ export const STORY = [
   { title: 'Reliability', items: [['ITM-28', 's7'], ['ITM-16', 's5']] },
   { title: 'Customer journeys', items: [['ITM-07', 's6'], ['ITM-08', 's6']] },
   { title: 'Where the app is used', items: [['ITM-22', 's8'], ['ITM-27', 's4']] },
-  { title: 'Value estimate', items: [['ITM-26', 's12']] }
+  { title: 'Value', items: [['ITM-43', 's12']] },
+  { title: 'Where the value comes from', items: [['ITM-26', 's7'], ['ITM-45', 's5']] }
 ];
 
-export const ITEMS = [...overview, ...journeys, ...services, ...location, ...health, ...cost];
+// Items whose feature is switched off in CONFIG.features are left out everywhere
+export const ITEMS = [...overview, ...journeys, ...services, ...location, ...health, ...cost, ...value].filter(i => featureOn(i.feature));
 
 /** Extra HTML placed after a tab's cards */
 export const TAB_FOOTERS = {

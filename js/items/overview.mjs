@@ -253,53 +253,5 @@ FROM d;`
         zero: false, yFmt: v => pctTidy(v), tipFmt: v => pct(v), title: 'Transaction success rate by day'
       });
     }
-  },
-  {
-    id: 'ITM-26', tab: 'overview', span: 's6', view: 'vw_ChannelShift',
-    title: 'Value delivered', sub: 'Transactions moved to the app from counters, phone and the website',
-    build: {
-      sources: ['Transactions', 'TransactionTypes', 'TransactionStatuses', 'ref.ChannelCosts', 'ext.ChannelVolumes (Service SA reporting)'],
-      fields: 'TransactionTypeId, TransactionStatusId, CreatedAt; ChannelCosts.Channel, UnitCost; ChannelVolumes.Service, Channel, Transactions',
-      logic: 'Completed app transactions per service × the share that would otherwise have used each channel × (that channel\'s unit cost − the app\'s unit cost). App share = app ÷ (app + other channels). Unit costs and "otherwise" shares are assumptions to agree with finance; other-channel volumes come from outside the app database.',
-      sql: `WITH app AS (
-  SELECT ty.Name AS Service, COUNT(*) AS AppCompleted
-  FROM dbo.Transactions t
-  JOIN dbo.TransactionTypes ty   ON ty.TransactionTypeId  = t.TransactionTypeId
-  JOIN dbo.TransactionStatuses s ON s.TransactionStatusId = t.TransactionStatusId
-  WHERE s.Name = 'Completed' AND t.CreatedAt >= @From AND t.CreatedAt < @To
-  GROUP BY ty.Name)
-SELECT a.Service, a.AppCompleted,
-       a.AppCompleted * o.CounterShare AS CounterVisitsAvoided,
-       a.AppCompleted * o.PhoneShare   AS PhoneCallsAvoided,
-       a.AppCompleted * (o.CounterShare * c.Counter + o.PhoneShare * c.Phone
-                         + o.WebsiteShare * c.Website - c.App) AS CostAvoided,
-       CAST(a.AppCompleted AS float) / (a.AppCompleted + v.OtherChannels) AS AppShare
-FROM app a
-JOIN ref.ChannelOtherwise o ON o.Service = a.Service
-CROSS JOIN ref.ChannelCostsPivot c
-JOIN (SELECT Service, SUM(Transactions) AS OtherChannels
-      FROM ext.ChannelVolumes
-      WHERE PeriodStart >= @From AND PeriodStart < @To
-      GROUP BY Service) v ON v.Service = a.Service;`
-    },
-    render(h, d, s) {
-      const t = d.totals, c = change(t.costAvoided, t.previousCostAvoided), cost = d.costPerTransaction;
-      const hours = t.counterAvoided * (d.minutesSavedPerCounterVisit || 0) / 60;
-      const up = c >= 0;
-      h.innerHTML = `<div class="figs">
-          <div class="fig lead"><b>${fmtMoney(t.costAvoided)}</b><span>estimated cost avoided</span>
-            ${Number.isFinite(c) ? `<small><span aria-hidden="true">${up ? '▲' : '▼'}</span> ${up ? 'Up' : 'Down'} ${pct(Math.abs(c))} on the previous ${s.range} days</small>` : ''}</div>
-          <div class="fig"><b>${fmtC(t.counterAvoided)}</b><span>counter visits avoided</span></div>
-          <div class="fig"><b>${fmtC(t.phoneAvoided)}</b><span>phone calls avoided</span></div>
-        </div>
-        <h4 class="mini">Share of each service now done in the app</h4><div></div>
-        <p class="note">${statusChip('info', 'Estimate')} Uses unit costs of $${cost.counter.toFixed(2)} at a counter, $${cost.phone.toFixed(2)} by phone, $${cost.website.toFixed(2)} on the website and $${cost.app.toFixed(2)} in the app${hours ? `, and saves customers about ${fmtC(hours)} hours of travel and waiting` : ''}. Change the assumptions in <code>data/mock/value.json</code>.</p>`;
-      hbars(h.querySelector('.mini + div'), d.rows.map(r => ({
-        label: r.label, sub: `${fmtC(r.appCompleted)} in the app, ${fmtMoney(r.costAvoided)} avoided`,
-        parts: [{ name: 'In the app', value: r.appShare, text: pct(r.appShare, 0), color: 'var(--accent)' }, { name: 'Other channels', value: 1 - r.appShare, text: pct(1 - r.appShare, 0), color: 'var(--neutral)' }],
-        text: pct(r.appShare, 0),
-        go: { hash: 'journeys/ITM-08', set: { txType: r.key }, label: 'Open the completion funnel for this service' }
-      })), legend([['In the app', 'var(--accent)'], ['Counter, phone and website', 'var(--neutral)']]), { max: 1 });
-    }
   }
 ];

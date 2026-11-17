@@ -651,3 +651,17 @@ body.wanted-only main .card[data-item]:not(.is-wanted) { display: none; }
 .wd-b.primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
 .wd-b:disabled { opacity: .5; cursor: default; }
 .wd-msg { font-size: 13px; color: var(--muted); }
+
+/* ---------- Value tab (js/items/value.mjs) ---------- */
+.figs.four { grid-template-columns: 1.5fr 1fr 1fr 1fr; }
+@media (max-width: 760px) { .figs.four { grid-template-columns: 1fr 1fr; } .figs.four .fig.lead { grid-column: 1 / -1; } }
+.muted { color: var(--muted); font-weight: 400; }
+.wi { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 760px) { .wi { grid-template-columns: minmax(0, 1fr); } }
+.wi-controls { display: grid; gap: 12px; }
+.wi-row { display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 2px 12px; align-items: center; }
+.wi-row label { grid-column: 1 / -1; font-size: 13.5px; font-weight: 600; }
+.wi-row input[type=range] { width: 100%; accent-color: var(--accent); }
+.wi-row output { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; }
+.wi-controls .wd-b { justify-self: start; }
+.wi-out { display: grid; gap: 12px; }

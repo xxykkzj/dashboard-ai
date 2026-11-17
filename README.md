@@ -61,6 +61,22 @@ Cost is mock data in the shape of an Azure Cost Management export (`data/mock/az
 
 Their data is invented, and several columns are assumptions (for example `PortalStatuses.ResponseMs`, `Transactions.RegistrationId`, `UserConfigurations.SettingKey`). Each item's **How it's built** panel says which.
 
+
+## Value tab
+
+The money case for the app, built on the channel-shift estimate in **Value delivered** (ITM-26, moved here from Overview):
+
+- **Net benefit** (ITM-43): estimated cost avoided against what the app costs to run (Azure spend from the Cost tab plus other running costs), with the ratio of dollars avoided per dollar spent and a calendar-month table.
+- **Cost of one transaction, by channel** (ITM-45): the assumed unit costs next to the app's cost as measured from Azure, and Azure plus running costs.
+- **Payback** (ITM-44): running totals since the first day of data, with the one-off build cost, and the date the app paid for itself.
+- **What if the assumptions change?** (ITM-46): sliders for each channel's unit cost and the share of app transactions counted as moved from another channel. It recalculates in the browser and saves nothing.
+
+All of it is an estimate. The assumptions sit in `data/mock/value.json`: `costPerTransaction`, each service's `otherwise` shares, `programmeCosts` (`oneOffBuild`, `buildDate`, `otherRunningPerMonth`) and `attribution` (0–1). Every value is a placeholder to agree with finance.
+
+## Switching features off
+
+`js/config.mjs` has a `features` list. Setting a feature to `false` hides its items, its options in service selectors and its rows in per-service data, and rescales the other services' shares so totals still add up. Its code and mock data stay in place. **Fuel exemption** is switched off for now (`features.fuelExemption: false`); set it to `true` to bring it back.
+
 ## Run it locally
 
 Chrome blocks JavaScript modules and JSON files when a page is opened straight from disk, so serve the folder with any static server:
@@ -170,6 +186,10 @@ Each item calls `GET {baseUrl}/{view}?from=YYYY-MM-DD&to=YYYY-MM-DD&range=30&pla
 | `vw_Events` | `[{ id, kind: 'campaign' | 'incident', from, to, label, note, inPeriod: 'current' | 'previous' }]` for events overlapping this period or the one before |
 | `vw_TransactionSuccessDaily` | `{ dates, rate: number[], finished: number[], failed: number[], previousRate: number[] }` (`previousRate` lines up day for day, or is empty) |
 | `vw_ChannelShift` | `{ currency, costPerTransaction: { counter, phone, website, app }, minutesSavedPerCounterVisit, rows: [{ key, label, appCompleted, otherChannels, appShare, counterAvoided, phoneAvoided, costAvoided }], totals: { appCompleted, counterAvoided, phoneAvoided, costAvoided, appShare, previousCostAvoided, previousAppShare } }` |
+| `vw_NetBenefit` | `{ current: { avoided, azure, other, cost, net, ratio }, previous, months: [{ month, days, full, avoided, azure, other, net }], attribution, otherRunningPerMonth }` |
+| `vw_ValueCumulative` | `{ dates, avoided: number[], cost: number[], net, oneOffBuild, buildDate, breakEven }` (all history, ignores filters) |
+| `vw_ChannelUnitCosts` | `{ channels: [{ key, label, cost, basis: 'assumed' | 'measured' }], completed }` |
+| `vw_ValueInputs` | `{ costPerTransaction, attribution, services: [{ key, label, completed, otherwise: { counter, phone, website } }] }` |
 | `vw_LgaProfile` (+`threshold`, `lga`) | State picture `{ code: null, stateRate, metroRate, regionalRate, stateUsers, councils, hidden }`; with `lga` adds `{ code, users, per1000, population, rank, ranked, group, groupRate, iosShare }`, or `{ code, suppressed: true }` for a hidden council |
 | `vw_Scorecard` (+`threshold`) | `{ days, measures: { activeUsers, newAccounts, credentialChecks: { current, previous }, transactionSuccess, onboardingConversion, regionalReach: { value } } }`, keyed like `vw_Targets` |
 | `vw_RetentionCohorts` | `[{ week, size, retained: number[] }]` where `retained[n]` is the share active n weeks after sign-up (`retained[0]` = 1) |
