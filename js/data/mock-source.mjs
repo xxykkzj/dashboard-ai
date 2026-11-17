@@ -86,6 +86,11 @@ export async function createMockSource({ mockBasePath, referenceBasePath, featur
     const total = on.reduce((a, t) => a + t.share, 0) || 1;
     if (on.length !== ref.transactionTypes.length) ref.transactionTypes = on.map(t => ({ ...t, share: t.share / total }));
   }
+  // Backends that only serve a switched-off feature are dropped too
+  const PROVIDER_FEATURE = { 'Fuel exemption portal': 'fuelExemption' };
+  const providerOn = pr => features[PROVIDER_FEATURE[pr.name]] !== false;
+  ref.providers = (ref.providers || []).filter(providerOn);
+  ops.providerPerformance = (ops.providerPerformance || []).filter(providerOn);
   const txType = key => ref.transactionTypes.find(t => t.key === key) || ref.transactionTypes[0];
 
   // apply step-by-step conversion rates, with optional per-platform overrides

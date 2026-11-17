@@ -73,9 +73,23 @@ The money case for the app, built on the channel-shift estimate in **Value deliv
 
 All of it is an estimate. The assumptions sit in `data/mock/value.json`: `costPerTransaction`, each service's `otherwise` shares, `programmeCosts` (`oneOffBuild`, `buildDate`, `otherRunningPerMonth`) and `attribution` (0–1). Every value is a placeholder to agree with finance.
 
+## Tab layout
+
+Every tab is split into named sections, set in one place: `LAYOUT` in `js/items/index.mjs`. Each section lists `[id, span]` pairs; rows are 12 columns wide. To move a card, move its pair; no item file changes. The first section of a tab overlaps the cover band, so its heading is for screen readers only. Items missing from `LAYOUT` appear under **More** on their own tab.
+
+| Tab | Sections |
+|---|---|
+| Overview | Headlines · Adoption and retention |
+| Value | The money case · Payback and what-ifs |
+| Journeys | Signing up and completing a transaction · Renewals · (Fuel exemption, switched off) |
+| Services | Transactions and payments · Digital credentials |
+| Location | Where and when |
+| Service health | Reliability · Backend systems · App versions and notifications |
+| Cost | Unit costs and budget · Where the money goes |
+
 ## Switching features off
 
-`js/config.mjs` has a `features` list. Setting a feature to `false` hides its items, its options in service selectors and its rows in per-service data, and rescales the other services' shares so totals still add up. Its code and mock data stay in place. **Fuel exemption** is switched off for now (`features.fuelExemption: false`); set it to `true` to bring it back.
+`js/config.mjs` has a `features` list. Setting a feature to `false` hides its items, its options in service selectors and its rows in per-service data (including the Fuel exemption portal backend), and rescales the other services' shares so totals still add up. Its code and mock data stay in place. **Fuel exemption** is switched off for now (`features.fuelExemption: false`); set it to `true` to bring it back.
 
 ## Run it locally
 
@@ -113,7 +127,7 @@ js/
     api-source.mjs         calls the real API (same interface)
   vendor/                  D3 and topojson-client, used only by the map
   ui/                      charts, council map (geomap), tile map, card shell, status and targets, formatting, motion
-  items/                   reporting items, one file per tab; index.mjs lists tabs and slides
+  items/                   reporting items grouped by subject; index.mjs has the tabs, LAYOUT and slides
 data/
   mock/                    mock data — edit and refresh
   reference/lga.json       council areas: names, population, ABS codes, tile positions
@@ -210,10 +224,11 @@ The dashboard shows figures only. It does not write commentary, headlines or rec
 
 ## Add a reporting item
 
-1. Add an object to the tab file in `js/items/` with `id`, `tab`, `span` (`s3`/`s4`/`s6`/`s8`/`s12`), `title`, `sub`, `view`, `build` (tables, fields, logic, sql) and `render(host, data, state, ctx)`.
-2. Add the view to `views` in `js/data/mock-source.mjs` (and later to the real API).
-3. Use the helpers in `js/ui/charts.mjs`: `kpi`, `lineChart`, `barChart`, `hbars`, `funnel`, `table`, `heatGrid`. `lineChart` and `barChart` take `events` and `target`; `lineChart` takes `compare` for the previous period; an `hbars` row with `go: { hash, set, label }` becomes a drill-down link. `js/ui/status.mjs` has `evaluate` and `statusChip` for targets.
-4. To put the item on a slide, add its id and a span to a slide in `STORY` in `js/items/index.mjs`. Slide titles are fixed text.
+1. Add an object to a file in `js/items/` with `id`, `tab`, `span` (`s3`/`s4`/`s6`/`s8`/`s12`), `title`, `sub`, `view`, `build` (tables, fields, logic, sql) and `render(host, data, state, ctx)`.
+2. Place it: add `['ITM-xx', 's6']` to a section in `LAYOUT` in `js/items/index.mjs`. `LAYOUT` decides each card's tab, order, width and section heading, and overrides `tab` and `span` on the item.
+3. Add the view to `views` in `js/data/mock-source.mjs` (and later to the real API).
+4. Use the helpers in `js/ui/charts.mjs`: `kpi`, `lineChart`, `barChart`, `hbars`, `funnel`, `table`, `heatGrid`. `lineChart` and `barChart` take `events` and `target`; `lineChart` takes `compare` for the previous period; an `hbars` row with `go: { hash, set, label }` becomes a drill-down link. `js/ui/status.mjs` has `evaluate` and `statusChip` for targets.
+5. To put the item on a slide, add its id and a span to a slide in `STORY` in `js/items/index.mjs`. Slide titles are fixed text.
 
 Optional item fields: `also: { name: 'vw_Other' }` loads extra views with the same parameters and passes them as the fifth argument, `render(host, data, state, ctx, more)` (used for `vw_Targets` and `vw_Events`); `kind: 'kpi'` or `'hero'` changes the card's look; `params(state, ctx)` adds query parameters, `deps: ['key']` re-renders when that state key changes, `control(state)` adds a card-level control (use `segControl` or `selectControl` from `js/ui/card.mjs`), and `global: false` ignores the period and platform filters.
 

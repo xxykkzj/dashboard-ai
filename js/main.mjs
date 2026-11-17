@@ -8,7 +8,7 @@ import { CONFIG } from './config.mjs';
 import { state, setState, subscribe } from './state.mjs';
 import { createSource } from './data/source.mjs';
 import { fetchJson } from './data/fetch-json.mjs';
-import { TABS, ITEMS, TAB_FOOTERS, STORY } from './items/index.mjs';
+import { TABS, ITEMS, TAB_FOOTERS, tabSections, STORY } from './items/index.mjs';
 import { renderModel } from './items/model.mjs';
 import { cardHTML } from './ui/card.mjs';
 import { dRange, addDays, escapeHtml } from './ui/format.mjs';
@@ -81,10 +81,16 @@ function invalidate(items) {
 
 function buildShell() {
   tabsEl.innerHTML = TABS.map(t => `<a href="#${t.id}" data-tab="${t.id}">${t.label}</a>`).join('');
-  main.innerHTML = TABS.map(t => `<section id="panel-${t.id}" aria-labelledby="tab-title" hidden>
-      ${t.id === 'model' ? '' : `<div class="grid">${ITEMS.filter(i => i.tab === t.id).map(i => cardHTML(i, state, ctx)).join('')}</div>`}
-      ${TAB_FOOTERS[t.id] || ''}
-    </section>`).join('');
+  // Each tab is a list of sections (see LAYOUT in js/items/index.mjs). The first
+  // section's cards overlap the cover band, so its heading is for screen readers only.
+  const cards = list => list.map(i => cardHTML(i, state, ctx)).join('');
+  main.innerHTML = TABS.map(t => {
+    const secs = t.id === 'model' ? [] : tabSections(t.id);
+    const body = secs.map((sec, n) => n === 0
+      ? `<h2 class="sr-only">${escapeHtml(sec.title)}</h2><div class="grid">${cards(sec.items)}</div>`
+      : `<div class="sect"><h2 class="sect-h">${escapeHtml(sec.title)}</h2><div class="grid">${cards(sec.items)}</div></div>`).join('');
+    return `<section id="panel-${t.id}" aria-labelledby="tab-title" hidden>${body}${TAB_FOOTERS[t.id] || ''}</section>`;
+  }).join('');
   renderModel($('#panel-model'));
   ITEMS.forEach(i => dirty.add(i.id));
 }

@@ -665,3 +665,11 @@ body.wanted-only main .card[data-item]:not(.is-wanted) { display: none; }
 .wi-row output { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; }
 .wi-controls .wd-b { justify-self: start; }
 .wi-out { display: grid; gap: 12px; }
+
+/* ---------- tab sections (LAYOUT in js/items/index.mjs) ---------- */
+.sect { margin-top: 36px; display: grid; gap: 14px; }
+.sect-h {
+  margin: 0; display: flex; align-items: center; gap: 14px;
+  font-family: var(--font-ui); font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.sect-h::after { content: ""; flex: 1; height: 1px; background: var(--line-strong, var(--line)); }

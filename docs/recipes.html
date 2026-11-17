@@ -66,7 +66,7 @@
   <code>series(field, platform)</code> gives the daily values for a field, and <code>win(list, range)</code> keeps the last <code>range</code> days. <code>credentialsAdded</code> is already in the <code>FIELDS</code> list at the top of the file; a brand-new field would need adding there too.</li>
   <li><b>Add the item.</b> In <code>js/items/services.mjs</code>, add an object to the list. Pick the next unused id (check the <a href="items.html">item catalog</a>).
   <figure class="doc-code"><pre><code>{
-  id: &#x27;ITM-36&#x27;, tab: &#x27;services&#x27;, span: &#x27;s6&#x27;, view: &#x27;vw_CredentialsAddedDaily&#x27;,
+  id: &#x27;ITM-47&#x27;, tab: &#x27;services&#x27;, span: &#x27;s6&#x27;, view: &#x27;vw_CredentialsAddedDaily&#x27;,
   title: &#x27;Credentials added per day&#x27;, sub: &#x27;Credentials added to wallets each day&#x27;,
   build: {
     sources: [&#x27;Credentials&#x27;],
@@ -86,7 +86,8 @@ GROUP BY CAST(AddedAt AS date);`
   }
 },</code></pre></figure>
   <code>lineChart</code>, <code>fmt</code> and <code>sum</code> are already imported at the top of that file. If you use a helper that isn't, add it to the <code>import</code> line.</li>
-  <li><b>Refresh and check.</b> The card appears on Services. Check that it changes with the period and phone-type filters, that <b>How it's built</b> opens, and that it looks right at phone width and in dark theme.</li>
+  <li><b>Place it.</b> In <code>js/items/index.mjs</code>, add <code>['ITM-47', 's6']</code> to a section in <code>LAYOUT</code>, for example the <b>Digital credentials</b> section under <code>services</code>. Keep each row adding up to 12: here it pairs with another <code>s6</code> card, or use <code>s12</code> for a full row.</li>
+  <li><b>Refresh and check.</b> The card appears in that section. Check that it changes with the period and phone-type filters, that <b>How it's built</b> opens, and that it looks right at phone width and in dark theme.</li>
   <li><b>Write it down.</b> Add a row for the view to <code>VIEWS</code> in <code>docs/items.mjs</code> (so the catalog shows its shape and file) and to the data contract table in <code>README.md</code>.</li>
 </ol>
 <div class="doc-note"><b>If the card shows "Couldn't load vw_…"</b><p>The view name in the item does not match a key in <code>views</code>, or the view threw an error. Open the browser console (F12) for the message.</p></div>
@@ -95,7 +96,7 @@ GROUP BY CAST(AddedAt AS date);`
   <li><b>Events on the chart:</b> add <code>also: { events: 'vw_Events' }</code> to the item, make the signature <code>render(h, d, s, ctx, more)</code>, and pass <code>events: more.events.filter(e =&gt; e.inPeriod === 'current')</code> to <code>lineChart</code>.</li>
   <li><b>A target:</b> add a row to <code>targets.json</code>, add <code>also: { targets: 'vw_Targets' }</code>, and use <code>findTarget</code> and <code>evaluate</code> from <code>js/ui/status.mjs</code>. To put it on the scorecard, also add the measure to <code>vw_Scorecard</code>.</li>
   <li><b>A control in the card:</b> add a key to <code>js/state.mjs</code>, then <code>control</code>, <code>deps</code> and <code>params</code> on the item. See <a href="components.html#controls">controls</a>.</li>
-  <li><b>On a slide:</b> add <code>['ITM-36', 's6']</code> to a slide in <code>STORY</code> in <code>js/items/index.mjs</code>, then check the slide still fits without scrolling.</li>
+  <li><b>On a slide:</b> add <code>['ITM-47', 's6']</code> to a slide in <code>STORY</code> in <code>js/items/index.mjs</code>, then check the slide still fits without scrolling.</li>
   <li><b>New mock numbers:</b> put them in a JSON file in <code>data/mock/</code>, load it in the <code>Promise.all</code> at the top of <code>createMockSource</code>, and read it in your view.</li>
 </ul>
 
@@ -106,7 +107,7 @@ GROUP BY CAST(AddedAt AS date);`
 import { hbars } from &#x27;../ui/charts.mjs&#x27;;
 
 export default [
-  { id: &#x27;ITM-37&#x27;, tab: &#x27;payments&#x27;, span: &#x27;s12&#x27;, view: &#x27;vw_PaymentsByService&#x27;, /* title, sub, build, render */ }
+  { id: &#x27;ITM-48&#x27;, tab: &#x27;payments&#x27;, span: &#x27;s12&#x27;, view: &#x27;vw_PaymentsByService&#x27;, /* title, sub, build, render */ }
 ];</code></pre></figure></li>
   <li><b>Register it</b> in <code>js/items/index.mjs</code>: import the file, add a tab, and add the items to <code>ITEMS</code>.
   <figure class="doc-code"><pre><code>import payments from &#x27;./payments.mjs&#x27;;
@@ -118,9 +119,34 @@ export const TABS = [
 ];
 
 export const ITEMS = [...overview, ...journeys, ...services, ...payments, ...location, ...health];</code></pre></figure></li>
-  <li><b>That's all.</b> <code>main.mjs</code> builds the tab link, the panel and the cards from these two lists. The tab's address is <code>#payments</code>. Use a short lower-case id with no spaces.</li>
+  <li><b>Lay it out.</b> In the same file, add the tab to <code>LAYOUT</code> with at least one section:
+  <figure class="doc-code"><pre><code>payments: [
+  { title: &#x27;Payments by service&#x27;, items: [[&#x27;ITM-48&#x27;, &#x27;s12&#x27;]] }
+],</code></pre></figure></li>
+  <li><b>That's all.</b> <code>main.mjs</code> builds the tab link, the panel, a heading for each section after the first, and the cards from these lists. The tab's address is <code>#payments</code>. Use a short lower-case id with no spaces.</li>
 </ol>
 <p>For text under a tab's cards (like the privacy note on Location), add an entry to <code>TAB_FOOTERS</code> in the same file.</p>
+
+<h2 id="reorganise">Move a card or reorganise a tab</h2>
+<p>Everything about placement lives in <code>LAYOUT</code> in <code>js/items/index.mjs</code>. No item file needs to change.</p>
+<ol class="doc-steps">
+  <li><b>Move a card:</b> cut its <code>['ITM-xx', 's6']</code> pair from one section and paste it into another, on the same tab or a different one.</li>
+  <li><b>Change its width:</b> change the span. Rows are 12 columns, so two <code>s6</code>, an <code>s8</code> with an <code>s4</code>, or one <code>s12</code>. A row that adds up to less than 12 leaves a gap.</li>
+  <li><b>Add, rename or reorder a section:</b> edit the section objects in the tab's list. The first section of a tab sits on the cover band and its title is not shown.</li>
+  <li><b>Refresh and check</b> the tab at desktop and phone width, and in Present mode if the card is on a slide (slides are listed separately in <code>STORY</code>).</li>
+</ol>
+
+<h2 id="features">Switch a feature off (or back on)</h2>
+<p><code>js/config.mjs</code> has a <code>features</code> list. Fuel exemption is switched off for now:</p>
+<figure class="doc-code"><pre><code>features: {
+  fuelExemption: false     // parked for now
+}</code></pre></figure>
+<ul>
+  <li>Items with <code>feature: &#x27;fuelExemption&#x27;</code> are left out of <code>ITEMS</code>, so they disappear from every tab, slide, the Wanted list and the item catalog.</li>
+  <li>Service selectors drop the matching option, and the mock source drops the fuel transaction type and the Fuel exemption portal backend, rescaling the other services&#x27; shares so totals still add up.</li>
+  <li>Code, mock data and the <b>Fuel exemption</b> section in <code>LAYOUT</code> stay in place. Set the switch to <code>true</code> and refresh to bring it all back.</li>
+  <li>To make another feature switchable, add a key to <code>features</code>, tag its items with <code>feature: &#x27;key&#x27;</code>, and filter any options or data rows with <code>featureOn(&#x27;key&#x27;)</code>.</li>
+</ul>
 
 <h2 id="api">Connect the real API</h2>
 <p>The dashboard never talks to a database. It asks an API for each view by name, and the API returns JSON in the agreed shape.</p>
