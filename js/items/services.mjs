@@ -1,4 +1,4 @@
-/** Services tab: credentials, transactions and the fuel exemption scheme. */
+/** Services tab: credentials, transactions, payments and renewals. Fuel exemption items are parked (CONFIG.features). */
 import { hbars, lineChart, barChart, table, legend, meter } from '../ui/charts.mjs';
 import { fmt, fmtC, fmtMoney, pct, sum, avg, dfmt, escapeHtml } from '../ui/format.mjs';
 import { selectControl } from '../ui/card.mjs';
@@ -177,7 +177,7 @@ ORDER BY WeekStarting;`
     }
   },
   {
-    id: 'ITM-17', tab: 'services', span: 's6', view: 'vw_FuelExemptionByCategory',
+    id: 'ITM-17', feature: 'fuelExemption', tab: 'services', span: 's6', view: 'vw_FuelExemptionByCategory',
     title: 'Fuel exemption by category', sub: 'Submitted registrations, individuals and businesses',
     build: {
       sources: ['FuelExemptionIndividualRegistrations', 'FuelExemptionBusinessRegistrations', 'FuelExemptionCategories'],

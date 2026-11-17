@@ -8,7 +8,7 @@ const MODEL = [
   ['ValidationHistories', 'use', ['ValidationId (PK)', 'CredentialId (FK)', 'Method', 'Result', 'ValidatedAt']],
   ['Transactions', 'use', ['TransactionId (PK)', 'UserId (FK)', 'TransactionTypeId (FK)', 'TransactionStatusId (FK)', 'ServiceProviderId (FK)', 'Amount', 'FailureReason', 'CreatedAt', 'CompletedAt']],
   ['Notifications', 'use', ['NotificationId (PK)', 'UserId (FK)', 'Type', 'SentAt', 'DeliveredAt', 'OpenedAt', 'ActionTakenAt']],
-  ['FuelExemption…Registrations', 'use', ['RegistrationId (PK)', 'IndividualId / BusinessId (FK)', 'CategoryId (FK)', 'Status', 'StartedAt', 'SubmittedAt', 'DecidedAt']],
+  ['FuelExemption…Registrations', 'lk', ['RegistrationId (PK)', 'IndividualId / BusinessId (FK)', 'CategoryId (FK)', 'Status', 'StartedAt', 'SubmittedAt', 'DecidedAt'], 'Parked for now. Its items are switched off in js/config.mjs (features.fuelExemption).'],
   ['OwnedRegistrations · AddedRegistrations', 'use', ['RegistrationId (PK)', 'UserId (FK)', 'ExpiryDate', 'LinkedAt'], 'Future item: registrations due to expire.'],
   ['PortalStatuses', 'use', ['PortalStatusId (PK)', 'ServiceProviderId (FK)', 'Status', 'CheckedAt']],
   ['Lookups', 'lk', ['CredentialTypes', 'CredentialProviders', 'TransactionTypes', 'TransactionStatuses', 'ServiceProviders', 'OriginatorSystems', 'FuelExemptionCategories / Subcategories / Classes'], 'Small reference tables that give names to IDs.'],

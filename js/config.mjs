@@ -22,5 +22,15 @@ export const CONFIG = {
   },
 
   // Council areas with fewer users than this are hidden for privacy.
-  suppressionThreshold: 10
+  suppressionThreshold: 10,
+
+  // Parts of the dashboard that can be switched off. A switched-off feature's
+  // items, selector options and service rows are hidden; its code and mock
+  // data stay in place. Set to true to bring it back.
+  features: {
+    fuelExemption: false     // parked for now
+  }
 };
+
+/** True unless the feature is switched off in CONFIG.features */
+export const featureOn = name => !name || CONFIG.features[name] !== false;

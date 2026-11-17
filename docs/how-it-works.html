@@ -115,8 +115,8 @@ source.query(view, p)   // returns a Promise of the answer for one view</code></
 <div class="tscroll"><table>
 <thead><tr><th>Field</th><th>What it does</th></tr></thead><tbody>
 <tr><td><code>id</code></td><td>Unique id, shown in the card footer. Also the element id, so <code>#services/ITM-15</code> links straight to it.</td></tr>
-<tr><td><code>tab</code></td><td>Which tab the card appears on.</td></tr>
-<tr><td><code>span</code></td><td>Width on the 12-column grid: <code>s3</code>, <code>s4</code>, <code>s5</code>, <code>s6</code>, <code>s7</code>, <code>s8</code> or <code>s12</code>. Add <code>tall</code> to span two rows.</td></tr>
+<tr><td><code>tab</code></td><td>The tab the card belongs to by default. <code>LAYOUT</code> in <code>js/items/index.mjs</code> overrides it (see <a href="#layout">tabs and sections</a>).</td></tr>
+<tr><td><code>span</code></td><td>Width on the 12-column grid: <code>s3</code>, <code>s4</code>, <code>s5</code>, <code>s6</code>, <code>s7</code>, <code>s8</code> or <code>s12</code>. Add <code>tall</code> to span two rows. Also overridden by <code>LAYOUT</code>.</td></tr>
 <tr><td><code>view</code></td><td>The view to ask the data source for.</td></tr>
 <tr><td><code>title</code>, <code>sub</code></td><td>Card heading and the line under it.</td></tr>
 <tr><td><code>build</code></td><td>What the <b>How it's built</b> panel shows: tables, fields, logic and SQL.</td></tr>
@@ -129,6 +129,23 @@ source.query(view, p)   // returns a Promise of the answer for one view</code></
 <tr><td><code>kind</code> (optional)</td><td><code>'kpi'</code> or <code>'hero'</code> changes the card's look.</td></tr>
 </tbody></table></div>
 <p><code>js/items/index.mjs</code> gathers every item into one list, <code>ITEMS</code>, and also defines <code>TABS</code> and the presentation slides, <code>STORY</code>. This list is the <b>item registry</b>.</p>
+
+<h2 id="layout">Tabs and sections: one layout for the whole dashboard</h2>
+<p>Which cards appear on which tab, in what order, how wide, and under which heading is set in one place: <code>LAYOUT</code> in <code>js/items/index.mjs</code>. Each tab is a list of sections; each section has a title and a list of <code>[id, span]</code> pairs.</p>
+<figure class="doc-code"><figcaption>from js/items/index.mjs</figcaption><pre><code>export const LAYOUT = {
+  journeys: [
+    { title: &#x27;Signing up and completing a transaction&#x27;, items: [[&#x27;ITM-07&#x27;, &#x27;s6&#x27;], [&#x27;ITM-08&#x27;, &#x27;s6&#x27;], [&#x27;ITM-31&#x27;, &#x27;s12&#x27;]] },
+    { title: &#x27;Renewals&#x27;, items: [[&#x27;ITM-30&#x27;, &#x27;s6&#x27;], [&#x27;ITM-09&#x27;, &#x27;s6&#x27;]] }
+  ],
+  ...
+};</code></pre></figure>
+<ul>
+  <li>When the registry loads, each item listed in <code>LAYOUT</code> takes its <code>tab</code>, <code>span</code> and <code>section</code> from it, so the dashboard, the item catalog and the Wanted list all agree.</li>
+  <li><code>main.mjs</code> asks <code>tabSections(tabId)</code> for a tab's sections and draws one grid per section with a heading above it. The first section sits on the dark cover band, so its heading is read by screen readers but not shown; the tab title does that job.</li>
+  <li>Sections whose items are all switched off (for example <b>Fuel exemption</b>, see <a href="recipes.html#features">switching features off</a>) disappear on their own.</li>
+  <li>An item not listed in <code>LAYOUT</code> still appears, on the tab named in its own definition, in a section called <b>More</b>, so nothing goes missing.</li>
+</ul>
+<p>The item files in <code>js/items/</code> group items by subject, not by where they are shown. Moving a card to another tab is a change to <code>LAYOUT</code> only.</p>
 
 <h2 id="boot">Step 3: starting up</h2>
 <p>When the page loads, <code>boot()</code> in <code>main.mjs</code> runs:</p>
@@ -176,7 +193,7 @@ source.query(view, p)   // returns a Promise of the answer for one view</code></
 <h2 id="routing">Step 5: tabs and links (hash routing)</h2>
 <p>The part of an address after <code>#</code> is the <b>hash</b>. Changing it does not reload the page, but the browser fires a <code>hashchange</code> event, and the back button works. The dashboard uses it to remember the tab:</p>
 <ul>
-  <li><code>#services</code> shows the Services tab.</li>
+  <li><code>#services</code> shows the Services tab, and <code>#value</code> the Value tab.</li>
   <li><code>#location/ITM-22</code> shows the Location tab, scrolls to the map and moves keyboard focus there.</li>
 </ul>
 <p>Tabs are ordinary links (<code>&lt;a href="#services"&gt;</code>), so they work with the keyboard and can be bookmarked. <code>showTab()</code> hides every tab panel except the current one and renders any item on it that is out of date.</p>

@@ -1,16 +1,19 @@
 /** Journeys tab: funnels built from records the database already keeps. */
+import { featureOn } from '../config.mjs';
 import { funnel } from '../ui/charts.mjs';
 import { selectControl } from '../ui/card.mjs';
 
 // Keys must match transactionTypes[].key in data/mock/reference.json
 // (and the TransactionTypes lookup values in the real view).
-export const TX_OPTIONS = [
+// Third entry, when present, is the feature that must be on (CONFIG.features)
+const ALL_TX_OPTIONS = [
   ['rego', 'Registration renewal'],
   ['licence', "Driver's licence renewal"],
   ['address', 'Change of address'],
   ['transfer', 'Registration transfer'],
-  ['fuel', 'Fuel exemption application']
+  ['fuel', 'Fuel exemption application', 'fuelExemption']
 ];
+export const TX_OPTIONS = ALL_TX_OPTIONS.filter(o => featureOn(o[2])).map(([v, t]) => [v, t]);
 
 export default [
   {
@@ -85,7 +88,7 @@ WHERE n.Type = 'RegistrationRenewalReminder'
     render: (h, d) => funnel(h, d, { noun: 'reminders' })
   },
   {
-    id: 'ITM-10', tab: 'journeys', span: 's6', view: 'vw_FuelExemptionFunnel',
+    id: 'ITM-10', feature: 'fuelExemption', tab: 'journeys', span: 's6', view: 'vw_FuelExemptionFunnel',
     title: 'Fuel exemption application', sub: 'Individuals and businesses combined',
     build: {
       sources: ['FuelExemptionIndividualRegistrations', 'FuelExemptionBusinessRegistrations'],

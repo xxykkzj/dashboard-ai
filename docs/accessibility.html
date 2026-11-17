@@ -106,7 +106,7 @@
 
 <h2 id="files">Conventions: files</h2>
 <div class="tscroll"><table><thead><tr><th>Kind</th><th>Where</th><th>Naming</th></tr></thead><tbody>
-<tr><td>Reporting items</td><td><code>js/items/&lt;tab&gt;.mjs</code></td><td>One file per tab, lower case. Ids are <code>ITM-00</code> upward and never reused.</td></tr>
+<tr><td>Reporting items</td><td><code>js/items/&lt;tab&gt;.mjs</code></td><td>Grouped by subject, lower case. Where each item appears is set by <code>LAYOUT</code> in <code>js/items/index.mjs</code>. Ids are <code>ITM-00</code> upward and never reused.</td></tr>
 <tr><td>Building blocks</td><td><code>js/ui/</code></td><td>One file per family: <code>charts.mjs</code>, <code>geomap.mjs</code>. Functions are verbs or nouns in camelCase: <code>lineChart</code>, <code>statusChip</code>.</td></tr>
 <tr><td>Data</td><td><code>js/data/</code></td><td>Views are <code>vw_PascalCase</code>, matching the SQL view.</td></tr>
 <tr><td>Mock data</td><td><code>data/mock/</code></td><td><code>kebab-case.json</code>, fields in camelCase, an <code>_about</code> field first.</td></tr>

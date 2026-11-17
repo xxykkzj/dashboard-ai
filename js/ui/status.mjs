@@ -4,9 +4,11 @@
  * Targets come from the data layer (vw_Targets; data/mock/targets.json in the
  * prototype). A measure is "On track" at or above its target, "Action" below
  * its action level and "Watch" in between. Status is always shown as a shape
- * plus a word, never colour alone.
+ * plus a word, never colour alone. A target with direction 'lower' (costs)
+ * is the other way round: On track at or below target, Action above the
+ * action level.
  */
-import { fmt, pct, pctTidy, escapeHtml } from './format.mjs';
+import { fmt, pct, pctTidy, fmtCents, escapeHtml } from './format.mjs';
 
 export const STATUS = {
   good: { label: 'On track', rank: 0 },
@@ -44,19 +46,23 @@ export function evaluate(t, m) {
     : t.basis === 'growth' ? (m.previous ? (m.current - m.previous) / m.previous : NaN)
     : m.value;
   if (!Number.isFinite(measured)) return null;
-  const status = measured >= t.target ? 'good' : measured < t.action ? 'action' : 'watch';
+  const status = t.direction === 'lower'
+    ? (measured <= t.target ? 'good' : measured > t.action ? 'action' : 'watch')
+    : (measured >= t.target ? 'good' : measured < t.action ? 'action' : 'watch');
   return { status, measured, target: t.target, text: targetText(t), now: nowText(t, measured) };
 }
 
 export function targetText(t) {
   if (t.basis === 'perDay') return `Target ${fmt(t.target)} a day`;
   if (t.basis === 'growth') return `Target: grow ${pctTidy(t.target)} or more`;
+  if (t.unit === 'cents') return `Target ${fmtCents(t.target)}${t.direction === 'lower' ? ' or less' : ''}`;
   return `Target ${pctTidy(t.target)}`;
 }
 
 function nowText(t, v) {
   if (t.basis === 'perDay') return `now ${fmt(v)} a day`;
   if (t.basis === 'growth') return `now ${v >= 0 ? '+' : '−'}${pct(Math.abs(v))}`;
+  if (t.unit === 'cents') return `now ${fmtCents(v)}`;
   return `now ${pct(v)}`;
 }
 
