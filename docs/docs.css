@@ -197,3 +197,107 @@ body { font-size: 16px; line-height: 1.6; }
 }
 .doc-main h2.doc-gloss-letter { border-top: 0; margin-top: 0; padding-top: 0; font-size: 20px; color: var(--accent2); }
 .doc-gloss-group + .doc-gloss-group { margin-top: 22px; }
+
+/* ---------------- Vision page (vision.html, vision.mjs) ---------------- */
+.vh-eyebrow { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent2); font-weight: 600; margin: 0 0 6px; }
+.vh-outcomes, .vh-sources, .vh-three { display: grid; gap: 12px; margin-top: 20px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.vh-outcomes > div, .vh-sources > div, .vh-three > div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; min-width: 0; }
+.vh-outcomes > div { border-top: 3px solid var(--accent); }
+.vh-outcomes b { display: block; font-size: 15.5px; }
+.vh-outcomes span { display: block; color: var(--muted); font-size: 14.5px; margin-top: 4px; line-height: 1.5; }
+.vh-sources h3, .vh-three h3 { margin: 0 0 6px; font-size: 17px; }
+.vh-sources p, .vh-three p { margin: 0; font-size: 15px; }
+.vh-tag { display: inline-block; font-size: 12px !important; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px !important; }
+.vh-small { font-size: 13.5px; color: var(--muted); }
+.vh-demo-h { margin-top: 32px; }
+.vh-demo-note { color: var(--muted); font-size: 14px; margin-top: 2px; }
+
+.vbtn { font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 99px; padding: 6px 14px; cursor: pointer; }
+.vbtn:hover { border-color: var(--muted); }
+.vbtn[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.vbtn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.vj-controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin: 16px 0 14px; }
+.vj-steps { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.vj {
+  --a: var(--accent); --w: var(--accent2); --d: var(--good);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr) 26px) minmax(0, 1fr); align-items: stretch;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r); padding: 16px;
+}
+.vj-stage {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 10px 12px; cursor: pointer; min-width: 0;
+  transition: opacity var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.vj-stage:hover { border-color: var(--muted); }
+.vj-n { margin: 0; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.vj-stage h3 { margin: 2px 0 6px; font-size: 15px; line-height: 1.25; }
+.vj-stage ul { margin: 0; padding: 0; list-style: none; }
+.vj-stage li { font-size: 12.5px; line-height: 1.35; padding: 4px 6px; margin-top: 4px; background: var(--surface-2); border-radius: 4px; overflow-wrap: anywhere; }
+.vj-note { margin: 8px 0 0; font-size: 12px; color: var(--muted); font-style: italic; }
+.vj.focused .vj-stage { opacity: .45; }
+.vj.focused .vj-stage.done { opacity: .75; }
+.vj.focused .vj-stage.on { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); transform: translateY(-3px); }
+
+.vj-link { position: relative; align-self: center; height: 64px; }
+.vj-link::before { content: ""; position: absolute; left: 2px; right: 2px; top: 50%; border-top: 2px dashed var(--line); }
+.vj-link i { position: absolute; left: 0; width: 8px; height: 8px; border-radius: 50%; animation: vj-flow 2.6s linear infinite; }
+.vj-link i.a { top: calc(50% - 16px); background: var(--a); }
+.vj-link i.w { top: calc(50% - 4px); background: var(--w); animation-delay: -.9s; }
+.vj-link i.d { top: calc(50% + 8px); background: var(--d); animation-delay: -1.7s; }
+@keyframes vj-flow { from { transform: translateX(0); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } to { transform: translateX(18px); opacity: 0; } }
+.vj.paused .vj-link i, .vj.still .vj-link i { animation-play-state: paused; }
+.vj.still .vj-link i { opacity: 1; transform: translateX(9px); animation: none; }
+.vj.still .vj-stage { transition: none; transform: none !important; }
+
+.vj-gov { grid-column: 1 / -1; margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; border-top: 2px solid var(--accent2); padding-top: 10px; font-size: 13.5px; }
+.vj-gov b { margin-right: 4px; }
+.vj-gov span { background: var(--surface); border: 1px solid var(--line); border-radius: 99px; padding: 2px 10px; }
+.vj-panel { margin-top: 12px; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 12px 16px; min-height: 64px; }
+.vj-panel h3 { margin: 0 0 4px; font-size: 17px; }
+.vj-panel p { margin: 0; }
+.vj-step-n { font-size: 12.5px !important; color: var(--muted); font-family: var(--font-mono); }
+.vj-legend { display: flex; gap: 16px; font-size: 13px; color: var(--muted); margin-top: 8px; }
+.vj-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.vj-legend i.a { background: var(--accent); } .vj-legend i.w { background: var(--accent2); } .vj-legend i.d { background: var(--good); }
+
+@media (max-width: 860px) {
+  .vj { grid-template-columns: minmax(0, 1fr); }
+  .vj-link { height: 26px; width: 64px; justify-self: center; transform: rotate(90deg); }
+}
+
+.vc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; margin-top: 12px; }
+.vc-controls { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.vc-controls > div { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.vc-l { font-size: 13px; color: var(--muted); font-weight: 600; }
+.vc-figs { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 14px 0 4px; }
+.vc-fig b { display: block; font-size: 26px; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.vc-fig span { font-size: 13px; color: var(--muted); }
+.vc-fig.lead b { color: var(--accent); }
+.vc-chart svg { display: block; width: 100%; height: auto; }
+.vc-grid { stroke: var(--line); stroke-width: 1; }
+.vc-y { fill: var(--muted); font-size: 11px; text-anchor: end; font-family: var(--font-mono); }
+.vc-x { fill: var(--muted); font-size: 11px; font-family: var(--font-mono); }
+.vc-cur { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
+.vc-cmp { fill: none; stroke: var(--neutral); stroke-width: 2; stroke-dasharray: 5 4; }
+.vc-end { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+.vc-legend { display: flex; gap: 18px; font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+.vc-legend i { display: inline-block; width: 18px; height: 0; vertical-align: middle; margin-right: 6px; border-top: 2.5px solid var(--accent); }
+.vc-legend i.cmp { border-top: 2px dashed var(--neutral); }
+
+.vc-cap-h { margin-top: 22px; font-size: 16px; }
+.vc-cap td:first-child { font-weight: 600; }
+.vc-cap td { font-size: 14.5px; vertical-align: top; }
+.vs { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+.vs-ga { background: var(--good-soft); color: var(--good); }
+.vs-pv { background: var(--warn-soft); color: var(--warn); }
+.vs-new { background: var(--accent-soft); color: var(--accent); }
+
+.vh-plan { list-style: none; padding: 0; margin: 18px 0 0; border-left: 2px solid var(--line); }
+.vh-plan > li { position: relative; padding: 0 0 18px 22px; }
+.vh-plan > li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+.vh-plan > li:first-child::before { background: var(--accent); }
+.vh-when { margin: 0; font-size: 13px; font-weight: 600; color: var(--accent2); letter-spacing: .03em; }
+.vh-plan h3 { margin: 2px 0 4px; font-size: 17px; }
+.vh-plan ul { margin: 0; padding-left: 18px; }
+.vh-plan ul li { font-size: 15px; }
+.vh-sources-list li { font-size: 15px; }

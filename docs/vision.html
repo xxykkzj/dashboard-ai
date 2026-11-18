@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <script>
+    // If a server opens this folder as /docs (no trailing slash), relative links would
+    // point at the site root. Add the slash so links resolve inside /docs/.
+    (function () { var p = location.pathname; if (/\/docs$/.test(p)) location.replace(p + '/' + location.search + location.hash); })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vision – mySA GOV Insights docs</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c2233'/%3E%3Cpath d='M9 9h14M9 15h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="docs.css">
+  <script type="module" src="docs.mjs"></script>
+  <script type="module" src="vision.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#doc-main">Skip to content</a>
+  <header class="doc-top">
+    <div class="doc-top-in">
+      <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
+      <div class="doc-top-actions">
+        <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
+        <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
+      </div>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <details class="doc-nav" open>
+      <summary>Contents</summary>
+      <nav aria-label="Documentation pages">
+      <ol>
+        <li><a href="vision.html" aria-current="page">Vision</a></li>
+        <li><a href="index.html">Getting started</a></li>
+        <li><a href="how-it-works.html">How the app works</a></li>
+        <li><a href="items.html">Item catalog</a></li>
+        <li><a href="components.html">Component catalog</a></li>
+        <li><a href="tokens.html">Design tokens</a></li>
+        <li><a href="mock-data.html">Mock data guide</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="accessibility.html">Accessibility and conventions</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+      </ol>
+      </nav>
+    </details>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      <p class="vh-eyebrow">Vision brief · November 2026 · draft for discussion</p>
+      <h1>One data platform for SA Government digital services</h1>
+      <p class="doc-lede">The mySA GOV app, government websites and the ID service, brought together in one Fabric data lake, so leaders can see how digital services are used, how well they work and what they are worth, today and against three years ago.</p>
+
+<div class="vh-outcomes">
+  <div><b>One version of the truth</b><span>Every measure defined once and used by every report, dashboard and Copilot answer.</span></div>
+  <div><b>Monthly reporting, automated</b><span>The monthly pack refreshes and arrives in email and Teams without manual work.</span></div>
+  <div><b>Live when it matters</b><span>A real-time view of sign-ins, failures and outages, with alerts to the right team.</span></div>
+  <div><b>Long memory</b><span>Rolling windows and comparisons with the same period up to three years ago.</span></div>
+</div>
+
+<h2 id="today">Where we are</h2>
+<p>This dashboard is a working prototype built on mock data shaped like the mySA GOV app database. It already shows the kinds of measures leadership has asked about: adoption, journeys, service health, location, platform cost and value. The vision below replaces the mock data with real data, adds the government websites and the ID service, and puts the whole Microsoft tenancy to work around it.</p>
+
+<h2 id="sources">Three services, one picture</h2>
+<div class="vh-sources">
+  <div><h3>mySA GOV app</h3><p>Digital licences and credentials, registration renewals, payments, notifications. Data from the app database (system-versioned tables keep the history of every change) and from Application Insights.</p></div>
+  <div><h3>Government websites</h3><p>Visits, searches, completed online forms and where people drop out. Data from web analytics and the forms platforms behind each site.</p></div>
+  <div><h3>ID service</h3><p>An identity exchange connecting about 20 identity providers, including the Australian Government's myID and the Department for Infrastructure and Transport's Service SA account. People sign in once for basic access and are asked for multi-factor authentication only for sensitive tasks.</p></div>
+</div>
+<div class="doc-note"><b>What the ID service can tell us, and what it must not</b><p>Useful measures: sign-ins by identity provider, success and failure rates, how often step-up MFA is triggered and passed, time to sign in, and provider outages. The Commonwealth system makes a point that identity providers cannot track which services a person uses, so our analytics should work on counts and rates, never on an individual's trail across services. A privacy impact assessment comes before ingestion.</p></div>
+
+<section aria-labelledby="journey">
+<h2 id="journey">From source to screen</h2>
+<p>How data would travel through Microsoft Fabric. Play the journey, select a step, or use the arrow keys.</p>
+<div class="vj-controls">
+  <button type="button" class="vbtn primary" id="vj-play" aria-pressed="false">Play the journey</button>
+  <div class="vj-steps" role="group" aria-label="Steps"><button type="button" class="vbtn" data-vj-step="0" aria-pressed="false">1. Sources</button><button type="button" class="vbtn" data-vj-step="1" aria-pressed="false">2. Bring it in</button><button type="button" class="vbtn" data-vj-step="2" aria-pressed="false">3. One lake</button><button type="button" class="vbtn" data-vj-step="3" aria-pressed="false">4. Shared meaning</button><button type="button" class="vbtn" data-vj-step="4" aria-pressed="false">5. Use it</button></div>
+</div>
+<div class="vj" id="vj"><div class="vj-stage" data-k="sources" style="--i:0"><p class="vj-n">1</p><h3>Sources</h3><ul><li>mySA GOV app database</li><li>Government websites</li><li>ID service, about 20 identity providers</li><li>Azure monitoring and cost</li></ul></div><div class="vj-link" aria-hidden="true"><i class="a"></i><i class="w"></i><i class="d"></i></div><div class="vj-stage" data-k="ingest" style="--i:1"><p class="vj-n">2</p><h3>Bring it in</h3><ul><li>Mirroring</li><li>Copy job and pipelines</li><li>Eventstream (live events)</li><li>Shortcuts (no copy)</li></ul><p class="vj-note">Fabric Data Factory</p></div><div class="vj-link" aria-hidden="true"><i class="a"></i><i class="w"></i><i class="d"></i></div><div class="vj-stage" data-k="store" style="--i:2"><p class="vj-n">3</p><h3>One lake</h3><ul><li>Bronze: as it arrived</li><li>Silver: cleaned, de-identified</li><li>Gold: ready to report</li></ul><p class="vj-note">OneLake, Australian region</p></div><div class="vj-link" aria-hidden="true"><i class="a"></i><i class="w"></i><i class="d"></i></div><div class="vj-stage" data-k="model" style="--i:3"><p class="vj-n">4</p><h3>Shared meaning</h3><ul><li>Semantic model: each measure defined once</li><li>Eventhouse for live data</li><li>Fabric IQ for Copilot and agents</li></ul></div><div class="vj-link" aria-hidden="true"><i class="a"></i><i class="w"></i><i class="d"></i></div><div class="vj-stage" data-k="use" style="--i:4"><p class="vj-n">5</p><h3>Use it</h3><ul><li>Power BI and this dashboard</li><li>Monthly report to email and Teams</li><li>Real-time dashboard and alerts</li><li>Copilot and data agents</li><li>Power Apps and Power Automate</li></ul></div><div class="vj-gov"><b>Governed throughout</b><span>Entra ID sign-in and Conditional Access</span><span>Purview sensitivity labels and data loss prevention</span><span>OneLake security and audit</span></div></div>
+<div class="vj-panel" id="vj-panel" aria-live="polite"></div>
+<p class="vj-legend" aria-hidden="true"><span><i class="a"></i>App</span><span><i class="w"></i>Websites</span><span><i class="d"></i>ID service</span></p>
+</section>
+
+<h2 id="reporting">Three ways leaders see the numbers</h2>
+<div class="vh-three">
+  <div><p class="vh-tag">Monthly</p><h3>Automated monthly pack</h3><p>On the first working day of each month the data refreshes, the Power BI report updates, and a PDF and link arrive in email and a Teams channel. An analyst reviews it and adds the commentary; nothing is written for them.</p></div>
+  <div><p class="vh-tag">Live</p><h3>Real-time dashboard</h3><p>Sign-ins, failed payments and backend status, seconds old. Fabric Activator posts to the on-call Teams channel when a measure crosses its threshold, for example sign-in failures above 5% for ten minutes.</p></div>
+  <div><p class="vh-tag">Over time</p><h3>Rolling windows and comparisons</h3><p>Rolling 12 months, financial year to date, and the same month one, two or three years ago, all calculated once in the semantic model so every report agrees.</p></div>
+</div>
+
+<section aria-labelledby="compare">
+<h3 id="compare" class="vh-demo-h">Try it: what was it three years ago?</h3>
+<p class="vh-demo-note">Illustrative numbers, not real data: completed app transactions per month.</p>
+<div class="vc">
+  <div class="vc-controls">
+    <div><span class="vc-l" id="vc-l1">Show</span><div class="seg" role="group" aria-labelledby="vc-l1"><button type="button" data-vc="view:monthly" aria-pressed="true">Each month</button><button type="button" data-vc="view:rolling" aria-pressed="false">Rolling 12 months</button></div></div>
+    <div><span class="vc-l" id="vc-l2">Compare with</span><div class="seg" role="group" aria-labelledby="vc-l2"><button type="button" data-vc="cmp:1y" aria-pressed="false">1 year ago</button><button type="button" data-vc="cmp:3y" aria-pressed="true">3 years ago</button><button type="button" data-vc="cmp:none" aria-pressed="false">Nothing</button></div></div>
+  </div>
+  <div class="vc-figs" id="vc-figs" aria-live="polite"></div>
+  <div class="vc-chart" id="vc-chart"></div>
+  <p class="vc-legend" id="vc-legend"></p>
+</div>
+<figure class="doc-code"><figcaption>How it is calculated once, in the semantic model (DAX)</figcaption><pre><code>Completed (rolling 12 months) =
+CALCULATE ( [Completed transactions],
+    DATESINPERIOD ( 'Date'[Date], MAX ( 'Date'[Date] ), -12, MONTH ) )
+
+Completed (3 years earlier) =
+CALCULATE ( [Completed transactions],
+    DATEADD ( 'Date'[Date], -3, YEAR ) )</code></pre></figure>
+<p>The calculation is the easy part. The comparison only works if the history is kept: three years of daily data in the lake, with the same definitions applied to every year. Where the source systems only hold recent data, loading history early is the first task.</p>
+</section>
+
+<h2 id="tenancy">Using the whole Microsoft tenancy</h2>
+<p>Microsoft has folded much of its data and automation tooling into Fabric over the past two years. Azure Data Factory now runs inside Fabric, Power BI is part of it, and Power Platform reads and writes the same data. Copilot and agents now answer from the same definitions as the reports. With a whole-of-government tenancy already in place, most of the pieces below are available without new procurement, subject to licences and capacity.</p>
+<h3 class="vc-cap-h">Bring data in</h3><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Keep a live copy of the app database</td><td>Mirroring for SQL Server and Azure SQL</td><td>Near real-time, no pipelines to maintain; on-premises SQL Server uses a gateway.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Move files, APIs and website analytics</td><td>Fabric Data Factory: Copy job, pipelines, Dataflow Gen2</td><td>Azure Data Factory is now part of Fabric. Existing factories can be mounted in a workspace and upgraded step by step.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Stream sign-in events from the ID service</td><td>Eventstream into an Eventhouse</td><td>Second-by-second data for the real-time dashboard.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Use Power Platform data without copying it</td><td>Dataverse link to Fabric, OneLake shortcuts</td><td>Dataverse tables appear in OneLake as shortcuts.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div><h3 class="vc-cap-h">Report and compare</h3><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>One definition of every measure</td><td>Power BI semantic model in Direct Lake mode</td><td>Reads OneLake directly, so reports stay fresh without import refreshes.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Rolling windows and "compared with 3 years ago"</td><td>DAX time intelligence; calendar-based time intelligence</td><td>Classic DAX covers rolling 12 months and earlier years today; calendars for financial years are simpler with the newer feature.</td><td><span class="vs vs-pv">Preview</span></td></tr><tr><td>Monthly report, delivered automatically</td><td>Power BI subscriptions and paginated reports, Fabric pipelines for the refresh</td><td>A PDF or link lands in email or a Teams channel on a schedule.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Live operations view</td><td>Real-Time Intelligence dashboards</td><td>For sign-ins, failures and outages as they happen.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div><h3 class="vc-cap-h">Act on what you see</h3><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Alert the right people</td><td>Fabric Activator</td><td>Watches live data and posts to Teams, sends email, runs a pipeline or starts a Power Automate flow.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Record a decision without leaving the report</td><td>Translytical task flows (write-back from Power BI)</td><td>For example, logging an incident or approving a target change.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Small business apps on the same data</td><td>Power Apps and Power Automate</td><td>An events register, data-quality fixes, approvals.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Apps that read and write analytics data</td><td>Custom data apps in Power BI Desktop; Fabric apps</td><td>Announced at Microsoft Ignite this week.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr></tbody></table></div><h3 class="vc-cap-h">Ask questions in plain English</h3><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Answers in the tools staff already use</td><td>Power BI semantic models in Microsoft Copilot</td><td>Copilot answers from the same governed measures as the reports.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>A trusted Q&amp;A agent for the team</td><td>Fabric data agents</td><td>Answers are limited to the data and permissions it is given.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Shared business meaning for every agent</td><td>Fabric IQ (ontology, data and operations agents)</td><td>Now in Copilot and Fabric apps; Fabric IQ in Excel is in preview.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>Agents that also search policies and documents</td><td>Copilot Studio, published to Teams</td><td>Can combine a data agent with SharePoint content, respecting SharePoint permissions.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div><h3 class="vc-cap-h">Govern and secure</h3><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Sign-in, roles and step-up access</td><td>Microsoft Entra ID, Conditional Access, OneLake security</td><td>One identity for staff across Fabric, Power BI, Teams and Power Platform.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Label and protect sensitive data</td><td>Microsoft Purview sensitivity labels, data loss prevention for Fabric and Power BI</td><td>Labels follow data from the lakehouse into reports and exports.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Keep track of AI agents</td><td>Agent 365</td><td>Inventory, usage and risk for agents across the tenancy.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>App health and cost</td><td>Azure Monitor, Application Insights, Azure Cost Management exports</td><td>Feeds the Service health and Cost tabs.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div>
+<p class="vh-small">Status as published by Microsoft at the time of writing. "Announced Nov 2026" items were announced at Microsoft Ignite, 17–20 November 2026; check availability in Australian regions before relying on them.</p>
+
+<h2 id="plan">Proposed plan</h2>
+<p>A step-by-step build, so each phase delivers something leaders can use before the next starts.</p>
+<ol class="vh-plan">
+  <li><p class="vh-when">Now to end of 2026</p><h3>Agree the vision</h3><ul><li>Confirm scope, data owners for each source and the ID service partners.</li><li>Confirm security classification, and check that Fabric and Power Platform are in scope of Microsoft's current IRAP assessment.</li><li>Start the privacy impact assessment for ID service and location data.</li><li>Agree the first ten measures and their definitions with business owners.</li></ul></li>
+  <li><p class="vh-when">Phase 1 · first 3 months</p><h3>Foundation and the app</h3><ul><li>Fabric workspace and capacity in an Australian region, with Entra groups and Purview labels.</li><li>Mirror the mySA GOV app database; build Bronze, Silver and Gold layers; load all available history.</li><li>Semantic model for the headline measures, including rolling 12 months and earlier-year comparisons.</li><li>Connect this dashboard's Overview and Journeys tabs to the real data; first automated monthly pack.</li></ul></li>
+  <li><p class="vh-when">Phase 2 · months 4 to 6</p><h3>ID service and websites</h3><ul><li>Stream ID service sign-in events through Eventstream; real-time dashboard and Activator alerts to Teams.</li><li>Bring in web analytics for the main government websites.</li><li>Measures that cross services, such as people who start on a website and finish in the app.</li></ul></li>
+  <li><p class="vh-when">Phase 3 · months 7 to 12</p><h3>Value, cost and AI</h3><ul><li>Value and cost measures with finance-owned assumptions, replacing the placeholders on the Value and Cost tabs.</li><li>A Fabric data agent in Teams, limited to approved measures, for plain-English questions.</li><li>Power Apps for the events register and target changes, and write-back from reports.</li></ul></li>
+</ol>
+
+<h2 id="dashboard-next">What this means for the dashboard</h2>
+<p>Development on this prototype should follow the plan rather than run ahead of it:</p>
+<ul>
+  <li><b>Keep the front end, swap the data.</b> Each card already reads a named view. Phase 1 builds those views in Fabric, behind an API with Entra sign-in, and the mock files retire one tab at a time.</li>
+  <li><b>Add comparisons where leaders look first.</b> A "compared with" switch (previous period, a year ago, three years ago) on the Overview tab, fed by the semantic model.</li>
+  <li><b>Add the two new services as tabs</b> once their data lands: ID service (sign-ins by provider, step-up MFA, failures) and Websites (visits, completions, drop-off).</li>
+  <li><b>Decide the home for each audience.</b> Power BI for analysts and the monthly pack; this dashboard for leadership and presentations; Teams and Copilot for quick questions.</li>
+</ul>
+
+<h2 id="decisions">Decisions needed</h2>
+<ol>
+  <li>Scope of phase 1, and which business owner signs off each measure.</li>
+  <li>Fabric capacity size and who funds it.</li>
+  <li>Data sharing arrangements with the ID service partners.</li>
+  <li>Security classification of the combined data, and where the leadership dashboard is hosted.</li>
+  <li>Who owns the assumptions behind the value estimate: unit costs, attribution and build cost.</li>
+</ol>
+
+<h2 id="risks">Risks to manage</h2>
+<div class="tscroll"><table><thead><tr><th>Risk</th><th>How we manage it</th></tr></thead><tbody>
+<tr><td>Combining identity data with service use creates a privacy risk</td><td>Privacy impact assessment first; de-identify in Silver; report counts and rates only; follow the Digital ID rules on tracking.</td></tr>
+<tr><td>History is not available for three-year comparisons</td><td>Load history in phase 1; use the app's system-versioned tables; agree retention with each source owner.</td></tr>
+<tr><td>Fabric capacity costs more than expected</td><td>Start small and scale; watch it on the Cost tab; pause non-production capacity overnight.</td></tr>
+<tr><td>Numbers disagree between reports</td><td>One semantic model, one definition per measure, an owner for each.</td></tr>
+<tr><td>AI answers are wrong or overreach</td><td>Agents limited to approved measures and permissions, tracked in Agent 365, with answers that show where they came from.</td></tr>
+</tbody></table></div>
+
+<h2 id="sources-list">Sources</h2>
+<ul class="vh-sources-list">
+  <li><a href="https://news.microsoft.com/events/ignite/2026/book-of-news/">Microsoft Ignite 2026 Book of News</a></li>
+  <li><a href="https://blog.fabric.microsoft.com/en-US/blog/mirroring-for-sql-server-in-microsoft-fabric-generally-available/">Mirroring for SQL Server in Microsoft Fabric, generally available</a></li>
+  <li><a href="https://learn.microsoft.com/fabric/data-factory/upgrade-paths">Upgrade paths from Azure Data Factory to Fabric Data Factory</a></li>
+  <li><a href="https://blog.fabric.microsoft.com/en-au/blog/whats-new-with-fabric-activator">What's new with Fabric Activator</a></li>
+  <li><a href="https://powerbi.microsoft.com/blog/translytical-task-flows-generally-available/">Translytical task flows, generally available</a></li>
+  <li><a href="https://blog.fabric.microsoft.com/id-id/blog/introducing-fabric-iq-the-semantic-foundation-for-enterprise-ai">Introducing Fabric IQ</a></li>
+  <li><a href="https://blog.fabric.microsoft.com/blog/microsoft-onelake-adds-shortcut-support-to-power-platform-and-dynamics-365">OneLake shortcuts to Power Platform and Dynamics 365</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/purview/dlp-powerbi-get-started">Data loss prevention for Fabric and Power BI</a></li>
+  <li><a href="https://news.microsoft.com/source/asia/?p=99244">2026 IRAP assessments of Azure, Dynamics 365 and Microsoft 365</a></li>
+  <li><a href="https://www.digitalidsystem.gov.au/how-the-system-works">How the Australian Government Digital ID System works</a></li>
+  <li><a href="https://ministers.finance.gov.au/financeminister/media-release/2026/06/26/digital-id-expands-private-sector">Digital ID expands to the private sector (June 2026)</a></li>
+</ul>
+
+      <nav class="doc-pager" aria-label="Previous and next page"><span></span><a href="index.html">Getting started →</a></nav>
+    </main>
+  </div>
+</body>
+</html>

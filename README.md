@@ -4,7 +4,7 @@ An interactive leadership dashboard for the mySA GOV data analytics platform, bu
 
 ## Documentation
 
-New to the code? Start with the documentation site in `docs/`. With the local server running, open `http://localhost:<port>/docs/` or use the **Docs** link at the top of the dashboard. It has nine pages: getting started, how the app works, an item catalog built from the live registry, a component catalog with live examples, design tokens, a mock data guide, recipes, accessibility and conventions, and a glossary. When you add a view, add it to `VIEWS` in `docs/items.mjs` so the catalog shows its shape.
+New to the code? Start with the documentation site in `docs/`. With the local server running, open `http://localhost:<port>/docs/` or use the **Docs** link at the top of the dashboard. It has ten pages: a vision and plan brief for leadership (`docs/vision.html`), getting started, how the app works, an item catalog built from the live registry, a component catalog with live examples, design tokens, a mock data guide, recipes, accessibility and conventions, and a glossary. When you add a view, add it to `VIEWS` in `docs/items.mjs` so the catalog shows its shape.
 
 
 ## Marking items as wanted (for demos)
