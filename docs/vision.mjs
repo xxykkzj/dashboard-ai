@@ -1,91 +1,69 @@
 /**
- * Vision page: the animated data journey and the "compared with 3 years ago" demo.
- * Plain DOM and SVG, colours from the dashboard tokens. Respects reduced motion:
- * dots stop moving and the journey only changes when a step button is pressed.
+ * Vision page: a scroll story in four chapters.
+ * - Sections fade in as they reach the screen ([data-reveal] gets .in).
+ * - In chapter 2, the layer nearest the middle of the screen is highlighted.
+ * - Chapter dots on wide screens show where the reader is.
+ * - Chapter 4 plays a short, illustrative Copilot exchange.
+ * - "Compared with 3 years ago" demo in chapter 3.
+ * Reduced motion: everything shows at once and nothing moves (see vision.css).
  */
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+const hasIO = 'IntersectionObserver' in window;
 
-/* ---------------- data journey ---------------- */
-const STAGES = [
-  {
-    key: 'sources', title: 'Sources',
-    text: 'Data starts in the systems people already use: the mySA GOV app database, government websites, the ID service that connects about 20 identity providers, and the Azure platform itself (monitoring and cost). Nothing changes for the people using these services.'
-  },
-  {
-    key: 'ingest', title: 'Bring it in',
-    text: 'Fabric Data Factory brings each source in the cheapest way that fits. Mirroring keeps a near real-time copy of the app database (on-premises SQL Server or Azure SQL) with no pipeline code. Copy jobs and pipelines handle files and APIs, and any existing Azure Data Factory work can be mounted in Fabric and upgraded. Eventstream takes live sign-in events from the ID service. Shortcuts point at data that already lives in Dataverse or Azure storage, without copying it.'
-  },
-  {
-    key: 'store', title: 'One lake',
-    text: 'Everything lands in OneLake, one copy per organisation in open Delta format, in an Australian region. It is kept in three layers: Bronze as it arrived, Silver cleaned and de-identified, and Gold shaped for reporting. Keeping Bronze and Silver for years is what makes "compared with 3 years ago" possible.'
-  },
-  {
-    key: 'model', title: 'Shared meaning',
-    text: 'A semantic model defines each measure once, such as "completed transaction" or "active user", including rolling 12 months and same period in earlier years. Live data goes to an Eventhouse for second-by-second queries. Fabric IQ adds business meaning so Copilot and agents answer from the same definitions as the reports.'
-  },
-  {
-    key: 'use', title: 'Use it',
-    text: 'The same numbers then reach people where they work: Power BI reports and this dashboard, a monthly report delivered to email and Teams on a schedule, a real-time dashboard with alerts for outages, Copilot and data agents in Teams and Excel, and Power Apps or Power Automate when someone needs to act on what they see.'
-  }
-];
+function initReveal() {
+  const els = [...document.querySelectorAll('[data-reveal]')];
+  if (!hasIO || reduce.matches) { els.forEach(e => e.classList.add('in')); return; }
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); onReveal(en.target); }
+  }), { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(e => io.observe(e));
+}
+const revealHooks = [];
+const onReveal = el => revealHooks.forEach(h => h(el));
 
-function initJourney() {
-  const root = document.getElementById('vj');
-  if (!root) return;
-  const panel = document.getElementById('vj-panel');
-  const playBtn = document.getElementById('vj-play');
-  const stages = [...root.querySelectorAll('.vj-stage')];
-  const stepBtns = [...document.querySelectorAll('[data-vj-step]')];
-  const ticks = [...root.querySelectorAll('.vj-tick')];
-  let current = -1, timer = null;
+function initLayers() {
+  const layers = [...document.querySelectorAll('.layer')];
+  if (!layers.length || !hasIO) return;
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) layers.forEach(l => l.classList.toggle('on', l === en.target));
+  }), { rootMargin: '-45% 0px -45% 0px' });
+  layers.forEach(l => io.observe(l));
+}
 
-  const show = i => {
-    current = i;
-    stages.forEach((s, k) => {
-      s.classList.toggle('on', k === i);
-      s.classList.toggle('done', i >= 0 && k < i);
-    });
-    ticks.forEach((t, k) => { t.classList.toggle('on', k === i); t.classList.toggle('done', i >= 0 && k < i); });
-    root.classList.toggle('focused', i >= 0);
-    stepBtns.forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
-    panel.innerHTML = i < 0
-      ? '<p><b>Five steps from source to screen.</b> Select a step, or play the journey.</p>'
-      : `<p class="vj-step-n">Step ${i + 1} of ${STAGES.length}</p><h3>${STAGES[i].title}</h3><p>${STAGES[i].text}</p>`;
-  };
+function initChapterDots() {
+  const nav = document.querySelector('.ch-dots');
+  if (!nav || !hasIO) return;
+  const links = [...nav.querySelectorAll('a')];
+  const secs = links.map(a => document.getElementById(a.dataset.ch));
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    links.forEach(a => a.setAttribute('aria-current', String(a.dataset.ch === en.target.id)));
+  }), { rootMargin: '-40% 0px -55% 0px' });
+  secs.forEach(s => s && io.observe(s));
+  const hero = document.querySelector('.hero');
+  new IntersectionObserver(([en]) => nav.classList.toggle('show', !en.isIntersecting)).observe(hero);
+}
 
-  const stop = () => {
-    clearInterval(timer); timer = null;
-    playBtn.textContent = 'Play the journey';
-    playBtn.setAttribute('aria-pressed', 'false');
-  };
+function initChat(months) {
+  const chat = document.querySelector('.chat');
+  if (!chat) return;
+  const last = months[months.length - 1], then = months[months.length - 37];
+  const change = last.v / then.v - 1;
+  const ans = document.getElementById('chat-ans');
+  ans.innerHTML = `<b>${nf.format(last.v)}</b> completed transactions in ${MONTH_LONG[last.m]} ${last.y}, up <b>${Math.round(change * 100)}%</b> on ${MONTH_LONG[then.m]} ${then.y} (${nf.format(then.v)}).` +
+    `<small>Source: "Completed transactions" measure, mySA GOV semantic model. Numbers are made up for this page.</small>`;
+  const parts = [...chat.querySelectorAll('[data-chat]')];
+  const typing = chat.querySelector('.typing');
   const play = () => {
-    if (timer) { stop(); return; }
-    playBtn.textContent = 'Pause';
-    playBtn.setAttribute('aria-pressed', 'true');
-    show(current >= STAGES.length - 1 ? 0 : current + 1);
-    timer = setInterval(() => {
-      if (current >= STAGES.length - 1) { stop(); return; }
-      show(current + 1);
-    }, 5200);
+    if (reduce.matches) { parts.forEach(p => p.classList.add('shown')); typing.hidden = true; return; }
+    ans.hidden = true; typing.hidden = false;
+    setTimeout(() => parts[0].classList.add('shown'), 300);
+    setTimeout(() => parts[1].classList.add('shown'), 1300);
+    setTimeout(() => { typing.hidden = true; ans.hidden = false; }, 2900);
+    setTimeout(() => parts[2].classList.add('shown'), 3500);
   };
-
-  playBtn.addEventListener('click', play);
-  stepBtns.forEach((b, k) => b.addEventListener('click', () => { stop(); show(current === k ? -1 : k); }));
-  stages.forEach((s, k) => s.addEventListener('click', () => { stop(); show(current === k ? -1 : k); }));
-  document.addEventListener('keydown', e => {
-    if (!root.closest('section').contains(document.activeElement)) return;
-    if (e.key === 'ArrowRight') { stop(); show(Math.min(STAGES.length - 1, current + 1)); }
-    if (e.key === 'ArrowLeft') { stop(); show(Math.max(0, current - 1)); }
-  });
-
-  // Pause the moving dots when the diagram is off screen or motion is reduced
-  const motion = () => root.classList.toggle('still', reduce.matches);
-  reduce.addEventListener?.('change', motion);
-  motion();
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([en]) => root.classList.toggle('paused', !en.isIntersecting)).observe(root);
-  }
-  show(-1);
+  if (!hasIO || reduce.matches) { play(); return; }
+  revealHooks.push(el => { if (el === chat) play(); });
 }
 
 /* ---------------- comparison demo ---------------- */
@@ -109,15 +87,15 @@ function makeMonths() {
   return out;
 }
 
+const MONTH_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const nf = new Intl.NumberFormat('en-AU');
 const fmtK = v => (v >= 1e6 ? (v / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'M' : Math.round(v / 1000) + 'k');
 const pct = x => (x >= 0 ? '+' : '−') + Math.abs(x * 100).toFixed(1) + '%';
 
-function initCompare() {
+function initCompare(months) {
   const host = document.getElementById('vc-chart');
   if (!host) return;
-  const months = makeMonths();
   const state = { view: 'monthly', cmp: '3y' };
   const figs = document.getElementById('vc-figs');
 
@@ -176,5 +154,9 @@ function initCompare() {
   draw();
 }
 
-initJourney();
-initCompare();
+const months = makeMonths();
+initCompare(months);
+initChat(months);
+initLayers();
+initChapterDots();
+initReveal();

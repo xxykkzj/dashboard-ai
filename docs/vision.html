@@ -2,6 +2,9 @@
 <html lang="en-AU">
 <head>
   <meta charset="utf-8">
+  <script>document.documentElement.classList.add("vjs")</script>
+  <script>document.documentElement.classList.add("vjs")</script>
+  <script>document.documentElement.classList.add("vjs")</script>
   <script>
     // If a server opens this folder as /docs (no trailing slash), relative links would
     // point at the site root. Add the slash so links resolve inside /docs/.
@@ -14,12 +17,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
   <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
-  <link rel="stylesheet" href="../css/tokens.css?v=20261118d">
-  <link rel="stylesheet" href="../css/base.css?v=20261118d">
-  <link rel="stylesheet" href="../css/components.css?v=20261118d">
-  <link rel="stylesheet" href="docs.css?v=20261118d">
-  <script type="module" src="docs.mjs?v=20261118d"></script>
-  <script type="module" src="vision.mjs?v=20261118d"></script>
+  <link rel="stylesheet" href="../css/tokens.css?v=20261118e">
+  <link rel="stylesheet" href="../css/base.css?v=20261118e">
+  <link rel="stylesheet" href="../css/components.css?v=20261118e">
+  <link rel="stylesheet" href="docs.css?v=20261118e">
+  <link rel="stylesheet" href="vision.css?v=20261118e">
+  <link rel="stylesheet" href="vision.css?v=20261118e">
+  <link rel="stylesheet" href="vision.css?v=20261118e">
+  <script type="module" src="docs.mjs?v=20261118e"></script>
+  <script type="module" src="vision.mjs?v=20261118e"></script>
 </head>
 <body class="vh-page">
   <a class="skip" href="#doc-main">Skip to content</a>
@@ -33,64 +39,107 @@
       </div>
     </div>
   </header>
-  <div class="vh-hero"><div class="vh-hero-in">
-      <p class="vh-eyebrow">Vision brief · draft for discussion</p>
+
+  <nav class="ch-dots" aria-label="Chapters"><ol><li><a href="#today" data-ch="today"><span>Today</span></a></li><li><a href="#platform" data-ch="platform"><span>One platform</span></a></li><li><a href="#leaders" data-ch="leaders"><span>What leaders get</span></a></li><li><a href="#ahead" data-ch="ahead"><span>Further ahead</span></a></li></ol></nav>
+
+  <main id="doc-main" tabindex="-1">
+  <div class="hero">
+    <div class="hero-in">
+      <p class="eyebrow">Vision brief · draft for discussion</p>
       <h1>One data platform for SA Government digital services</h1>
-      <p class="doc-lede">The mySA GOV app, government websites and the ID service, brought together in one Fabric data lake, so leaders can see how digital services are used, how well they work and what they are worth, today and against three years ago.</p>
+      <p class="lede">The mySA GOV app, government websites and the ID service in one Fabric data lake. Four short chapters, about five minutes.</p>
+      <ol class="hero-ch"><li><a href="#today"><span>1</span>Today</a></li><li><a href="#platform"><span>2</span>One platform</a></li><li><a href="#leaders"><span>3</span>What leaders get</a></li><li><a href="#ahead"><span>4</span>Further ahead</a></li></ol>
+      <a class="scroll-cue" href="#today" aria-label="Start reading"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v16M6 14l6 6 6-6"/></svg></a>
+      <svg class="hero-art" viewBox="0 0 520 420" aria-hidden="true">
+  <path id="mp-a" class="mp mp-a" d="M10 70 C 170 70, 170 210, 300 210"/>
+  <path id="mp-w" class="mp mp-w" d="M10 210 C 150 210, 170 210, 300 210"/>
+  <path id="mp-d" class="mp mp-d" d="M10 350 C 170 350, 170 210, 300 210"/>
+  <path class="mp mp-g" d="M300 210 L 400 210"/>
+  <circle class="m-lake" cx="300" cy="210" r="46"/>
+  <path class="m-wave" d="M272 202c9 0 9-6 19-6s9 6 19 6 9-6 19-6M272 220c9 0 9-6 19-6s9 6 19 6 9-6 19-6"/>
+  <g class="m-bars"><rect x="420" y="190" width="16" height="40" rx="3"/><rect x="442" y="170" width="16" height="60" rx="3"/><rect x="464" y="150" width="16" height="80" rx="3"/><rect x="486" y="128" width="16" height="102" rx="3"/></g>
+  <text class="m-t" x="10" y="52">App</text><text class="m-t" x="10" y="192">Websites</text><text class="m-t" x="10" y="332">ID service</text>
+  <text class="m-t" x="300" y="290" text-anchor="middle">One lake</text><text class="m-t" x="461" y="258" text-anchor="middle">Insight</text>
+  <circle class="mo mo-a" r="6" style="offset-path: path('M10 70 C 170 70, 170 210, 300 210')"/>
+  <circle class="mo mo-a d2" r="6" style="offset-path: path('M10 70 C 170 70, 170 210, 300 210')"/>
+  <circle class="mo mo-w" r="6" style="offset-path: path('M10 210 C 150 210, 170 210, 300 210')"/>
+  <circle class="mo mo-w d2" r="6" style="offset-path: path('M10 210 C 150 210, 170 210, 300 210')"/>
+  <circle class="mo mo-d" r="6" style="offset-path: path('M10 350 C 170 350, 170 210, 300 210')"/>
+  <circle class="mo mo-d d2" r="6" style="offset-path: path('M10 350 C 170 350, 170 210, 300 210')"/>
+  <rect class="mo mo-g" x="-6" y="-6" width="12" height="12" rx="2" style="offset-path: path('M346 210 L 412 210')"/>
+</svg>
+    </div>
+  </div>
 
-<div class="vh-outcomes">
-  <div><b>One version of the truth</b><span>Every measure defined once and used by every report, dashboard and Copilot answer.</span></div>
-  <div><b>Monthly reporting, automated</b><span>The monthly pack refreshes and arrives in email and Teams without manual work.</span></div>
-  <div><b>Live when it matters</b><span>A real-time view of sign-ins, failures and outages, with alerts to the right team.</span></div>
-  <div><b>Long memory</b><span>Rolling windows and comparisons with the same period up to three years ago.</span></div>
+  <section class="ch" id="today" aria-labelledby="today-h">
+    <header class="ch-head" data-reveal style="--rd:0ms"><p class="ch-n">Chapter 1 · Today <span class="assumed">assumed</span></p><h2 id="today-h">The numbers exist. Getting them is the hard part.</h2></header>
+    <div class="today" data-reveal style="--rd:100ms"><svg class="silos" viewBox="0 0 760 250" role="img" aria-labelledby="silos-t"><title id="silos-t">Today: an analyst copies numbers from four separate systems into spreadsheets to build the monthly report, which takes days.</title><g class="silo s-a" style="--k:0"><rect x="10" y="18" width="190" height="42" rx="9"/><text x="34" y="44">App database</text><circle cx="22" cy="39" r="4"/></g><path class="copy c-a" style="--k:0" d="M200 39 C 280 39, 290 125, 352 125"/><g class="silo s-w" style="--k:1"><rect x="10" y="75" width="190" height="42" rx="9"/><text x="34" y="101">Website analytics</text><circle cx="22" cy="96" r="4"/></g><path class="copy c-w" style="--k:1" d="M200 96 C 280 96, 290 125, 352 125"/><g class="silo s-d" style="--k:2"><rect x="10" y="132" width="190" height="42" rx="9"/><text x="34" y="158">ID service partners</text><circle cx="22" cy="153" r="4"/></g><path class="copy c-d" style="--k:2" d="M200 153 C 280 153, 290 125, 352 125"/><g class="silo s-n" style="--k:3"><rect x="10" y="189" width="190" height="42" rx="9"/><text x="34" y="215">Azure monitoring</text><circle cx="22" cy="210" r="4"/></g><path class="copy c-n" style="--k:3" d="M200 210 C 280 210, 290 125, 352 125"/><g class="analyst"><circle cx="395" cy="96" r="13"/><path d="M372 150c3-20 13-30 23-30s20 10 23 30"/><rect x="368" y="160" width="54" height="40" rx="4"/><path d="M368 173h54M368 186h54M386 160v40M404 160v40"/><text x="395" y="222" text-anchor="middle">copy, paste, check</text></g><path class="copy c-r" d="M438 125 C 500 125, 520 125, 580 125"/><g class="report"><path d="M590 70h70l26 26v84h-96Z"/><path d="M660 70v26h26"/><path d="M606 120h56M606 136h56M606 152h36"/></g><g class="days"><text x="638" y="214" text-anchor="middle" class="big">days, every month</text></g></svg></div>
+    <ul class="pains"><li class="pain" data-reveal style="--rd:0ms"><span class="pain-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><b>Days, not minutes</b><span>The monthly report is copied together by hand.</span></li><li class="pain" data-reveal style="--rd:120ms"><span class="pain-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3v6a6 6 0 0 0 6 6h0a6 6 0 0 1 6 6"/><path d="M18 3v6a6 6 0 0 1-6 6"/></svg></span><b>Which number is right?</b><span>Teams count things like "active user" differently.</span></li><li class="pain" data-reveal style="--rd:240ms"><span class="pain-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 3.5V8h4.5"/><path d="M12 7.5V12l3 2"/></svg></span><b>No long memory</b><span>History is scattered, so "what was it 3 years ago?" takes digging.</span></li><li class="pain" data-reveal style="--rd:360ms"><span class="pain-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg></span><b>Outages found late</b><span>Without a live view, problems surface through complaints.</span></li></ul>
+  </section>
+
+  <section class="ch" id="platform" aria-labelledby="platform-h">
+    <header class="ch-head" data-reveal style="--rd:0ms"><p class="ch-n">Chapter 2 · One platform</p><h2 id="platform-h">Microsoft Fabric joins the sources into one lake.</h2><p class="ch-sub">Five steps, top to bottom. Scroll to follow the data down.</p></header>
+    <div class="stream-key" data-reveal style="--rd:0ms" aria-hidden="true"><span class="k-a">App</span><span class="k-w">Websites</span><span class="k-d">ID service</span><span class="k-g">Merged and refined</span></div>
+    <ol class="layers">
+<li class="layer" data-step="1" data-reveal style="--rd:0ms">
+  <div class="layer-h"><span class="layer-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></span><p class="layer-n">Step 1</p><h3>Sources</h3><p>Where data starts. Nothing changes for the people using these services.</p></div>
+  <ul class="srcs">
+    <li class="src-a"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><b>mySA GOV app</b><span>licences, renewals, payments</span></li>
+    <li class="src-w"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg><b>Government websites</b><span>visits, forms, drop-off</span></li>
+    <li class="src-d"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5 16.5c.6-1.6 1.9-2.4 3.5-2.4s2.9.8 3.5 2.4M14.5 10h4M14.5 13.5h3"/></svg><b>ID service</b><span>about 20 identity providers, one sign-in, MFA for sensitive tasks</span></li>
+    <li class="src-n"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.1 4.7 4.7 0 0 0 7 18.5Z"/></svg><b>Azure platform</b><span>health and cost</span></li>
+  </ul>
+</li>
+<div class="flow" aria-hidden="true"><span class="flow-line"><i class="f-a" style="--k:0"></i><i class="f-w" style="--k:1"></i><i class="f-d" style="--k:2"></i></span><span class="flow-l">copied or streamed in</span></div>
+<li class="layer" data-step="2" data-reveal style="--rd:0ms">
+  <div class="layer-h"><span class="layer-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v11"/><path d="m7.5 9.5 4.5 4.5 4.5-4.5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg></span><p class="layer-n">Step 2 · Fabric Data Factory</p><h3>Bring it in</h3><p>Each source comes in the simplest way that fits, with little code to maintain.</p></div>
+  <ul class="chips"><li><b>Mirroring</b> a live copy of the app database</li><li><b>Copy job</b> files and APIs on a schedule</li><li><b>Eventstream</b> sign-ins as they happen</li><li><b>Shortcuts</b> use data where it already lives</li></ul>
+</li>
+<div class="flow" aria-hidden="true"><span class="flow-line"><i class="f-a" style="--k:0"></i><i class="f-w" style="--k:1"></i><i class="f-d" style="--k:2"></i></span><span class="flow-l">lands in one lake</span></div>
+<li class="layer layer-lake" data-step="3" data-reveal style="--rd:0ms">
+  <div class="layer-h"><span class="layer-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9c2 0 2-1.5 4.5-1.5S9.5 9 12 9s2-1.5 4.5-1.5S19 9 21 9"/><path d="M3 14c2 0 2-1.5 4.5-1.5S9.5 14 12 14s2-1.5 4.5-1.5S19 14 21 14"/><path d="M3 19c2 0 2-1.5 4.5-1.5S9.5 19 12 19s2-1.5 4.5-1.5S19 19 21 19"/></svg></span><p class="layer-n">Step 3 · OneLake, Australian region</p><h3>One lake, three layers</h3><p>Data is refined like metal: <b class="t-b">bronze</b> raw, <b class="t-s">silver</b> cleaned, <b class="t-g">gold</b> ready. Follow one renewal through.</p></div>
+  <div class="medal" role="list" aria-label="The three layers of the lake">
+    <div class="m m-b" role="listitem"><p class="m-tag">Bronze</p><h4>As it arrived</h4><p class="m-what">Raw and untouched, kept for years so history can be rebuilt.</p><code class="m-ex">2026-10-03T14:02|REG_RNW|1|40220|u_8f3a…</code></div>
+    <span class="m-arrow" aria-hidden="true"></span>
+    <div class="m m-s" role="listitem"><p class="m-tag">Silver</p><h4>Cleaned and checked</h4><p class="m-what">Codes turned into words, duplicates removed, personal details taken out.</p><code class="m-ex">3 Oct 2026 · Registration renewal · Completed · Onkaparinga</code></div>
+    <span class="m-arrow" aria-hidden="true"></span>
+    <div class="m m-g" role="listitem"><p class="m-tag">Gold</p><h4>Ready to report</h4><p class="m-what">Summed up the way leaders ask questions.</p><code class="m-ex">Renewals · Oct 2026 · Onkaparinga · <b>1,284</b></code></div>
+  </div>
+</li>
+<div class="flow" aria-hidden="true"><span class="flow-line"><i class="f-g" style="--k:0"></i></span><span class="flow-l">given shared meaning</span></div>
+<li class="layer" data-step="4" data-reveal style="--rd:0ms">
+  <div class="layer-h"><span class="layer-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M11 7 6 16M13 7l5 9M7.2 18h9.6"/></svg></span><p class="layer-n">Step 4</p><h3>Shared meaning</h3><p>Each measure is defined once, so every report, dashboard and Copilot answer agrees.</p></div>
+  <ul class="chips"><li><b>Semantic model</b> one definition of "completed", "active user", "3 years ago"</li><li><b>Eventhouse</b> second-by-second data</li><li><b>Fabric IQ</b> business meaning for Copilot and agents</li></ul>
+</li>
+<div class="flow" aria-hidden="true"><span class="flow-line"><i class="f-g" style="--k:0"></i></span><span class="flow-l">reaches people</span></div>
+<li class="layer" data-step="5" data-reveal style="--rd:0ms">
+  <div class="layer-h"><span class="layer-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><p class="layer-n">Step 5</p><h3>Use it</h3><p>The same numbers, where people already work.</p></div>
+  <ul class="chips"><li><b>Power BI</b> and this dashboard</li><li><b>Monthly pack</b> to email and Teams</li><li><b>Live alerts</b> when something breaks</li><li><b>Copilot</b> answers in plain English</li></ul>
+</li>
+    </ol>
+    <div class="gov" data-reveal style="--rd:0ms"><span class="gov-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 10 4.3-1.6 7.5-5.4 7.5-10v-6Z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></svg></span><b>Governed at every step</b><span>Entra ID decides who sees what</span><span>Purview labels and protects sensitive data</span><span>OneLake security and audit</span></div>
+  </section>
+
+  <section class="ch" id="leaders" aria-labelledby="leaders-h">
+    <header class="ch-head" data-reveal style="--rd:0ms"><p class="ch-n">Chapter 3 · What leaders get</p><h2 id="leaders-h">Three ways to see the numbers.</h2></header>
+    <div class="gets">
+  <div class="get" data-reveal style="--rd:0ms">
+    <div class="get-viz viz-mail" aria-hidden="true"><span class="doc"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.5h18M3 15h18M9.5 4v16"/></svg></span><span class="tray"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></span></div>
+    <p class="get-tag">Every month</p><h3>The monthly pack, automated</h3><p>Refreshes itself and lands in email and Teams. An analyst adds the commentary.</p>
+  </div>
+  <div class="get" data-reveal style="--rd:150ms">
+    <div class="get-viz viz-live" aria-hidden="true"><svg viewBox="0 0 200 70"><path class="thr" d="M0 22H200"/><path class="ln" d="M0 52 L20 48 L40 50 L60 44 L80 47 L100 41 L120 45 L140 18 L160 24 L180 46 L200 44"/><circle class="hit" cx="140" cy="18" r="5"/></svg></div>
+    <p class="get-tag">Right now</p><h3>A live view, with alerts</h3><p>Sign-ins, payments and outages, seconds old. A message reaches Teams when a line is crossed.</p>
+  </div>
+  <div class="get" data-reveal style="--rd:300ms">
+    <div class="get-viz viz-bars" aria-hidden="true"><span style="--h:42%"><i>2023</i></span><span style="--h:58%"><i>2024</i></span><span style="--h:74%"><i>2025</i></span><span class="now" style="--h:96%"><i>2026</i></span></div>
+    <p class="get-tag">Over time</p><h3>"What was it 3 years ago?"</h3><p>Rolling 12 months and earlier years, calculated the same way every time.</p>
+  </div>
 </div>
-<nav class="vh-jump" aria-label="On this page"><a href="#sources">Three services</a><a href="#journey">Source to screen</a><a href="#reporting">Reporting</a><a href="#tenancy">Microsoft tenancy</a><a href="#check">Check first</a></nav>
-  </div></div>
-  <div class="vh-shell">
-    <main class="doc-main" id="doc-main" tabindex="-1">
-
-<section class="vh-sec" aria-labelledby="today">
-<h2 id="today"><span class="vh-h-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Where we are</h2>
-<p>This dashboard is a working prototype built on mock data shaped like the mySA GOV app database. It already shows the kinds of measures leadership has asked about: adoption, journeys, service health, location, platform cost and value. The vision below replaces the mock data with real data, adds the government websites and the ID service, and puts the whole Microsoft tenancy to work around it.</p>
-
-
-</section>
-<section class="vh-sec" aria-labelledby="sources">
-<h2 id="sources"><span class="vh-h-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg></span>Three services, one picture</h2>
-<div class="vh-sources">
-  <div><span class="vh-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg></span><h3>mySA GOV app</h3><p>Digital licences and credentials, registration renewals, payments, notifications. Data from the app database (system-versioned tables keep the history of every change) and from Application Insights.</p></div>
-  <div><span class="vh-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg></span><h3>Government websites</h3><p>Visits, searches, completed online forms and where people drop out. Data from web analytics and the forms platforms behind each site.</p></div>
-  <div><span class="vh-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5 16.5c.6-1.6 1.9-2.4 3.5-2.4s2.9.8 3.5 2.4M14.5 10h4M14.5 13.5h3"/></svg></span><h3>ID service</h3><p>An identity exchange connecting about 20 identity providers, including the Australian Government's myID and the Department for Infrastructure and Transport's Service SA account. People sign in once for basic access and are asked for multi-factor authentication only for sensitive tasks.</p></div>
-</div>
-<div class="doc-note"><b>What the ID service can tell us, and what it must not</b><p>Useful measures: sign-ins by identity provider, success and failure rates, how often step-up MFA is triggered and passed, time to sign in, and provider outages. The Commonwealth system makes a point that identity providers cannot track which services a person uses, so our analytics should work on counts and rates, never on an individual's trail across services. A privacy impact assessment comes before ingestion.</p></div>
-
-
-</section>
-<section class="vh-sec" aria-labelledby="journey">
-<h2 id="journey"><span class="vh-h-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.5 6H14a3 3 0 0 1 3 3v6.5"/><path d="M5 8.5V15a3 3 0 0 0 3 3h8.5"/></svg></span>From source to screen</h2>
-<p>How data would travel through Microsoft Fabric. Play the journey, select a step, or use the arrow keys.</p>
-<div class="vj-controls">
-  <button type="button" class="vbtn primary" id="vj-play" aria-pressed="false">Play the journey</button>
-  <div class="vj-steps" role="group" aria-label="Steps"><button type="button" class="vbtn" data-vj-step="0" aria-pressed="false">1. Sources</button><button type="button" class="vbtn" data-vj-step="1" aria-pressed="false">2. Bring it in</button><button type="button" class="vbtn" data-vj-step="2" aria-pressed="false">3. One lake</button><button type="button" class="vbtn" data-vj-step="3" aria-pressed="false">4. Shared meaning</button><button type="button" class="vbtn" data-vj-step="4" aria-pressed="false">5. Use it</button></div>
-</div>
-<div class="vj" id="vj"><div class="vj-stage" data-k="sources" style="--i:0"><p class="vj-n"><span class="vj-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></span>1</p><h3>Sources</h3><ul><li>mySA GOV app database</li><li>Government websites</li><li>ID service, about 20 identity providers</li><li>Azure monitoring and cost</li></ul></div><div class="vj-stage" data-k="ingest" style="--i:1"><p class="vj-n"><span class="vj-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v11"/><path d="m7.5 9.5 4.5 4.5 4.5-4.5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg></span>2</p><h3>Bring it in</h3><ul><li>Mirroring</li><li>Copy job and pipelines</li><li>Eventstream (live events)</li><li>Shortcuts (no copy)</li></ul><p class="vj-note">Fabric Data Factory</p></div><div class="vj-stage" data-k="store" style="--i:2"><p class="vj-n"><span class="vj-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9c2 0 2-1.5 4.5-1.5S9.5 9 12 9s2-1.5 4.5-1.5S19 9 21 9"/><path d="M3 14c2 0 2-1.5 4.5-1.5S9.5 14 12 14s2-1.5 4.5-1.5S19 14 21 14"/><path d="M3 19c2 0 2-1.5 4.5-1.5S9.5 19 12 19s2-1.5 4.5-1.5S19 19 21 19"/></svg></span>3</p><h3>One lake</h3><ul><li>Bronze: as it arrived</li><li>Silver: cleaned, de-identified</li><li>Gold: ready to report</li></ul><p class="vj-note">OneLake, Australian region</p></div><div class="vj-stage" data-k="model" style="--i:3"><p class="vj-n"><span class="vj-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M11 7 6 16M13 7l5 9M7.2 18h9.6"/></svg></span>4</p><h3>Shared meaning</h3><ul><li>Semantic model: each measure defined once</li><li>Eventhouse for live data</li><li>Fabric IQ for Copilot and agents</li></ul></div><div class="vj-stage" data-k="use" style="--i:4"><p class="vj-n"><span class="vj-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>5</p><h3>Use it</h3><ul><li>Power BI and this dashboard</li><li>Monthly report to email and Teams</li><li>Real-time dashboard and alerts</li><li>Copilot and data agents</li><li>Power Apps and Power Automate</li></ul></div><div class="vj-lane" aria-hidden="true"><span class="vj-tick"><b></b></span><span class="vj-tick"><b></b></span><span class="vj-tick"><b></b></span><span class="vj-tick"><b></b></span><span class="vj-tick"><b></b></span><i class="a" style="--d:0.00s;--y:-9px"></i><i class="w" style="--d:-0.45s;--y:0px"></i><i class="d" style="--d:-0.90s;--y:9px"></i><i class="a" style="--d:-2.60s;--y:-9px"></i><i class="w" style="--d:-3.05s;--y:0px"></i><i class="d" style="--d:-3.50s;--y:9px"></i><i class="a" style="--d:-5.20s;--y:-9px"></i><i class="w" style="--d:-5.65s;--y:0px"></i><i class="d" style="--d:-6.10s;--y:9px"></i></div><div class="vj-gov"><b>Governed throughout</b><span>Entra ID sign-in and Conditional Access</span><span>Purview sensitivity labels and data loss prevention</span><span>OneLake security and audit</span></div></div>
-<div class="vj-panel" id="vj-panel" aria-live="polite"></div>
-<p class="vj-legend" aria-hidden="true"><span><i class="a"></i>App</span><span><i class="w"></i>Websites</span><span><i class="d"></i>ID service</span><span><i class="m"></i>Merged in the lake</span><span><i class="r"></i>Reports out</span></p>
-
-
-</section>
-<section class="vh-sec" aria-labelledby="reporting">
-<h2 id="reporting"><span class="vh-h-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/></svg></span>Three ways leaders see the numbers</h2>
-<div class="vh-three">
-  <div><span class="vh-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M7.5 14h3"/></svg></span><p class="vh-tag">Monthly</p><h3>Automated monthly pack</h3><p>On the first working day of each month the data refreshes, the Power BI report updates, and a PDF and link arrive in email and a Teams channel. An analyst reviews it and adds the commentary; nothing is written for them.</p></div>
-  <div><span class="vh-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12h4l2.5-6 4 12 3-8 1.5 2H22"/></svg></span><p class="vh-tag">Live</p><h3>Real-time dashboard</h3><p>Sign-ins, failed payments and backend status, seconds old. Fabric Activator posts to the on-call Teams channel when a measure crosses its threshold, for example sign-in failures above 5% for ten minutes.</p></div>
-  <div><span class="vh-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 3.5V8h4.5"/><path d="M12 7.5V12l3 2"/></svg></span><p class="vh-tag">Over time</p><h3>Rolling windows and comparisons</h3><p>Rolling 12 months, financial year to date, and the same month one, two or three years ago, all calculated once in the semantic model so every report agrees.</p></div>
-</div>
-
-<div>
-<h3 id="compare" class="vh-demo-h">Try it: what was it three years ago?</h3>
-<p class="vh-demo-note">Illustrative numbers, not real data: completed app transactions per month.</p>
-<div class="vc">
+    <div class="try" data-reveal style="--rd:0ms">
+      <h3>Try it: what was it three years ago?</h3>
+      <p class="note">Made-up numbers: completed app transactions per month.</p>
+      <div class="vc">
   <div class="vc-controls">
     <div><span class="vc-l" id="vc-l1">Show</span><div class="seg" role="group" aria-labelledby="vc-l1"><button type="button" data-vc="view:monthly" aria-pressed="true">Each month</button><button type="button" data-vc="view:rolling" aria-pressed="false">Rolling 12 months</button></div></div>
     <div><span class="vc-l" id="vc-l2">Compare with</span><div class="seg" role="group" aria-labelledby="vc-l2"><button type="button" data-vc="cmp:1y" aria-pressed="false">1 year ago</button><button type="button" data-vc="cmp:3y" aria-pressed="true">3 years ago</button><button type="button" data-vc="cmp:none" aria-pressed="false">Nothing</button></div></div>
@@ -99,58 +148,52 @@
   <div class="vc-chart" id="vc-chart"></div>
   <p class="vc-legend" id="vc-legend"></p>
 </div>
-<figure class="doc-code"><figcaption>How it is calculated once, in the semantic model (DAX)</figcaption><pre><code>Completed (rolling 12 months) =
+<details class="more"><summary>How it is calculated (two lines of DAX)</summary><figure class="doc-code"><figcaption>Defined once, in the semantic model</figcaption><pre><code>Completed (rolling 12 months) =
 CALCULATE ( [Completed transactions],
     DATESINPERIOD ( 'Date'[Date], MAX ( 'Date'[Date] ), -12, MONTH ) )
 
 Completed (3 years earlier) =
 CALCULATE ( [Completed transactions],
-    DATEADD ( 'Date'[Date], -3, YEAR ) )</code></pre></figure>
-<p>The calculation is the easy part. The comparison only works if the history is kept: three years of daily data in the lake, with the same definitions applied to every year. Where the source systems only hold recent data, loading history early is the first task.</p>
+    DATEADD ( 'Date'[Date], -3, YEAR ) )</code></pre></figure></details>
+
+    </div>
+  </section>
+
+  <section class="ch" id="ahead" aria-labelledby="ahead-h">
+    <header class="ch-head" data-reveal style="--rd:0ms"><p class="ch-n">Chapter 4 · Further ahead</p><h2 id="ahead-h">The rest of the Microsoft tenancy builds on the same data.</h2><p class="ch-sub">Once the lake and its definitions exist, every Microsoft tool we already have can use them.</p></header>
+    <div class="ahead">
+      <div class="hub" data-reveal style="--rd:0ms">
+  <svg class="hub-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="50.00" y1="35.00" x2="50.00" y2="23.00" style="--k:0"/><line x1="60.61" y1="39.39" x2="69.09" y2="30.91" style="--k:1"/><line x1="65.00" y1="50.00" x2="77.00" y2="50.00" style="--k:2"/><line x1="60.61" y1="60.61" x2="69.09" y2="69.09" style="--k:3"/><line x1="50.00" y1="65.00" x2="50.00" y2="77.00" style="--k:4"/><line x1="39.39" y1="60.61" x2="30.91" y2="69.09" style="--k:5"/><line x1="35.00" y1="50.00" x2="23.00" y2="50.00" style="--k:6"/><line x1="39.39" y1="39.39" x2="30.91" y2="30.91" style="--k:7"/></svg>
+  <div class="hub-core"><span><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9c2 0 2-1.5 4.5-1.5S9.5 9 12 9s2-1.5 4.5-1.5S19 9 21 9"/><path d="M3 14c2 0 2-1.5 4.5-1.5S9.5 14 12 14s2-1.5 4.5-1.5S19 14 21 14"/><path d="M3 19c2 0 2-1.5 4.5-1.5S9.5 19 12 19s2-1.5 4.5-1.5S19 19 21 19"/></svg></span><b>OneLake</b><small>and the semantic model</small></div>
+  <ul class="hub-nodes" aria-label="Microsoft products that build on the same data"><li class="node" style="--x:50.00%;--y:13.00%;--k:0"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><b>Copilot</b><span>Ask in plain English</span></li><li class="node" style="--x:76.16%;--y:23.84%;--k:1"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9.5h8M8 12.5h5"/></svg></span><b>Teams</b><span>Alerts and reports where people talk</span></li><li class="node" style="--x:87.00%;--y:50.00%;--k:2"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.5h18M3 15h18M9.5 4v16"/></svg></span><b>Excel</b><span>Analyse with live, governed data</span></li><li class="node" style="--x:76.16%;--y:76.16%;--k:3"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg></span><b>Power Apps</b><span>Small apps to act on what you see</span></li><li class="node" style="--x:50.00%;--y:87.00%;--k:4"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.5 6H14a3 3 0 0 1 3 3v6.5"/><path d="M5 8.5V15a3 3 0 0 0 3 3h8.5"/></svg></span><b>Power Automate</b><span>Follow-up tasks run themselves</span></li><li class="node" style="--x:23.84%;--y:76.16%;--k:5"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></span><b>Activator</b><span>Watches the data for problems</span></li><li class="node" style="--x:13.00%;--y:50.00%;--k:6"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></span><b>Purview</b><span>Labels and protects sensitive data</span></li><li class="node" style="--x:23.84%;--y:23.84%;--k:7"><span class="node-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg></span><b>Entra ID</b><span>Who can see what</span></li></ul>
 </div>
+      <div class="chat" data-reveal style="--rd:0ms" aria-label="Illustrative example of a leader asking Copilot a question">
+  <p class="chat-h"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg><span>Illustrative: a leader asks Copilot in Teams</span></p>
+  <div class="msg q" data-chat="0"><span class="who"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.3-4 4.3-6 8-6s6.7 2 8 6"/></svg></span><p>How many transactions did people complete in the app last month, compared with three years ago?</p></div>
+  <div class="msg a" data-chat="1"><span class="who"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><p><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span><span class="ans" id="chat-ans"></span></p></div>
+  <p class="chat-foot" data-chat="2">The answer comes from the same measure as the monthly pack, and Copilot only sees what the person asking is allowed to see.</p>
+</div>
+    </div>
+    <details class="more tools" data-reveal style="--rd:0ms"><summary>All Microsoft tools, with availability</summary><details class="vc-cap-d"><summary><b>Bring data in</b><span>Mirroring, Data Factory, Eventstream, shortcuts</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Keep a live copy of the app database</td><td>Mirroring for SQL Server and Azure SQL</td><td>Near real-time, no pipelines to maintain; on-premises SQL Server uses a gateway.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Move files, APIs and website analytics</td><td>Fabric Data Factory: Copy job, pipelines, Dataflow Gen2</td><td>Azure Data Factory is now part of Fabric. Existing factories can be mounted in a workspace and upgraded step by step.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Stream sign-in events from the ID service</td><td>Eventstream into an Eventhouse</td><td>Second-by-second data for the real-time dashboard.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Use Power Platform data without copying it</td><td>Dataverse link to Fabric, OneLake shortcuts</td><td>Dataverse tables appear in OneLake as shortcuts.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Report and compare</b><span>Power BI, rolling windows, monthly pack, real-time dashboards</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>One definition of every measure</td><td>Power BI semantic model in Direct Lake mode</td><td>Reads OneLake directly, so reports stay fresh without import refreshes.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Rolling windows and "compared with 3 years ago"</td><td>DAX time intelligence; calendar-based time intelligence</td><td>Classic DAX covers rolling 12 months and earlier years today; calendars for financial years are simpler with the newer feature.</td><td><span class="vs vs-pv">Preview</span></td></tr><tr><td>Monthly report, delivered automatically</td><td>Power BI subscriptions and paginated reports, Fabric pipelines for the refresh</td><td>A PDF or link lands in email or a Teams channel on a schedule.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Live operations view</td><td>Real-Time Intelligence dashboards</td><td>For sign-ins, failures and outages as they happen.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Act on what you see</b><span>Alerts to Teams, write-back, Power Apps and Power Automate</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Alert the right people</td><td>Fabric Activator</td><td>Watches live data and posts to Teams, sends email, runs a pipeline or starts a Power Automate flow.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Record a decision without leaving the report</td><td>Translytical task flows (write-back from Power BI)</td><td>For example, logging an incident or approving a target change.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Small business apps on the same data</td><td>Power Apps and Power Automate</td><td>An events register, data-quality fixes, approvals.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Apps that read and write analytics data</td><td>Custom data apps in Power BI Desktop; Fabric apps</td><td>Announced at Microsoft Ignite this week.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Ask questions in plain English</b><span>Copilot, data agents, Fabric IQ</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Answers in the tools staff already use</td><td>Power BI semantic models in Microsoft Copilot</td><td>Copilot answers from the same governed measures as the reports.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>A trusted Q&amp;A agent for the team</td><td>Fabric data agents</td><td>Answers are limited to the data and permissions it is given.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Shared business meaning for every agent</td><td>Fabric IQ (ontology, data and operations agents)</td><td>Now in Copilot and Fabric apps; Fabric IQ in Excel is in preview.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>Agents that also search policies and documents</td><td>Copilot Studio, published to Teams</td><td>Can combine a data agent with SharePoint content, respecting SharePoint permissions.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Govern and secure</b><span>Entra, Purview, Agent 365, Azure monitoring</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Sign-in, roles and step-up access</td><td>Microsoft Entra ID, Conditional Access, OneLake security</td><td>One identity for staff across Fabric, Power BI, Teams and Power Platform.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Label and protect sensitive data</td><td>Microsoft Purview sensitivity labels, data loss prevention for Fabric and Power BI</td><td>Labels follow data from the lakehouse into reports and exports.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Keep track of AI agents</td><td>Agent 365</td><td>Inventory, usage and risk for agents across the tenancy.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>App health and cost</td><td>Azure Monitor, Application Insights, Azure Cost Management exports</td><td>Feeds the Service health and Cost tabs.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details><p class="small">Status as published by Microsoft. "Announced Nov 2026" items were announced at Microsoft Ignite, 17–20 November 2026; check availability in Australian regions.</p></details>
+  </section>
 
+  <section class="ch ch-check" id="check" aria-labelledby="check-h">
+    <header class="ch-head" data-reveal style="--rd:0ms"><p class="ch-n">Before anything else</p><h2 id="check-h">Four things to check first.</h2></header>
+    <ul class="checks"><li data-reveal style="--rd:0ms"><span class="ck-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 10 4.3-1.6 7.5-5.4 7.5-10v-6Z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></svg></span><b>Security clearance</b><span>IRAP covers Azure and Microsoft 365. Check Fabric and Power Platform scope.</span></li><li data-reveal style="--rd:100ms"><span class="ck-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg></span><b>Privacy</b><span>A privacy impact assessment before joining identity data. Counts and rates only.</span></li><li data-reveal style="--rd:200ms"><span class="ck-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 3.5V8h4.5"/><path d="M12 7.5V12l3 2"/></svg></span><b>History</b><span>Three-year comparisons need three years of data, kept the same way.</span></li><li data-reveal style="--rd:300ms"><span class="ck-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.3-4 4.3-6 8-6s6.7 2 8 6"/></svg></span><b>Ownership</b><span>Each source and each measure needs a business owner.</span></li></ul>
+    <details class="more"><summary>Sources</summary><ul class="src-list"><li><a href="https://news.microsoft.com/events/ignite/2026/book-of-news/">Microsoft Ignite 2026 Book of News</a></li>
+<li><a href="https://blog.fabric.microsoft.com/en-US/blog/mirroring-for-sql-server-in-microsoft-fabric-generally-available/">Mirroring for SQL Server in Microsoft Fabric, generally available</a></li>
+<li><a href="https://learn.microsoft.com/fabric/data-factory/upgrade-paths">Upgrade paths from Azure Data Factory to Fabric Data Factory</a></li>
+<li><a href="https://blog.fabric.microsoft.com/en-au/blog/whats-new-with-fabric-activator">What's new with Fabric Activator</a></li>
+<li><a href="https://powerbi.microsoft.com/blog/translytical-task-flows-generally-available/">Translytical task flows, generally available</a></li>
+<li><a href="https://blog.fabric.microsoft.com/id-id/blog/introducing-fabric-iq-the-semantic-foundation-for-enterprise-ai">Introducing Fabric IQ</a></li>
+<li><a href="https://blog.fabric.microsoft.com/blog/microsoft-onelake-adds-shortcut-support-to-power-platform-and-dynamics-365">OneLake shortcuts to Power Platform and Dynamics 365</a></li>
+<li><a href="https://learn.microsoft.com/en-us/purview/dlp-powerbi-get-started">Data loss prevention for Fabric and Power BI</a></li>
+<li><a href="https://news.microsoft.com/source/asia/?p=99244">2026 IRAP assessments of Azure, Dynamics 365 and Microsoft 365</a></li>
+<li><a href="https://www.digitalidsystem.gov.au/how-the-system-works">How the Australian Government Digital ID System works</a></li>
+<li><a href="https://ministers.finance.gov.au/financeminister/media-release/2026/06/26/digital-id-expands-private-sector">Digital ID expands to the private sector (June 2026)</a></li></ul></details>
+  </section>
+  </main>
 
-</section>
-<section class="vh-sec" aria-labelledby="tenancy">
-<h2 id="tenancy"><span class="vh-h-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg></span>Using the whole Microsoft tenancy</h2>
-<p>Microsoft has folded much of its data and automation tooling into Fabric over the past two years. Azure Data Factory now runs inside Fabric, Power BI is part of it, and Power Platform reads and writes the same data. Copilot and agents now answer from the same definitions as the reports. With a whole-of-government tenancy already in place, most of the pieces below are already within reach, subject to licences and capacity. Open a group to see the detail.</p>
-<details class="vc-cap-d"><summary><b>Bring data in</b><span>Mirroring, Data Factory, Eventstream, shortcuts</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Keep a live copy of the app database</td><td>Mirroring for SQL Server and Azure SQL</td><td>Near real-time, no pipelines to maintain; on-premises SQL Server uses a gateway.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Move files, APIs and website analytics</td><td>Fabric Data Factory: Copy job, pipelines, Dataflow Gen2</td><td>Azure Data Factory is now part of Fabric. Existing factories can be mounted in a workspace and upgraded step by step.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Stream sign-in events from the ID service</td><td>Eventstream into an Eventhouse</td><td>Second-by-second data for the real-time dashboard.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Use Power Platform data without copying it</td><td>Dataverse link to Fabric, OneLake shortcuts</td><td>Dataverse tables appear in OneLake as shortcuts.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Report and compare</b><span>Power BI, rolling windows, monthly pack, real-time dashboards</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>One definition of every measure</td><td>Power BI semantic model in Direct Lake mode</td><td>Reads OneLake directly, so reports stay fresh without import refreshes.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Rolling windows and "compared with 3 years ago"</td><td>DAX time intelligence; calendar-based time intelligence</td><td>Classic DAX covers rolling 12 months and earlier years today; calendars for financial years are simpler with the newer feature.</td><td><span class="vs vs-pv">Preview</span></td></tr><tr><td>Monthly report, delivered automatically</td><td>Power BI subscriptions and paginated reports, Fabric pipelines for the refresh</td><td>A PDF or link lands in email or a Teams channel on a schedule.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Live operations view</td><td>Real-Time Intelligence dashboards</td><td>For sign-ins, failures and outages as they happen.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Act on what you see</b><span>Alerts to Teams, write-back, Power Apps and Power Automate</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Alert the right people</td><td>Fabric Activator</td><td>Watches live data and posts to Teams, sends email, runs a pipeline or starts a Power Automate flow.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Record a decision without leaving the report</td><td>Translytical task flows (write-back from Power BI)</td><td>For example, logging an incident or approving a target change.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Small business apps on the same data</td><td>Power Apps and Power Automate</td><td>An events register, data-quality fixes, approvals.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Apps that read and write analytics data</td><td>Custom data apps in Power BI Desktop; Fabric apps</td><td>Announced at Microsoft Ignite this week.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Ask questions in plain English</b><span>Copilot, data agents, Fabric IQ</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Answers in the tools staff already use</td><td>Power BI semantic models in Microsoft Copilot</td><td>Copilot answers from the same governed measures as the reports.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>A trusted Q&amp;A agent for the team</td><td>Fabric data agents</td><td>Answers are limited to the data and permissions it is given.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Shared business meaning for every agent</td><td>Fabric IQ (ontology, data and operations agents)</td><td>Now in Copilot and Fabric apps; Fabric IQ in Excel is in preview.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>Agents that also search policies and documents</td><td>Copilot Studio, published to Teams</td><td>Can combine a data agent with SharePoint content, respecting SharePoint permissions.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details><details class="vc-cap-d"><summary><b>Govern and secure</b><span>Entra, Purview, Agent 365, Azure monitoring</span></summary><div class="tscroll"><table class="vc-cap"><thead><tr><th>What we want</th><th>Microsoft tool</th><th>Notes</th><th>Status</th></tr></thead><tbody><tr><td>Sign-in, roles and step-up access</td><td>Microsoft Entra ID, Conditional Access, OneLake security</td><td>One identity for staff across Fabric, Power BI, Teams and Power Platform.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Label and protect sensitive data</td><td>Microsoft Purview sensitivity labels, data loss prevention for Fabric and Power BI</td><td>Labels follow data from the lakehouse into reports and exports.</td><td><span class="vs vs-ga">Available</span></td></tr><tr><td>Keep track of AI agents</td><td>Agent 365</td><td>Inventory, usage and risk for agents across the tenancy.</td><td><span class="vs vs-new">Announced Nov 2026</span></td></tr><tr><td>App health and cost</td><td>Azure Monitor, Application Insights, Azure Cost Management exports</td><td>Feeds the Service health and Cost tabs.</td><td><span class="vs vs-ga">Available</span></td></tr></tbody></table></div></details>
-<p class="vh-small">Status as published by Microsoft at the time of writing. "Announced Nov 2026" items were announced at Microsoft Ignite, 17–20 November 2026; check availability in Australian regions before relying on them.</p>
-
-
-</section>
-<section class="vh-sec" aria-labelledby="check">
-<h2 id="check"><span class="vh-h-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 10 4.3-1.6 7.5-5.4 7.5-10v-6Z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></svg></span>Things to check first</h2>
-<p>Whatever pace is chosen, these shape what is possible:</p>
-<ul>
-  <li><b>Security clearance.</b> Microsoft's 2026 IRAP assessment covers Azure, Microsoft 365 and Dynamics 365 up to PROTECTED. Whether Fabric and Power Platform are in scope needs checking on the Service Trust Portal.</li>
-  <li><b>Privacy.</b> Joining identity data with service use needs a privacy impact assessment, and reporting in counts and rates only.</li>
-  <li><b>History.</b> "Compared with 3 years ago" only works if three years of data are kept with the same definitions.</li>
-  <li><b>Ownership.</b> Each source, and each measure, needs a business owner who agrees what it means.</li>
-</ul>
-
-
-</section>
-<section class="vh-sec vh-sec-plain" aria-labelledby="sources-list">
-<h2 id="sources-list">Sources</h2>
-<ul class="vh-sources-list">
-  <li><a href="https://news.microsoft.com/events/ignite/2026/book-of-news/">Microsoft Ignite 2026 Book of News</a></li>
-  <li><a href="https://blog.fabric.microsoft.com/en-US/blog/mirroring-for-sql-server-in-microsoft-fabric-generally-available/">Mirroring for SQL Server in Microsoft Fabric, generally available</a></li>
-  <li><a href="https://learn.microsoft.com/fabric/data-factory/upgrade-paths">Upgrade paths from Azure Data Factory to Fabric Data Factory</a></li>
-  <li><a href="https://blog.fabric.microsoft.com/en-au/blog/whats-new-with-fabric-activator">What's new with Fabric Activator</a></li>
-  <li><a href="https://powerbi.microsoft.com/blog/translytical-task-flows-generally-available/">Translytical task flows, generally available</a></li>
-  <li><a href="https://blog.fabric.microsoft.com/id-id/blog/introducing-fabric-iq-the-semantic-foundation-for-enterprise-ai">Introducing Fabric IQ</a></li>
-  <li><a href="https://blog.fabric.microsoft.com/blog/microsoft-onelake-adds-shortcut-support-to-power-platform-and-dynamics-365">OneLake shortcuts to Power Platform and Dynamics 365</a></li>
-  <li><a href="https://learn.microsoft.com/en-us/purview/dlp-powerbi-get-started">Data loss prevention for Fabric and Power BI</a></li>
-  <li><a href="https://news.microsoft.com/source/asia/?p=99244">2026 IRAP assessments of Azure, Dynamics 365 and Microsoft 365</a></li>
-  <li><a href="https://www.digitalidsystem.gov.au/how-the-system-works">How the Australian Government Digital ID System works</a></li>
-  <li><a href="https://ministers.finance.gov.au/financeminister/media-release/2026/06/26/digital-id-expands-private-sector">Digital ID expands to the private sector (June 2026)</a></li>
-</ul>
-
-
-</section>
-      <nav class="doc-pager" aria-label="Previous and next page"><span></span><a href="index.html">Getting started →</a></nav>
-    </main>
-  </div>
+  <footer class="vfoot"><a href="index.html">Documentation home</a><a href="../index.html">Open the dashboard</a></footer>
 </body>
 </html>
