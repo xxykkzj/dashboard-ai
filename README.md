@@ -1,6 +1,6 @@
-# mySA GOV Insights — dashboard prototype
+# Ai Insights — dashboard prototype
 
-An interactive leadership dashboard for the mySA GOV data analytics platform, built with plain HTML, CSS and JavaScript modules. No framework and no build step. Charts are hand-drawn SVG and HTML; the council map uses D3, which is included in the folder.
+An interactive leadership dashboard, built with plain HTML, CSS and JavaScript modules. No framework and no build step. Charts are hand-drawn SVG and HTML; the council map uses D3, which is included in the folder.
 
 ## Documentation
 
