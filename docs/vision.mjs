@@ -36,6 +36,7 @@ function initJourney() {
   const playBtn = document.getElementById('vj-play');
   const stages = [...root.querySelectorAll('.vj-stage')];
   const stepBtns = [...document.querySelectorAll('[data-vj-step]')];
+  const ticks = [...root.querySelectorAll('.vj-tick')];
   let current = -1, timer = null;
 
   const show = i => {
@@ -44,6 +45,7 @@ function initJourney() {
       s.classList.toggle('on', k === i);
       s.classList.toggle('done', i >= 0 && k < i);
     });
+    ticks.forEach((t, k) => { t.classList.toggle('on', k === i); t.classList.toggle('done', i >= 0 && k < i); });
     root.classList.toggle('focused', i >= 0);
     stepBtns.forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
     panel.innerHTML = i < 0

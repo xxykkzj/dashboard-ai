@@ -221,7 +221,7 @@ body { font-size: 16px; line-height: 1.6; }
 
 .vj {
   --a: var(--accent); --w: var(--accent2); --d: var(--good);
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr) 26px) minmax(0, 1fr); align-items: stretch;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; align-items: stretch;
   background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r); padding: 16px;
 }
 .vj-stage {
@@ -238,15 +238,29 @@ body { font-size: 16px; line-height: 1.6; }
 .vj.focused .vj-stage.done { opacity: .75; }
 .vj.focused .vj-stage.on { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); transform: translateY(-3px); }
 
-.vj-link { position: relative; align-self: center; height: 64px; }
-.vj-link::before { content: ""; position: absolute; left: 2px; right: 2px; top: 50%; border-top: 2px dashed var(--line); }
-.vj-link i { position: absolute; left: 0; width: 8px; height: 8px; border-radius: 50%; animation: vj-flow 2.6s linear infinite; }
-.vj-link i.a { top: calc(50% - 16px); background: var(--a); }
-.vj-link i.w { top: calc(50% - 4px); background: var(--w); animation-delay: -.9s; }
-.vj-link i.d { top: calc(50% + 8px); background: var(--d); animation-delay: -1.7s; }
-@keyframes vj-flow { from { transform: translateX(0); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } to { transform: translateX(18px); opacity: 0; } }
-.vj.paused .vj-link i, .vj.still .vj-link i { animation-play-state: paused; }
-.vj.still .vj-link i { opacity: 1; transform: translateX(9px); animation: none; }
+/* Flow line under the stages: three streams travel left to right, merge at the lake, leave as reports */
+.vj-lane { grid-column: 1 / -1; position: relative; display: grid; grid-template-columns: inherit; gap: inherit; height: 40px; margin-top: -2px; }
+.vj-lane::before { content: ""; position: absolute; left: 0; right: 8px; top: 50%; border-top: 2px solid var(--line); }
+.vj-lane::after { content: ""; position: absolute; right: 0; top: calc(50% - 5px); border: 6px solid transparent; border-left: 8px solid var(--line); border-right: 0; }
+.vj-tick { position: relative; display: flex; justify-content: center; align-items: center; }
+.vj-tick b { width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line); position: relative; z-index: 1; transition: background var(--dur), border-color var(--dur), transform var(--dur); }
+.vj-tick.done b { border-color: var(--accent); }
+.vj-tick.on b { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
+.vj-lane i { position: absolute; left: 0; top: calc(50% - 5px); width: 10px; height: 10px; border-radius: 50%; z-index: 2; background: var(--pc);
+  animation: vj-flow 7.8s linear infinite; animation-delay: var(--d); }
+.vj-lane i.a { --pc: var(--a); } .vj-lane i.w { --pc: var(--w); } .vj-lane i.d { --pc: var(--d); }
+@keyframes vj-flow {
+  0%   { left: 0%;   transform: translateY(var(--y)); background: var(--pc); opacity: 0; }
+  4%   { opacity: 1; }
+  34%  { transform: translateY(var(--y)); background: var(--pc); }
+  48%  { transform: translateY(0); background: var(--ink); border-radius: 50%; width: 10px; }
+  76%  { border-radius: 50%; width: 10px; height: 10px; background: var(--ink); }
+  84%  { border-radius: 2px; width: 14px; height: 10px; background: var(--ink); }
+  95%  { opacity: 1; }
+  100% { left: calc(100% - 16px); transform: translateY(0); border-radius: 2px; width: 14px; height: 10px; background: var(--ink); opacity: 0; }
+}
+.vj.paused .vj-lane i { animation-play-state: paused; }
+.vj.still .vj-lane i { display: none; }
 .vj.still .vj-stage { transition: none; transform: none !important; }
 
 .vj-gov { grid-column: 1 / -1; margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; border-top: 2px solid var(--accent2); padding-top: 10px; font-size: 13.5px; }
@@ -261,9 +275,13 @@ body { font-size: 16px; line-height: 1.6; }
 .vj-legend i.a { background: var(--accent); } .vj-legend i.w { background: var(--accent2); } .vj-legend i.d { background: var(--good); }
 
 @media (max-width: 860px) {
-  .vj { grid-template-columns: minmax(0, 1fr); }
-  .vj-link { height: 26px; width: 64px; justify-self: center; transform: rotate(90deg); }
+  .vj { grid-template-columns: minmax(0, 1fr); row-gap: 26px; }
+  .vj-lane { display: none; }
+  .vj-stage + .vj-stage { position: relative; }
+  .vj-stage + .vj-stage::before { content: "↓"; position: absolute; top: -24px; left: 50%; transform: translateX(-50%); color: var(--accent); font-weight: 700; line-height: 1; animation: vj-down 1.6s ease-in-out infinite; }
+  .vj.still .vj-stage + .vj-stage::before, .vj.paused .vj-stage + .vj-stage::before { animation: none; }
 }
+@keyframes vj-down { 0%, 100% { translate: 0 -3px; opacity: .5; } 50% { translate: 0 3px; opacity: 1; } }
 
 .vc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; margin-top: 12px; }
 .vc-controls { display: flex; flex-wrap: wrap; gap: 10px 24px; }
@@ -306,3 +324,7 @@ body { font-size: 16px; line-height: 1.6; }
 .vc-cap-d > summary span { color: var(--muted); font-size: 14.5px; }
 .vc-cap-d[open] > summary { border-bottom: 1px solid var(--line); }
 .vc-cap-d .tscroll { padding: 0 12px 8px; }
+.vj-legend { flex-wrap: wrap; gap: 6px 16px; }
+.vj-legend i.m { background: var(--ink); }
+.vj-legend i.r { background: var(--ink); border-radius: 2px; width: 12px; }
+.vj-legend i.w { background: var(--accent2); border-radius: 50%; }
