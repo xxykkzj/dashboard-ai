@@ -301,3 +301,8 @@ body { font-size: 16px; line-height: 1.6; }
 .vh-plan ul { margin: 0; padding-left: 18px; }
 .vh-plan ul li { font-size: 15px; }
 .vh-sources-list li { font-size: 15px; }
+.vc-cap-d { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); margin-top: 10px; }
+.vc-cap-d > summary { cursor: pointer; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.vc-cap-d > summary span { color: var(--muted); font-size: 14.5px; }
+.vc-cap-d[open] > summary { border-bottom: 1px solid var(--line); }
+.vc-cap-d .tscroll { padding: 0 12px 8px; }
