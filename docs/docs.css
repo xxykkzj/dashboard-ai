@@ -345,3 +345,27 @@ body { font-size: 16px; line-height: 1.6; }
 .vj-ic { width: 30px; height: 30px; padding: 6px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); }
 .vj-stage.on .vj-ic { background: var(--accent); color: var(--on-accent); }
 @media (max-width: 600px) { .vh-sec { padding: 4px 14px 18px; border-radius: 12px; } .vh-h-ic { width: 32px; height: 32px; padding: 6px; } }
+
+/* Vision page: full-width layout without the docs sidebar */
+.vh-page .doc-top-in, .vh-hero-in, .vh-shell { max-width: 1320px; }
+.vh-hero { background: var(--mast); color: var(--mast-ink); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.vh-hero-in { margin: 0 auto; padding: 44px 16px 34px; }
+.vh-hero .vh-eyebrow { color: var(--mast-hi); }
+.vh-hero h1 { font-family: var(--font-display); font-size: clamp(30px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -.015em; margin: 6px 0 14px; max-width: 24ch; text-wrap: balance; color: var(--mast-ink); }
+.vh-hero .doc-lede { color: var(--mast-muted); max-width: 64ch; font-size: 18px; }
+.vh-hero .vh-outcomes { margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.vh-hero .vh-outcomes > div { background: var(--mast-soft); border: 1px solid var(--mast-line); border-top: 3px solid var(--mast-hi); color: var(--mast-ink); }
+.vh-hero .vh-outcomes span { color: var(--mast-muted); }
+.vh-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.vh-jump a { color: var(--mast-ink); text-decoration: none; font-size: 14px; font-weight: 600; border: 1px solid var(--mast-line); border-radius: 99px; padding: 6px 14px; }
+.vh-jump a:hover { border-color: var(--mast-hi); }
+.vh-shell { margin: 0 auto; padding: 4px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); }
+.vh-page .doc-main > * { max-width: none; }
+.vh-page .vh-sec > p, .vh-page .vh-sec > ul, .vh-page .vh-sec > div > p { max-width: 78ch; }
+.vh-page .vh-sec { padding: 8px 32px 32px; margin-top: 26px; }
+.vh-page .vj { padding: 20px; gap: 18px; }
+.vh-page .vj-stage { padding: 14px 14px 16px; }
+.vh-page .vj-stage h3 { font-size: 17px; }
+.vh-page .vj-stage li { font-size: 13.5px; padding: 6px 8px; }
+.vh-page .vj-ic { width: 36px; height: 36px; padding: 7px; }
+@media (max-width: 600px) { .vh-page .vh-sec { padding: 4px 14px 18px; } .vh-hero-in { padding-block: 28px 24px; } }

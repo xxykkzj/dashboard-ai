@@ -14,43 +14,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
   <!-- The docs reuse the dashboard's tokens and components, then add their own layout -->
-  <link rel="stylesheet" href="../css/tokens.css?v=20261118c">
-  <link rel="stylesheet" href="../css/base.css?v=20261118c">
-  <link rel="stylesheet" href="../css/components.css?v=20261118c">
-  <link rel="stylesheet" href="docs.css?v=20261118c">
-  <script type="module" src="docs.mjs?v=20261118c"></script>
-  <script type="module" src="vision.mjs?v=20261118c"></script>
+  <link rel="stylesheet" href="../css/tokens.css?v=20261118d">
+  <link rel="stylesheet" href="../css/base.css?v=20261118d">
+  <link rel="stylesheet" href="../css/components.css?v=20261118d">
+  <link rel="stylesheet" href="docs.css?v=20261118d">
+  <script type="module" src="docs.mjs?v=20261118d"></script>
+  <script type="module" src="vision.mjs?v=20261118d"></script>
 </head>
-<body>
+<body class="vh-page">
   <a class="skip" href="#doc-main">Skip to content</a>
   <header class="doc-top">
     <div class="doc-top-in">
       <p class="doc-brand"><a href="index.html"><b>mySA GOV</b> Insights<span>Documentation</span></a></p>
       <div class="doc-top-actions">
+        <a class="doc-btn" href="index.html">All docs</a>
         <button type="button" class="doc-btn" id="doc-theme">Dark theme</button>
         <a class="doc-btn primary" href="../index.html">Open the dashboard</a>
       </div>
     </div>
   </header>
-  <div class="doc-shell">
-    <details class="doc-nav" open>
-      <summary>Contents</summary>
-      <nav aria-label="Documentation pages">
-      <ol>
-        <li><a href="vision.html" aria-current="page">Vision</a></li>
-        <li><a href="index.html">Getting started</a></li>
-        <li><a href="how-it-works.html">How the app works</a></li>
-        <li><a href="items.html">Item catalog</a></li>
-        <li><a href="components.html">Component catalog</a></li>
-        <li><a href="tokens.html">Design tokens</a></li>
-        <li><a href="mock-data.html">Mock data guide</a></li>
-        <li><a href="recipes.html">Recipes</a></li>
-        <li><a href="accessibility.html">Accessibility and conventions</a></li>
-        <li><a href="glossary.html">Glossary</a></li>
-      </ol>
-      </nav>
-    </details>
-    <main class="doc-main" id="doc-main" tabindex="-1">
+  <div class="vh-hero"><div class="vh-hero-in">
       <p class="vh-eyebrow">Vision brief · draft for discussion</p>
       <h1>One data platform for SA Government digital services</h1>
       <p class="doc-lede">The mySA GOV app, government websites and the ID service, brought together in one Fabric data lake, so leaders can see how digital services are used, how well they work and what they are worth, today and against three years ago.</p>
@@ -61,6 +44,10 @@
   <div><b>Live when it matters</b><span>A real-time view of sign-ins, failures and outages, with alerts to the right team.</span></div>
   <div><b>Long memory</b><span>Rolling windows and comparisons with the same period up to three years ago.</span></div>
 </div>
+<nav class="vh-jump" aria-label="On this page"><a href="#sources">Three services</a><a href="#journey">Source to screen</a><a href="#reporting">Reporting</a><a href="#tenancy">Microsoft tenancy</a><a href="#check">Check first</a></nav>
+  </div></div>
+  <div class="vh-shell">
+    <main class="doc-main" id="doc-main" tabindex="-1">
 
 <section class="vh-sec" aria-labelledby="today">
 <h2 id="today"><span class="vh-h-ic"><svg class="vi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Where we are</h2>
